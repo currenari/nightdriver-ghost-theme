@@ -45,8 +45,6 @@ All settings are accessed via Ghost Admin > Settings > Site - Design & branding 
 |---------|---------|
 | `snipcart_public_api_key` | (your_test_or_public_api_key) |
 
-Set this in Ghost Admin: `Settings → Design → Customize`.
-
 ### Reading Progress Bar
 
 | Setting | Default |
