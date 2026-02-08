@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="{{@site.locale}}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{meta_title}}</title>
+
+    {{!-- SEO Meta Tags are handled by ghost_head --}}
+
+    {{!-- Favicon --}}
+    {{#if @site.icon}}
+        <link rel="icon" href="{{@site.icon}}" type="image/png">
+    {{/if}}
+
+    {{!-- Font Preloads --}}
+    <link rel="preload" href="{{asset "fonts/inter/Inter-Regular.woff2"}}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{{asset "fonts/jetbrains-mono/JetBrainsMono-SemiBold.woff2"}}" as="font" type="font/woff2" crossorigin>
+
+    {{!-- Theme Styles --}}
+    <link rel="stylesheet" type="text/css" href="{{asset "css/fonts.css"}}">
+    <link rel="stylesheet" type="text/css" href="{{asset "css/screen.css"}}">
+
+    <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('nightdriver_theme');
+        if (t) document.documentElement.classList.add('nightdriver-theme-mode-' + t);
+      } catch (e) {}
+    })();
+    </script>
+
+
+
+
+
+    {{!-- Custom Mode Variables --}}
+    <style>
+  :root {
+    --nightdriver-progress-bar-color: {{@custom.progress_bar_color}};
+    --nightdriver-progress-track-color: {{@custom.progress_track_color}};
+    --nightdriver-progress-height: {{#match @custom.progress_bar_height "Off"}}0{{else}}{{@custom.progress_bar_height}}
+    {{/match}};
+  }
+
+  /* Custom Mode - Customizable Theme Colors */
+  html.nightdriver-theme-mode-custommode {
+    --color-background: {{@custom.nightdriver_custom_mode_background}};
+    --color-surface: {{@custom.nightdriver_custom_mode_surface}};
+    --color-border: {{@custom.nightdriver_custom_mode_border}};
+    --color-text: {{@custom.nightdriver_custom_mode_text}};
+    --color-text-secondary: {{@custom.nightdriver_custom_mode_text_secondary}};
+    --color-text-tertiary: {{@custom.nightdriver_custom_mode_text_tertiary}};
+    --nightdriver-utility-bar-bg: {{@custom.nightdriver_custom_mode_header_utility_bg}};
+  }
+
+  /* Custom Mode - Custom Header */
+  html.nightdriver-theme-mode-custommode .nightdriver-site-header {
+    background-color: {{@custom.nightdriver_custom_mode_header_bg}};
+    border-bottom-color: {{@custom.nightdriver_custom_mode_border}};
+  }
+
+  html.nightdriver-theme-mode-custommode .nightdriver-site-logo {
+    color: {{@custom.nightdriver_custom_mode_text}};
+  }
+
+  html.nightdriver-theme-mode-custommode .nightdriver-site-logo:hover {
+    color: var(--color-accent);
+  }
+
+  html.nightdriver-theme-mode-custommode .nightdriver-nav-item a {
+    color: {{@custom.nightdriver_custom_mode_text_secondary}};
+  }
+
+  html.nightdriver-theme-mode-custommode .nightdriver-nav-item a:hover,
+  html.nightdriver-theme-mode-custommode .nightdriver-nav-item.nightdriver-nav-item--active a {
+    color: {{@custom.nightdriver_custom_mode_text}};
+  }
+
+  /* Custom Mode - Custom Footer */
+  html.nightdriver-theme-mode-custommode .nightdriver-site-footer {
+    background-color: {{@custom.nightdriver_custom_mode_footer_bg}};
+  }
+
+  /* Custom Mode - UI Spacer */
+  html.nightdriver-theme-mode-custommode .nightdriver-ui-spacer {
+    background-color: {{@custom.nightdriver_custom_mode_ui_spacer_bg}};
+  }
+</style>
+
+    {{!-- Ghost outputs important tags and meta data --}}
+    {{ghost_head}}
+</head>
+<body class="{{body_class}}">
+    {{!-- Snipcart --}}
+    {{!--
+      Optional. Set your Snipcart public key in Ghost Admin:
+      Settings → Design → Customize → Snipcart public API key.
+      If you are not using Snipcart, leave it blank and this block will not load.
+    --}}
+    {{#if @custom.snipcart_public_api_key}}
+    <script>
+      window.SnipcartSettings = {
+        publicApiKey: "{{@custom.snipcart_public_api_key}}",
+        loadStrategy: "on-user-interaction",
+      };
+
+      (function(){var c,d;(d=(c=window.SnipcartSettings).version)!=null||(c.version="3.0");var s,S;(S=(s=window.SnipcartSettings).timeoutDuration)!=null||(s.timeoutDuration=2750);var l,p;(p=(l=window.SnipcartSettings).domain)!=null||(l.domain="cdn.snipcart.com");var w,u;(u=(w=window.SnipcartSettings).protocol)!=null||(w.protocol="https");var m,g;(g=(m=window.SnipcartSettings).loadCSS)!=null||(m.loadCSS=!0);var y=window.SnipcartSettings.version.includes("v3.0.0-ci")||window.SnipcartSettings.version!="3.0"&&window.SnipcartSettings.version.localeCompare("3.4.0",void 0,{numeric:!0,sensitivity:"base"})===-1,f=["focus","mouseover","touchmove","scroll","keydown"];window.LoadSnipcart=o;document.readyState==="loading"?document.addEventListener("DOMContentLoaded",r):r();function r(){window.SnipcartSettings.loadStrategy?window.SnipcartSettings.loadStrategy==="on-user-interaction"&&(f.forEach(function(t){return document.addEventListener(t,o)}),setTimeout(o,window.SnipcartSettings.timeoutDuration)):o()}var a=!1;function o(){if(a)return;a=!0;let t=document.getElementsByTagName("head")[0],n=document.querySelector("#snipcart"),i=document.querySelector('src[src^="'.concat(window.SnipcartSettings.protocol,"://").concat(window.SnipcartSettings.domain,'"][src$="snipcart.js"]')),e=document.querySelector('link[href^="'.concat(window.SnipcartSettings.protocol,"://").concat(window.SnipcartSettings.domain,'"][href$="snipcart.css"]'));n||(n=document.createElement("div"),n.id="snipcart",n.setAttribute("hidden","true"),document.body.appendChild(n)),h(n),i||(i=document.createElement("script"),i.src="".concat(window.SnipcartSettings.protocol,"://").concat(window.SnipcartSettings.domain,"/themes/v").concat(window.SnipcartSettings.version,"/default/snipcart.js"),i.async=!0,t.appendChild(i)),!e&&window.SnipcartSettings.loadCSS&&(e=document.createElement("link"),e.rel="stylesheet",e.type="text/css",e.href="".concat(window.SnipcartSettings.protocol,"://").concat(window.SnipcartSettings.domain,"/themes/v").concat(window.SnipcartSettings.version,"/default/snipcart.css"),t.prepend(e)),f.forEach(function(v){return document.removeEventListener(v,o)})}function h(t){!y||(t.dataset.apiKey=window.SnipcartSettings.publicApiKey,window.SnipcartSettings.addProductBehavior&&(t.dataset.configAddProductBehavior=window.SnipcartSettings.addProductBehavior),window.SnipcartSettings.modalStyle&&(t.dataset.configModalStyle=window.SnipcartSettings.modalStyle),window.SnipcartSettings.currency&&(t.dataset.currency=window.SnipcartSettings.currency),window.SnipcartSettings.templatesUrl&&(t.dataset.templatesUrl=window.SnipcartSettings.templatesUrl))}})();
+    </script>
+    {{/if}}
+
+    {{!-- Site Header --}}
+    {{> "header/header"}}
+
+
+    {{!-- Main Content --}}
+    <main class="nightdriver-site-main">
+        {{> "ui/ui-spacer"}}
+        {{{body}}}
+    </main>
+
+    {{!-- Site Footer --}}
+    {{> "footer/footer"}}
+
+
+
+    {{!-- Ghost outputs important scripts and data --}}
+    {{ghost_foot}}
+
+    {{!-- Theme Scripts --}}
+    <script src="{{asset "js/main.js"}}"></script>
+
+</body>
+</html>

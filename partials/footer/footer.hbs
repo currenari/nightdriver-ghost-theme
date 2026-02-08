@@ -1,0 +1,20 @@
+<footer class="nightdriver-site-footer">
+  <div class="nightdriver-footer-wrapper">
+
+    {{!-- Bottom Bar --}}
+    <div class="nightdriver-footer-bottom">
+      <div class="nightdriver-footer-bottom-left">
+        {{#if @custom.show_footer_copyright}}
+          <p class="nightdriver-footer-copyright">
+            {{@site.title}} © <span class="nightdriver-copyright-year"></span> <span class="nightdriver-footer-ghost-sep">—</span> <a class="nightdriver-footer-ghost-link" href="https://ghost.org" target="_blank" rel="noopener">Published with Ghost</a>
+          </p>
+        {{else}}
+          <p class="nightdriver-footer-copyright">
+            <a class="nightdriver-footer-ghost-link" href="https://ghost.org" target="_blank" rel="noopener">Published with Ghost</a>
+          </p>
+        {{/if}}
+      </div>
+    </div>
+
+  </div>
+</footer>

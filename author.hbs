@@ -1,0 +1,78 @@
+{{!< default}}
+
+{{!-- Minimal Author Template (Author Admin Data Only) --}}
+
+{{#author}}
+<section class="nightdriver-section nightdriver-section--no-header nightdriver-section--hero">
+    <div class="nightdriver-container">
+        <div class="nightdriver-author-profile">
+            <div class="nightdriver-author-header nightdriver-section-text">
+                <h1 class="nightdriver-hero-title">{{name}}</h1>
+
+                <div class="nightdriver-author-rule" aria-hidden="true"></div>
+
+                {{#if bio}}
+                    <p class="nightdriver-hero-description">{{bio}}</p>
+                {{/if}}
+
+                {{#if profile_image}}
+                    <img
+                        class="nightdriver-author-avatar"
+                        src="{{img_url profile_image size="s"}}"
+                        alt="{{name}}"
+                        width="80"
+                        height="80"
+                    >
+                {{/if}}
+            </div>
+
+            <div class="nightdriver-author-meta nightdriver-section-text">
+                <div class="nightdriver-author-info-grid">
+                    {{#if location}}
+                        <section class="nightdriver-author-info-block">
+                            <h2 class="nightdriver-section-title">Location</h2>
+                            <p class="nightdriver-author-info-value">{{location}}</p>
+                        </section>
+                    {{/if}}
+
+                    {{#if website}}
+                        <section class="nightdriver-author-info-block">
+                            <h2 class="nightdriver-section-title">Follow</h2>
+                            <div class="nightdriver-bento-meta">
+                                <a class="nightdriver-bento-chip nightdriver-bento-chip--link" href="{{website}}" target="_blank" rel="noopener">Website</a>
+                                {{#if twitter}}
+                                    <a class="nightdriver-bento-chip nightdriver-bento-chip--link" href="{{social_url type="twitter"}}" target="_blank" rel="noopener">X</a>
+                                {{/if}}
+                                {{#if facebook}}
+                                    <a class="nightdriver-bento-chip nightdriver-bento-chip--link" href="{{social_url type="facebook"}}" target="_blank" rel="noopener">Facebook</a>
+                                {{/if}}
+                            </div>
+                        </section>
+                    {{else}}
+                        {{#if twitter}}
+                            <section class="nightdriver-author-info-block">
+                                <h2 class="nightdriver-section-title">Follow</h2>
+                                <div class="nightdriver-bento-meta">
+                                    <a class="nightdriver-bento-chip nightdriver-bento-chip--link" href="{{social_url type="twitter"}}" target="_blank" rel="noopener">X</a>
+                                    {{#if facebook}}
+                                        <a class="nightdriver-bento-chip nightdriver-bento-chip--link" href="{{social_url type="facebook"}}" target="_blank" rel="noopener">Facebook</a>
+                                    {{/if}}
+                                </div>
+                            </section>
+                        {{else}}
+                            {{#if facebook}}
+                                <section class="nightdriver-author-info-block">
+                                    <h2 class="nightdriver-section-title">Follow</h2>
+                                    <div class="nightdriver-bento-meta">
+                                        <a class="nightdriver-bento-chip nightdriver-bento-chip--link" href="{{social_url type="facebook"}}" target="_blank" rel="noopener">Facebook</a>
+                                    </div>
+                                </section>
+                            {{/if}}
+                        {{/if}}
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{{/author}}

@@ -1,0 +1,51 @@
+{{!--
+  Universal Nightdriver control component
+  Ghost-safe (no eq helper)
+
+  Params:
+    element: "a" or "button"
+    class: full class string (must include nightdriver-control)
+    label: text label
+    icon: icon name without prefix (e.g. "search")
+    href: link target (for <a>)
+    type: button type (for <button>)
+    attrs: raw attributes (aria-*, data-*)
+--}}
+
+{{#match element "a"}}
+  <a class="{{class}}" href="{{href}}" {{#if attrs}}{{{attrs}}}{{/if}}>
+    {{#match icon_first "true"}}
+      {{#if icon}}
+        <svg class="nightdriver-icon" aria-hidden="true">
+          <use href="{{asset "icons/nightdriver-icons.svg"}}#icon-{{icon}}"></use>
+        </svg>
+      {{/if}}
+      {{#if label}}<span>{{label}}</span>{{/if}}
+    {{else}}
+      {{#if label}}<span>{{label}}</span>{{/if}}
+      {{#if icon}}
+        <svg class="nightdriver-icon" aria-hidden="true">
+          <use href="{{asset "icons/nightdriver-icons.svg"}}#icon-{{icon}}"></use>
+        </svg>
+      {{/if}}
+    {{/match}}
+  </a>
+{{else}}
+  <button class="{{class}}" type="{{#if type}}{{type}}{{else}}button{{/if}}" {{#if attrs}}{{{attrs}}}{{/if}}>
+    {{#match icon_first "true"}}
+      {{#if icon}}
+        <svg class="nightdriver-icon" aria-hidden="true">
+          <use href="{{asset "icons/nightdriver-icons.svg"}}#icon-{{icon}}"></use>
+        </svg>
+      {{/if}}
+      {{#if label}}<span>{{label}}</span>{{/if}}
+    {{else}}
+      {{#if label}}<span>{{label}}</span>{{/if}}
+      {{#if icon}}
+        <svg class="nightdriver-icon" aria-hidden="true">
+          <use href="{{asset "icons/nightdriver-icons.svg"}}#icon-{{icon}}"></use>
+        </svg>
+      {{/if}}
+    {{/match}}
+  </button>
+{{/match}}

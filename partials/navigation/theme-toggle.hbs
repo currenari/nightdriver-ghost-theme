@@ -1,0 +1,33 @@
+<div class="nightdriver-mode-rail" data-mode-rail data-mode-labels="{{@custom.mode_labels}}">
+  {{> "ui/control"
+      element="button"
+      class="nightdriver-mode-rail__end nightdriver-mode-label nightdriver-control"
+      label="Day Mode"
+      type="button"
+      attrs='data-mode="day" aria-pressed="false"'
+  }}
+
+  <div class="nightdriver-mode-rail__track" role="radiogroup" aria-label="Theme mode">
+    <button class="nightdriver-mode-rail__dot" type="button" data-mode="day" role="radio" aria-checked="false" aria-label="Day"></button>
+    <button class="nightdriver-mode-rail__dot" type="button" data-mode="custom" role="radio" aria-checked="false" aria-label="Nightdriver"></button>
+    <button class="nightdriver-mode-rail__dot" type="button" data-mode="night" role="radio" aria-checked="false" aria-label="Night"></button>
+
+    <span class="nightdriver-mode-rail__indicator" aria-hidden="true"></span>
+  </div>
+
+  {{> "ui/control"
+      element="button"
+      class="nightdriver-mode-rail__end nightdriver-mode-label nightdriver-control"
+      label="Night Mode"
+      type="button"
+      attrs='data-mode="night" aria-pressed="false"'
+  }}
+
+  {{> "ui/control"
+      element="button"
+      class="nightdriver-mode-rail__midlabel nightdriver-mode-label nightdriver-control"
+      label="NIGHTDRIVER MODE"
+      type="button"
+      attrs='data-mode="custom" aria-pressed="false" aria-label="Nightdriver Mode"'
+  }}
+</div>

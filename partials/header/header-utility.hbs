@@ -1,0 +1,36 @@
+<div class="nightdriver-header-utility">
+  <div class="nightdriver-header-utility-inner">
+    <div class="nightdriver-header-utility-container">
+      <div class="nightdriver-header-utility-left">
+        {{> "ui/control"
+            element="button"
+            class="nightdriver-search-btn nightdriver-control nightdriver-control--brackets"
+            icon="search"
+            label="Search"
+            icon_first="true"
+            type="button"
+            attrs='data-ghost-search aria-label="Search" aria-expanded="false"'
+        }}
+      </div>
+
+      <div class="nightdriver-header-utility-center">
+        {{> "navigation/theme-toggle"}}
+      </div>
+
+      <div class="nightdriver-header-utility-right">
+        {{> "ui/control"
+            element="a"
+            class="nightdriver-header-cta nightdriver-control nightdriver-control--brackets"
+            label="Stay updated"
+            icon="envelope"
+            href="#/portal/signup/"
+            attrs='data-portal="signup"'
+        }}
+      </div>
+
+
+    </div>
+  </div>
+
+  <button class="nightdriver-header-utility-handle" type="button" data-utility-toggle aria-label="Toggle utility bar" aria-expanded="true" aria-pressed="false"></button>
+</div>

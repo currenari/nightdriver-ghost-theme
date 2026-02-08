@@ -1,0 +1,24 @@
+{{!-- Featured Posts Grid Section --}}
+{{#get "posts" limit="3" filter="featured:true" order="published_at desc" include="tags"}}
+    {{#if posts}}
+        <section class="nightdriver-section nightdriver-section--featured">
+            <div class="nightdriver-container">
+                <div class="nightdriver-section-header nightdriver-section-text">
+                    <h2 class="nightdriver-section-title">Featured</h2>
+                </div>
+
+                <div class="nightdriver-section-content">
+                    <div class="nightdriver-flexible-grid">
+                        {{#foreach posts}}
+                            {{#match @number "2"}}
+                                {{> "content/post-card" size="medium" featured3mid=true}}
+                            {{else}}
+                                {{> "content/post-card" size="medium"}}
+                            {{/match}}
+                        {{/foreach}}
+                    </div>
+                </div>
+            </div>
+        </section>
+    {{/if}}
+{{/get}}

@@ -1,0 +1,183 @@
+{{!-- Drift Zone Bento Grid --}}
+
+<section class="nightdriver-section nightdriver-section--drift-zone">
+  <div class="nightdriver-container">
+    <div class="nightdriver-section-header nightdriver-section-text">
+      <h2 class="nightdriver-section-title">Drift Zone</h2>
+    </div>
+
+    <div class="nightdriver-section-content">
+      <div class="nightdriver-bento-grid">
+        {{#get "authors" limit="2" include="count.posts"}}
+          <div class="nightdriver-bento-author-rotator" data-rotate="true" data-rotate-interval="8000" data-rotate-on-click="true">
+            {{#foreach authors}}
+              <article class="nightdriver-bento-card nightdriver-bento-card--author">
+                <div class="nightdriver-bento-card-top">
+                  <span class="nightdriver-bento-eyebrow">The dev</span>
+                </div>
+                <div class="nightdriver-bento-author-media">
+                  {{#if cover_image}}
+                    <img
+                      class="nightdriver-bento-author-cover"
+                      src="{{img_url cover_image size="l"}}"
+                      alt="{{name}}"
+                      loading="lazy"
+                    >
+                  {{/if}}
+                  {{#if profile_image}}
+                    <img
+                      class="nightdriver-bento-author-avatar"
+                      src="{{img_url profile_image size="s"}}"
+                      alt="{{name}}"
+                      loading="lazy"
+                      width="88"
+                      height="88"
+                    >
+                  {{/if}}
+                  <div class="nightdriver-bento-author-rail" aria-hidden="true">
+                    <span class="nightdriver-bento-author-rail-text">{{name}}</span>
+                  </div>
+                </div>
+                <div class="nightdriver-bento-card-body">
+                  {{#if bio}}
+                    <p class="nightdriver-bento-text">{{bio}}</p>
+                  {{else}}
+                    <p class="nightdriver-bento-text">Writer and contributor at {{@site.title}}.</p>
+                  {{/if}}
+                  <div class="nightdriver-bento-meta">
+                    <span class="nightdriver-bento-chip">{{count.posts}} posts</span>
+                    <a class="nightdriver-bento-chip nightdriver-bento-chip--link" href="{{url}}">View</a>
+                  </div>
+                </div>
+              </article>
+            {{/foreach}}
+          </div>
+        {{/get}}
+
+        <article class="nightdriver-bento-card nightdriver-bento-card--cta nightdriver-bento-card--wide">
+          <div class="nightdriver-bento-card-top">
+            <span class="nightdriver-bento-eyebrow">
+              {{#if @custom.portal_cta_heading}}
+                {{@custom.portal_cta_heading}}
+              {{else}}
+                Handshake
+              {{/if}}
+            </span>
+          </div>
+          <div class="nightdriver-bento-cta-media">
+            {{#if @site.cover_image}}
+              <img
+                class="nightdriver-bento-cta-cover"
+                src="{{img_url @site.cover_image size="l"}}"
+                alt="{{@site.title}}"
+                loading="lazy"
+              >
+            {{/if}}
+            {{#if @site.logo}}
+              <img
+                class="nightdriver-bento-cta-logo"
+                src="{{@site.logo}}"
+                alt="{{@site.title}}"
+                loading="lazy"
+                width="88"
+                height="88"
+              >
+            {{/if}}
+            <div class="nightdriver-bento-author-rail" aria-hidden="true">
+              <span class="nightdriver-bento-author-rail-text">{{@site.title}}</span>
+            </div>
+          </div>
+
+          <div class="nightdriver-bento-card-body">
+            <p class="nightdriver-bento-text">
+              {{#if @custom.portal_cta_subtext_line1}}
+                {{@custom.portal_cta_subtext_line1}}
+              {{else}}
+                Join the Drift Zone for launches, field notes, and curated drops.
+              {{/if}}
+            </p>
+            {{#if @custom.portal_cta_brand_text}}
+              <p class="nightdriver-bento-text">{{@custom.portal_cta_brand_text}}</p>
+            {{/if}}
+            <div class="nightdriver-cta-actions">
+              <a class="nightdriver-cta-btn" href="#/portal/signup/" data-portal="signup">
+                {{#if @custom.portal_cta_button_label}}
+                  {{@custom.portal_cta_button_label}}
+                {{else}}
+                  Sign up
+                {{/if}}
+              </a>
+              <a class="nightdriver-cta-btn nightdriver-cta-btn--secondary" href="#/portal/signin/" data-portal="signin">Sign in</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="nightdriver-bento-card nightdriver-bento-card--share nightdriver-bento-card--tall">
+          <div class="nightdriver-bento-card-top">
+            <span class="nightdriver-bento-eyebrow">Share</span>
+          </div>
+          <div class="nightdriver-bento-share-graphic" aria-hidden="true">
+            <svg class="nightdriver-bento-share-icon" viewBox="0 0 24 24">
+              <use href="{{asset "icons/nightdriver-icons.svg"}}#icon-share"></use>
+            </svg>
+          </div>
+          <div class="nightdriver-bento-card-body">
+            <h3 class="nightdriver-bento-title">Broadcast the signal</h3>
+            <p class="nightdriver-bento-text">Share if useful.</p>
+            <div class="nightdriver-bento-meta">
+              <a class="nightdriver-bento-chip nightdriver-bento-chip--link" href="#" data-share-action="copy">Copy link</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="nightdriver-bento-card nightdriver-bento-card--links">
+          <div class="nightdriver-bento-card-top">
+            <span class="nightdriver-bento-eyebrow">Pinout</span>
+          </div>
+          <div class="nightdriver-bento-card-body">
+            <nav class="nightdriver-bento-links">
+              {{navigation type="secondary"}}
+            </nav>
+          </div>
+        </article>
+
+        <article class="nightdriver-bento-card nightdriver-bento-card--tags">
+          <div class="nightdriver-bento-card-top">
+            <span class="nightdriver-bento-eyebrow">Zones</span>
+          </div>
+          <div class="nightdriver-bento-card-body">
+            <div class="nightdriver-bento-tag-cloud" data-rotate="true" data-rotate-interval="2600" data-rotate-count="3">
+              {{#get "tags" limit="10" order="count.posts desc"}}
+                {{#foreach tags}}
+                  <a class="nightdriver-bento-tag" href="{{url}}">#{{name}}</a>
+                {{/foreach}}
+              {{/get}}
+            </div>
+          </div>
+        </article>
+
+        <article class="nightdriver-bento-card nightdriver-bento-card--donate">
+          <div class="nightdriver-bento-card-top">
+            <span class="nightdriver-bento-eyebrow">Current limiting</span>
+          </div>
+          <div class="nightdriver-bento-card-body">
+            <h3 class="nightdriver-bento-title">One component makes the difference</h3>
+            <p class="nightdriver-bento-text">The resistor in the circuit. You know why it matters.</p>
+            <a class="nightdriver-bento-btn" href="https://currenari.com/#/portal/support" data-portal="support">Support</a>
+          </div>
+        </article>
+
+        <article class="nightdriver-bento-card nightdriver-bento-card--repo">
+          <div class="nightdriver-bento-card-top">
+            <span class="nightdriver-bento-eyebrow">Repository</span>
+          </div>
+          <div class="nightdriver-bento-card-body">
+            <h3 class="nightdriver-bento-title">Open source. Open hardware.</h3>
+            <p class="nightdriver-bento-text">Use what you need, or fork.</p>
+            <a class="nightdriver-bento-btn" href="https://github.com/currenari" target="_blank" rel="noopener">View Repository</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>

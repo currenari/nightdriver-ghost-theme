@@ -1,0 +1,187 @@
+{
+  "name": "nightdriver",
+  "description": "A tech-forward Ghost theme with three modes, a collapsible utility bar, and a bento-style layout.",
+  "version": "1.0.0",
+  "engines": {
+    "ghost": ">=5.0.0"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Currenari Lab",
+    "email": "currenari@proton.me"
+  },
+"keywords": [
+  "ghost-theme",
+  "premium",
+  "minimal",
+  "typography",
+  "technology",
+  "technical",
+  "reading",
+  "modern"
+],
+  "config": {
+    "posts_per_page": 12,
+    "card_assets": true,
+    "image_sizes": {
+      "xs": { "width": 150 },
+      "s": { "width": 400 },
+      "m": { "width": 800 },
+      "l": { "width": 1200 },
+      "xl": { "width": 2000 }
+    },
+    "custom": {
+      "snipcart_public_api_key": {
+        "type": "text",
+        "default": "",
+        "group": "homepage",
+        "label": "Snipcart public API key",
+        "description": "Public API key used by the Snipcart card"
+      },
+      "progress_bar_color": {
+        "type": "color",
+        "default": "#0ea5e9",
+        "group": "homepage",
+        "label": "Progress bar colour",
+        "description": "Reading progress bar colour"
+      },
+      "progress_track_color": {
+        "type": "color",
+        "default": "#1a1a1a",
+        "group": "homepage",
+        "label": "Progress track colour",
+        "description": "Progress track colour behind the bar"
+      },
+      "progress_bar_height": {
+        "type": "select",
+        "options": [
+          "Off",
+          "1px",
+          "2px",
+          "3px",
+          "4px",
+          "5px",
+          "6px"
+        ],
+        "default": "2px",
+        "group": "homepage",
+        "label": "Progress bar height",
+        "description": "Height of the reading progress bar"
+      },
+
+      "nightdriver_custom_mode_background": {
+        "type": "color",
+        "default": "#1e293b",
+        "group": "homepage",
+        "label": "Custom Mode background",
+        "description": "Main page background colour"
+      },
+      "nightdriver_custom_mode_surface": {
+        "type": "color",
+        "default": "#334155",
+        "group": "homepage",
+        "label": "Custom Mode surface",
+        "description": "Surface colour for cards and panels"
+      },
+      "nightdriver_custom_mode_border": {
+        "type": "color",
+        "default": "#475569",
+        "group": "homepage",
+        "label": "Custom Mode borders",
+        "description": "Borders and dividers colour"
+      },
+      "nightdriver_custom_mode_text": {
+        "type": "color",
+        "default": "#f1f5f9",
+        "group": "homepage",
+        "label": "Custom Mode text",
+        "description": "Primary text colour"
+      },
+      "nightdriver_custom_mode_text_secondary": {
+        "type": "color",
+        "default": "#cbd5e1",
+        "group": "homepage",
+        "label": "Custom Mode secondary text",
+        "description": "Secondary text colour"
+      },
+      "nightdriver_custom_mode_text_tertiary": {
+        "type": "color",
+        "default": "#94a3b8",
+        "group": "homepage",
+        "label": "Custom Mode tertiary text",
+        "description": "Tertiary text colour"
+      },
+      "nightdriver_custom_mode_header_bg": {
+        "type": "color",
+        "default": "#0f172a",
+        "group": "homepage",
+        "label": "Custom Mode header background",
+        "description": "Header background colour"
+      },
+      "nightdriver_custom_mode_header_utility_bg": {
+        "type": "color",
+        "default": "#1d3348",
+        "group": "homepage",
+        "label": "Custom Mode utility bar background",
+        "description": "Header utility bar background colour"
+      },
+      "nightdriver_custom_mode_footer_bg": {
+        "type": "color",
+        "default": "#0f172a",
+        "group": "homepage",
+        "label": "Custom Mode footer background",
+        "description": "Footer background colour"
+      },
+      "nightdriver_custom_mode_ui_spacer_bg": {
+        "type": "color",
+        "default": "#1e293b",
+        "group": "homepage",
+        "label": "Custom Mode UI spacer",
+        "description": "UI spacer background colour"
+      },
+
+      "mode_labels": {
+        "type": "text",
+        "default": "DAY MODE|NIGHTDRIVER MODE|NIGHT MODE",
+        "group": "homepage",
+        "label": "Mode button labels",
+        "description": "Three labels separated by | in order: Day | Nightdriver | Night"
+      },
+      "portal_cta_heading": {
+        "type": "text",
+        "default": "Stay Updated",
+        "group": "homepage",
+        "label": "Portal CTA heading",
+        "description": "Heading text shown in the reusable CTA card"
+      },
+      "portal_cta_brand_text": {
+        "type": "text",
+        "default": "Thoughts, stories and ideas.",
+        "group": "homepage",
+        "label": "Portal CTA brand text",
+        "description": "Short brand line shown under the site title in the CTA card"
+      },
+      "portal_cta_subtext_line1": {
+        "type": "text",
+        "default": "Get new posts by email.",
+        "group": "homepage",
+        "label": "Portal CTA subtext line 1",
+        "description": "First line of CTA supporting text"
+      },
+      "portal_cta_button_label": {
+        "type": "text",
+        "default": "Sign up",
+        "group": "homepage",
+        "label": "Portal CTA button label",
+        "description": "Text for the CTA button"
+      },
+      "show_footer_copyright": {
+        "type": "boolean",
+        "default": true,
+        "group": "homepage",
+        "label": "Show copyright",
+        "description": "Show the copyright line in the footer"
+      }
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{{!--
+Paste the line below wherever you want the Stay Updated Portal CTA card to appear.
+
+{{> "content/stay-updated-card"}}
+
+Partial location:
+partials/content/stay-updated-card.hbs
+
+Uses Ghost Portal:
+- signup → href="#/portal/signup/" data-portal="signup"
+- signin → href="#/portal/signin/" data-portal="signin"
+--}}
+
+<section class="nightdriver-section">
+  <div class="nightdriver-container">
+    <div class="nightdriver-section-header nightdriver-section-text">
+      <h2 class="nightdriver-section-title">Drift Zone</h2>
+    </div>
+    <div class="nightdriver-section-content">
+      <div class="nightdriver-flexible-grid nightdriver-flexible-grid--single">
+        <article class="nightdriver-grid-card nightdriver-grid-card--cta">
+          <div class="nightdriver-card-top">
+            <div class="nightdriver-card-tag nightdriver-control">{{@site.title}}</div>
+          </div>
+          <div class="nightdriver-card-media">
+            {{#if @site.logo}}
+              <img
+                src="{{@site.logo}}"
+                alt="{{@site.title}}"
+                class="nightdriver-card-image nightdriver-card-image--contain"
+                loading="lazy"
+              >
+            {{/if}}
+            <div class="nightdriver-card-meta-vert" aria-hidden="true">
+              <span class="nightdriver-card-meta-vert-text">
+                {{#if @custom.portal_cta_heading}}
+                  {{@custom.portal_cta_heading}}
+                {{else}}
+                  Stay updated
+                {{/if}}
+              </span>
+            </div>
+          </div>
+
+          <div class="nightdriver-card-bottom">
+            <h3 class="nightdriver-card-title">
+              <span class="nightdriver-card-title-text">
+                {{#if @custom.portal_cta_subtext_line1}}
+                  {{@custom.portal_cta_subtext_line1}}
+                {{else}}
+                  {{@site.title}}
+                {{/if}}
+              </span>
+            </h3>
+
+            {{#if @custom.portal_cta_brand_text}}
+              <p class="nightdriver-card-excerpt">
+                {{@custom.portal_cta_brand_text}}
+              </p>
+            {{/if}}
+
+            <div class="nightdriver-cta-actions">
+              <a class="nightdriver-cta-btn" href="#/portal/signup/" data-portal="signup">
+                {{#if @custom.portal_cta_button_label}}
+                  {{@custom.portal_cta_button_label}}
+                {{else}}
+                  Sign up
+                {{/if}}
+              </a>
+              <a class="nightdriver-cta-btn nightdriver-cta-btn--secondary" href="#/portal/signin/" data-portal="signin">
+                Sign in
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>

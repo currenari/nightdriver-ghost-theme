@@ -1,0 +1,22 @@
+{{!< default}}
+
+{{!-- Tag Archive Template --}}
+
+<section class="nightdriver-section nightdriver-section--no-header nightdriver-section--hero">
+    <div class="nightdriver-container">
+        <div class="nightdriver-section-content nightdriver-section-text">
+            <h1 class="nightdriver-hero-title">{{tag.name}}</h1>
+            {{#if tag.description}}
+                <p class="nightdriver-hero-description">{{tag.description}}</p>
+            {{/if}}
+        </div>
+    </div>
+</section>
+
+{{> "content/post-list"
+    posts=posts
+    total=pagination.total
+    show_tags=false
+    show_pagination=true
+    heading="h2"
+}}

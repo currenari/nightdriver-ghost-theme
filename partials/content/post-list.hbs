@@ -1,0 +1,23 @@
+{{!-- Post List Section --}}
+
+<section class="nightdriver-section nightdriver-section--surface">
+    <div class="nightdriver-container">
+        <div class="nightdriver-section-header nightdriver-section-text">
+            <h2 class="nightdriver-section-title">
+                {{#if title}}
+                    {{title}}
+                {{else}}
+                    {{total}} {{plural total empty='Posts' singular='Post' plural='Posts'}}
+                {{/if}}
+            </h2>
+        </div>
+
+        <div class="nightdriver-section-content nightdriver-section-text">
+            {{> "content/post-list-items" posts=posts heading=heading show_tags=show_tags}}
+
+            {{#if show_pagination}}
+                {{pagination}}
+            {{/if}}
+        </div>
+    </div>
+</section>

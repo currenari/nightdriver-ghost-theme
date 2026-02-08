@@ -1,0 +1,7 @@
+{{!-- Post List Items --}}
+
+<div class="nightdriver-posts-list">
+    {{#foreach posts}}
+        {{> "content/post-list-item" heading=../heading show_tags=../show_tags}}
+    {{/foreach}}
+</div>

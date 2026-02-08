@@ -1,0 +1,37 @@
+<div class="nightdriver-header-top">
+  <div class="nightdriver-header-container">
+    <a href="{{@site.url}}" class="nightdriver-site-logo">
+      {{#if @site.logo}}
+        <img src="{{@site.logo}}" alt="{{@site.title}}">
+      {{else}}
+        {{@site.title}}
+      {{/if}}
+    </a>
+
+    {{!-- Desktop nav --}}
+    <nav class="nightdriver-site-nav" aria-label="Primary navigation">
+      {{navigation type="primary"}}
+    </nav>
+
+    {{!-- Mobile toggle --}}
+    <button
+      class="nightdriver-nav-toggle"
+      type="button"
+      aria-label="Menu"
+      aria-controls="nightdriver-nav-drawer"
+      aria-expanded="false"
+      data-nav-toggle
+    >
+      <span class="nightdriver-nav-toggle-icon" aria-hidden="true">
+        <svg class="nightdriver-icon nightdriver-icon-menu" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+          <use href="{{asset "icons/nightdriver-icons.svg"}}#icon-menu"></use>
+        </svg>
+        <svg class="nightdriver-icon nightdriver-icon-menu-close" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+          <use href="{{asset "icons/nightdriver-icons.svg"}}#icon-menu-close"></use>
+        </svg>
+      </span>
+    </button>
+  </div>
+
+  {{> "navigation/nav-drawer"}}
+</div>

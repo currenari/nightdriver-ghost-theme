@@ -1,0 +1,47 @@
+{{!< default}}
+
+{{!-- Default Page Template --}}
+
+{{#post}}
+<article class="nightdriver-section nightdriver-post-full nightdriver-post-full--page {{post_class}}">
+    <div class="nightdriver-container">
+        <div class="nightdriver-section-content nightdriver-section-text">
+            {{!-- Show header if Beta editor setting is enabled, OR as default --}}
+            {{#match @page.show_title_and_feature_image "!=" false}}
+                <header class="nightdriver-post-full-header">
+                    <h1 class="nightdriver-post-full-title">{{title}}</h1>
+                    
+                    {{#if custom_excerpt}}
+                        <p class="nightdriver-post-full-excerpt">{{custom_excerpt}}</p>
+                    {{/if}}
+                </header>
+                
+                {{#if feature_image}}
+                    <figure class="nightdriver-post-full-image">
+                        <img
+                            src="{{img_url feature_image size="xl"}}"
+                            srcset="{{img_url feature_image size="s"}} 300w,
+                                    {{img_url feature_image size="m"}} 600w,
+                                    {{img_url feature_image size="l"}} 1000w,
+                                    {{img_url feature_image size="xl"}} 2000w"
+                            sizes="(max-width: 768px) 100vw, 720px"
+                            alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                            loading="eager"
+                            {{#if feature_image.width}}width="{{feature_image.width}}"{{/if}}
+                            {{#if feature_image.height}}height="{{feature_image.height}}"{{/if}}
+                        >
+
+                        {{#if feature_image_caption}}
+                            <figcaption class="nightdriver-post-full-caption">{{feature_image_caption}}</figcaption>
+                        {{/if}}
+                    </figure>
+                {{/if}}
+            {{/match}}
+            
+            <div class="nightdriver-post-full-content">
+                {{content}}
+            </div>
+        </div>
+    </div>
+</article>
+{{/post}}

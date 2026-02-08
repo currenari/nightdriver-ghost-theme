@@ -1,0 +1,42 @@
+{{!-- Post List Item --}}
+
+<article class="nightdriver-post-item">
+    <div class="nightdriver-post-content">
+        <div class="nightdriver-post-meta-top">
+            <time datetime="{{date format="YYYY-MM-DD"}}">
+                {{date format="MMMM DD, YYYY"}}
+            </time>
+            {{#if show_tags}}
+                {{#foreach tags visibility="public" limit="1"}}
+                    {{#if @first}}<span class="nightdriver-post-tags">{{/if}}
+                        <a class="nightdriver-post-tag" href="{{url}}" rel="tag">{{name}}</a>
+                    {{#if @last}}</span>{{/if}}
+                {{/foreach}}
+            {{/if}}
+            <span class="nightdriver-post-readtime">{{reading_time}}</span>
+        </div>
+
+        {{#match heading "h3"}}
+            <h3 class="nightdriver-post-item-title">
+                <a href="{{url}}">{{title}}</a>
+            </h3>
+        {{else}}
+            <h2 class="nightdriver-post-item-title">
+                <a href="{{url}}">{{title}}</a>
+            </h2>
+        {{/match}}
+
+        {{#if excerpt}}
+            <p class="nightdriver-post-item-excerpt">{{excerpt}}</p>
+        {{/if}}
+
+        {{#if show_tags}}
+            {{#foreach tags visibility="public"}}
+                {{#if @first}}<div class="nightdriver-post-tags-list" aria-label="Post tags">{{/if}}
+                    <a class="nightdriver-post-taglink" href="{{url}}" rel="tag">#{{name}}</a>
+                {{#if @last}}</div>{{/if}}
+            {{/foreach}}
+        {{/if}}
+    </div>
+
+</article>

@@ -1,0 +1,15 @@
+{{!-- Pagination Partial --}}
+
+{{#if pagination}}
+    <nav class="nightdriver-pagination" role="navigation">
+        {{#if pagination.prev}}
+            <a href="{{pagination.prev}}" rel="prev">← Previous</a>
+        {{/if}}
+        
+        <span class="nightdriver-pagination-current">Page {{pagination.page}} of {{pagination.pages}}</span>
+        
+        {{#if pagination.next}}
+            <a href="{{pagination.next}}" rel="next">Next →</a>
+        {{/if}}
+    </nav>
+{{/if}}

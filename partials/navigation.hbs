@@ -1,0 +1,12 @@
+{{!-- Navigation Partial --}}
+{{!-- Renders primary or secondary navigation based on type --}}
+
+{{#if navigation}}
+    <ul class="nightdriver-nav-list">
+        {{#foreach navigation}}
+            <li class="nightdriver-nav-item {{#if current}}nightdriver-nav-item--active{{/if}}">
+                <a href="{{url}}" {{#if current}}aria-current="page"{{/if}}>{{label}}</a>
+            </li>
+        {{/foreach}}
+    </ul>
+{{/if}}

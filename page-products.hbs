@@ -1,0 +1,75 @@
+{{!< default}}
+
+{{!-- Products Page Template --}}
+{{!-- To use: Create a page with slug "products" in Ghost admin --}}
+
+<section class="nightdriver-section nightdriver-section--no-header nightdriver-section--hero">
+    <div class="nightdriver-container">
+        <div class="nightdriver-section-content nightdriver-section-text">
+            <h1 class="nightdriver-hero-title">{{title}}</h1>
+            {{#if custom_excerpt}}
+                <p class="nightdriver-hero-description">{{custom_excerpt}}</p>
+            {{/if}}
+        </div>
+    </div>
+</section>
+
+<section class="nightdriver-section nightdriver-section--no-header">
+    <div class="nightdriver-container">
+        <div class="nightdriver-section-content">
+            {{!-- Get pages tagged with 'product' - using reasonable limit --}}
+            {{#get "pages" filter="tag:product" limit="50"}}
+                <div class="nightdriver-products-grid">
+                    {{#foreach pages}}
+                        <article class="nightdriver-product-card">
+                            {{#if feature_image}}
+                                <img
+                                    src="{{img_url feature_image size="m"}}"
+                                    alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                                    class="nightdriver-product-card-image"
+                                    loading="lazy"
+                                    {{#if feature_image.width}}width="{{feature_image.width}}"{{/if}}
+                                    {{#if feature_image.height}}height="{{feature_image.height}}"{{/if}}
+                                >
+                            {{/if}}
+                            
+                            <div class="nightdriver-product-card-content">
+                                <h3 class="nightdriver-product-card-title">
+                                    <a href="{{url}}">{{title}}</a>
+                                </h3>
+                                
+                                {{#if excerpt}}
+                                    <p class="nightdriver-product-card-description">{{excerpt}}</p>
+                                {{/if}}
+                                
+                                <div class="nightdriver-product-card-footer">
+                                    {{!-- You can add Snipcart or other e-commerce integration here --}}
+                                    {{!-- Example with custom field for price: --}}
+                                    {{!-- <span class="nightdriver-product-price">$99</span> --}}
+                                    <a href="{{url}}" class="nightdriver-product-button">Learn More</a>
+                                </div>
+                            </div>
+                        </article>
+                    {{/foreach}}
+                </div>
+            {{else}}
+                <div class="nightdriver-text-center">
+                    <p>No products available yet. Tag pages with "product" to display them here.</p>
+                </div>
+            {{/get}}
+        </div>
+    </div>
+</section>
+
+{{!-- Optional: Display the page content if you want additional info --}}
+{{#if content}}
+    <section class="nightdriver-section nightdriver-section--no-header">
+        <div class="nightdriver-container">
+            <div class="nightdriver-section-content">
+                <div class="nightdriver-post-full-content">
+                    {{content}}
+                </div>
+            </div>
+        </div>
+    </section>
+{{/if}}
