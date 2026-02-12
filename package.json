@@ -1,7 +1,7 @@
 {
   "name": "nightdriver",
   "description": "A tech-forward Ghost theme with three modes, a collapsible utility bar, and a bento-style layout.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "engines": {
     "ghost": ">=5.0.0"
   },

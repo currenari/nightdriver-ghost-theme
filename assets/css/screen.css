@@ -6,7 +6,7 @@
    ======================================== */
 
 :root {
-  /* Colours */
+  /* Color Tokens */
   --color-background: #f7f7f5;
   --color-surface: #ffffff;
   --color-border: #e6e6e1;
@@ -18,45 +18,43 @@
   --link-opacity: 0.77;
   --link-hover-opacity: 1;
 
-  /* ----------------------------------------
+  /* ========================================
      TYPOGRAPHY SYSTEM
-     
-     Ghost Admin overrides via:
+     Ghost Admin overrides:
      --gh-font-heading, --gh-font-body
-     
-     Three roles, two font slots:
+     Three roles:
      - Heading: titles, hero text
      - Body: paragraphs, reading content
      - UI: labels, nav, tags, buttons (follows heading)
-     ---------------------------------------- */
+     ======================================== */
   
-  /* Local font stacks */
+  /* Local Font Stacks */
   --font-mono-stack: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
   --font-sans-stack: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   
-  /* Ghost-swappable fonts */
+  /* Ghost-Swappable Fonts */
   --font-heading: var(--gh-font-heading, var(--font-mono-stack));
   --font-body: var(--gh-font-body, var(--font-sans-stack));
   --font-ui: var(--font-heading);
   
-  /* Tracking */
+  /* Tracking Tokens */
   --tracking-body: -0.011em;
   --tracking-heading: -0.02em;
   --tracking-ui: 0.08em;
 
-  /* Layout */
+  /* Layout Tokens */
   --container-width: 1180px;
   --container-padding: 2rem;
   --header-height: 3.6rem;
   --nightdriver-utility-peek: 5px;
   --nightdriver-utility-handle-h: 6px;
 
-  /* Post layout */
+  /* Post Layout Tokens */
   --post-header-width: 720px;
   --post-content-width: 680px;
   --post-image-wide-width: 1100px;
 
-  /* Spacing */
+  /* Spacing Tokens */
   --space-sm: 0.5rem;
   --space-md: 1rem;
   --space-lg: 1.5rem;
@@ -65,7 +63,7 @@
   --space-3xl: 4rem;
   --space-4xl: 6rem;
 
-  /* Section system */
+  /* Section Tokens */
   --section-pad-y: var(--space-4xl);
   --section-pad-y-compact: var(--space-3xl);
   --section-header-gap: calc(var(--space-md) + 0.25rem);
@@ -73,28 +71,28 @@
   --section-content-gap: var(--space-lg);
   --ui-spacer-height: var(--space-3xl);
 
-  /* Radius */
+  /* Radius Tokens */
   --radius-sm: 0.2rem;
   --radius-md: 0.3rem;
   --radius-lg: 0.4rem;
 
-  /* Surfaces */
+  /* Surface Tokens */
   --card-bg: var(--color-surface);
   --card-border: var(--color-border);
   --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.06), 0 10px 24px rgba(0, 0, 0, 0.08);
   --shadow-2: 0 2px 6px rgba(0, 0, 0, 0.06), 0 10px 22px rgba(0, 0, 0, 0.08);
 
-  /* Mode rail */
+  /* Mode Rail Tokens */
   --nightdriver-rail-track: color-mix(in srgb, var(--color-text) 18%, transparent);
   --nightdriver-rail-dot-border: color-mix(in srgb, var(--color-text) 28%, transparent);
   --nightdriver-rail-indicator-bg: color-mix(in srgb, var(--color-text) 8%, transparent);
   --nightdriver-rail-indicator-border: color-mix(in srgb, var(--color-text) 20%, transparent);
   --nightdriver-rail-focus: color-mix(in srgb, var(--color-text) 35%, transparent);
 
-  /* Motion */
+  /* Motion Tokens */
   --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
-  /* Header control system */
+  /* Header Control Tokens */
   --nightdriver-control-h: 2.4rem;
 }
 
@@ -141,7 +139,7 @@ a {
   color: inherit;
 }
 
-/* Enhanced heading typography - applies to all headings */
+/* Enhanced Heading Typography */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   font-weight: 600;
@@ -201,7 +199,7 @@ ins {
   transition: var(--transition);
 }
 
-/* --- TOP BAR (layer 1) --- */
+/* Top Bar (Layer 1) */
 .nightdriver-header-top {
   position: relative;
   z-index: 30;
@@ -268,7 +266,7 @@ ins {
   padding-left: 0.65rem;
 }
 
-/* Desktop navigation separators only */
+/* Desktop Navigation Separators */
 .nightdriver-site-nav .nightdriver-nav-item:not(:first-child)::before {
   content: "/";
   margin-right: 0.65rem;
@@ -299,7 +297,7 @@ ins {
   opacity: 1;
 }
 
-/* Progress bar stays glued to bottom of TOP bar */
+/* Progress Bar Pinned to Top Bar Bottom Edge */
 .nightdriver-header-top .nightdriver-progress {
   position: absolute;
   left: 0;
@@ -308,13 +306,13 @@ ins {
   z-index: 40;
 }
 
-/* --- UTILITY BAR (layer 2, overlay) --- */
+/* Utility Bar (Layer 2 Overlay) */
 .nightdriver-header-utility {
   position: absolute;
   left: 0;
   right: 0;
 
-  /* sits directly under the top bar */
+  /* Positioned Directly Below the Top Bar */
   top: var(--header-height);
 
   z-index: 20;
@@ -351,7 +349,7 @@ ins {
   gap: var(--space-lg);
 }
 
-/* Mode rail (utility bar) */
+/* Mode Rail (Utility Bar) */
 .nightdriver-mode-rail {
   position: relative;
   display: grid;
@@ -480,7 +478,7 @@ ins {
   outline-offset: 3px;
 }
 
-/* Universal control */
+/* Universal Control */
 .nightdriver-control {
   font-family: var(--font-ui);
   font-size: 0.75rem;
@@ -500,7 +498,7 @@ ins {
 .nightdriver-control--brackets::before { content: "[ "; }
 .nightdriver-control--brackets::after { content: " ]"; }
 
-/* Search button: same control system as the mode buttons */
+/* Search Button Uses the Same Control System as Mode Buttons */
 .nightdriver-search-btn {
   appearance: none;
   border: 0;
@@ -582,12 +580,62 @@ ins {
   background: transparent;
 }
 
-/* Hidden state: slides up behind the top bar */
+.nightdriver-cart-summary {
+  display: inline-flex;
+  align-items: center;
+}
+
+.nightdriver-cart-summary-button {
+  appearance: none;
+  border: 0 !important;
+  background: transparent !important;
+  cursor: pointer;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.45rem;
+  height: var(--nightdriver-control-h) !important;
+  min-width: auto;
+  padding: 0 0.5rem !important;
+  color: var(--color-text-secondary) !important;
+  opacity: 0.9;
+  font-family: var(--font-ui) !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  letter-spacing: var(--tracking-ui) !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  line-height: 1 !important;
+  white-space: nowrap;
+  box-shadow: none !important;
+  transition: var(--transition) !important;
+}
+
+.nightdriver-cart-summary-button:hover {
+  color: var(--color-text) !important;
+  opacity: 1;
+}
+
+.nightdriver-cart-summary-divider {
+  color: var(--color-text-tertiary);
+  opacity: 0.8;
+}
+
+.nightdriver-cart-summary-count,
+.nightdriver-cart-summary-total {
+  font-variant-numeric: tabular-nums;
+}
+
+.nightdriver-cart-summary--utility {
+  display: none;
+}
+
+/* Hidden State: Slides Up Behind the Top Bar */
 .nightdriver-header-utility.nightdriver-is-hidden {
   transform: translateY(calc(-100% + var(--nightdriver-utility-peek)));
 }
 
-/* Handle */
+/* Utility Handle */
 .nightdriver-header-utility-handle {
   position: absolute;
   left: 50%;
@@ -630,8 +678,8 @@ ins {
   padding-bottom: var(--section-pad-y-compact);
 }
 
-/* 
-   UI Spacer - Flexible breathing room element
+/* UI Spacer
+   Flexible breathing room element.
    - Transparent in day/night mode (inherits page background)
    - Custom color in Nightdriver custom mode
 */
@@ -1366,7 +1414,11 @@ ins {
   z-index: 1;
 }
 
-/* Featured section: keep imagery clean and bright */
+/* Featured Section: Keep Imagery Clean and Bright */
+.nightdriver-section--featured {
+  padding-top: calc(var(--section-pad-y) - 1.125rem);
+}
+
 .nightdriver-section--featured .nightdriver-card-media::after {
   opacity: 0;
 }
@@ -1377,6 +1429,171 @@ ins {
 
 .nightdriver-section--featured .nightdriver-grid-card:hover .nightdriver-card-image {
   filter: brightness(1.02) contrast(1.02);
+}
+
+/* ========================================
+   HOMEPAGE ADVERT
+   ======================================== */
+
+.nightdriver-section--home-advert {
+  padding-top: var(--space-xl);
+  padding-bottom: var(--space-2xl);
+}
+
+.nightdriver-home-advert-card {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: clamp(290px, 38vw, 520px);
+  padding: clamp(1.2rem, 2.8vw, 2.2rem);
+  border: 1px solid var(--card-border);
+  background:
+    linear-gradient(
+      118deg,
+      color-mix(in srgb, var(--color-background) 88%, transparent) 0%,
+      color-mix(in srgb, var(--color-background) 64%, transparent) 45%,
+      rgba(0, 0, 0, 0.1) 100%
+    ),
+    var(--nightdriver-home-advert-image, none),
+    var(--card-bg);
+  box-shadow: var(--shadow-1);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.nightdriver-home-advert-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--color-background) 74%, transparent) 5%,
+    transparent 62%
+  );
+}
+
+.nightdriver-home-advert-card__content {
+  width: min(100%, 36rem);
+  display: grid;
+  gap: 0.35rem;
+}
+
+.nightdriver-home-advert-card__kicker {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.nightdriver-home-advert-card__title {
+  margin: 0;
+  font-size: clamp(1.8rem, 3.8vw, 3.1rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+.nightdriver-home-advert-card__price {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: clamp(1rem, 1.45vw, 1.4rem);
+  font-weight: 600;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text);
+}
+
+.nightdriver-home-advert-card__meta {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+}
+
+.nightdriver-home-advert-card__actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 0.35rem;
+}
+
+.nightdriver-home-advert-card__action {
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  appearance: none;
+  cursor: pointer;
+  min-height: 2.2rem;
+  padding: 0 0.8rem;
+  border: 1px solid var(--color-border);
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: var(--tracking-ui);
+  text-transform: uppercase;
+  color: var(--color-text);
+  background: color-mix(in srgb, var(--color-surface) 70%, transparent);
+  transition: var(--transition);
+}
+
+.nightdriver-home-advert-card__action:hover {
+  border-color: var(--color-text-secondary);
+  background: color-mix(in srgb, var(--color-surface) 84%, transparent);
+}
+
+.nightdriver-home-advert-card__action--primary {
+  border-color: color-mix(in srgb, var(--color-accent) 65%, var(--color-border));
+  background: color-mix(in srgb, var(--color-accent) 18%, var(--color-surface));
+}
+
+.nightdriver-home-advert-card__action--primary:hover {
+  border-color: color-mix(in srgb, var(--color-accent) 82%, var(--color-border));
+  background: color-mix(in srgb, var(--color-accent) 30%, var(--color-surface));
+}
+
+/* Keep Snipcart-Powered Advert CTA Visually Identical to Anchor CTA */
+.nightdriver-home-advert-card__action.snipcart-add-item {
+  --nightdriver-btn-height: 2.2rem;
+  --nightdriver-btn-pad-x: 0.8rem;
+  --nightdriver-btn-font-size: 0.7rem;
+  --nightdriver-btn-border: var(--color-border);
+  --nightdriver-btn-bg: color-mix(in srgb, var(--color-surface) 70%, transparent);
+  --nightdriver-btn-bg-hover: color-mix(in srgb, var(--color-surface) 84%, transparent);
+}
+
+.nightdriver-home-advert-card__action--primary.snipcart-add-item {
+  --nightdriver-btn-border: color-mix(in srgb, var(--color-accent) 65%, var(--color-border));
+  --nightdriver-btn-bg: color-mix(in srgb, var(--color-accent) 18%, var(--color-surface));
+  --nightdriver-btn-bg-hover: color-mix(in srgb, var(--color-accent) 30%, var(--color-surface));
+}
+
+.nightdriver-home-advert-card__action--secondary {
+  background: transparent;
+}
+
+@media (max-width: 760px) {
+  .nightdriver-section--home-advert {
+    padding-top: var(--space-lg);
+    padding-bottom: var(--space-xl);
+  }
+
+  .nightdriver-home-advert-card {
+    min-height: clamp(220px, 62vw, 360px);
+    align-items: flex-start;
+  }
+
+  .nightdriver-home-advert-card__meta {
+    max-width: 30ch;
+  }
 }
 
 /* ========================================
@@ -1837,50 +2054,6 @@ ins {
   color: var(--color-text);
 }
 
-.nightdriver-product-button,
-.snipcart-add-item {
-  display: inline-block;
-  text-decoration: none;
-  cursor: pointer;
-  border: 0;
-  border-radius: var(--radius-sm);
-  padding: var(--space-sm) var(--space-lg);
-  font-family: var(--font-ui);
-  font-size: 0.875rem;
-  font-weight: 600;
-  background-color: var(--color-text);
-  color: var(--color-background);
-  transition: var(--transition);
-}
-
-.nightdriver-product-button:hover,
-.snipcart-add-item:hover {
-  background-color: var(--color-accent);
-}
-
-/* Override third-party button styles (e.g., Snipcart) if their CSS loads after theme */
-.nightdriver-post-full-content .snipcart-add-item,
-.nightdriver-section .snipcart-add-item {
-  display: inline-block;
-  text-decoration: none;
-  cursor: pointer;
-  border: 0 !important;
-  border-radius: var(--radius-sm) !important;
-  padding: var(--space-sm) var(--space-lg) !important;
-  font-family: var(--font-ui) !important;
-  font-size: 0.875rem !important;
-  font-weight: 600 !important;
-  background-color: var(--color-text) !important;
-  color: var(--color-background) !important;
-  transition: var(--transition) !important;
-}
-
-.nightdriver-post-full-content .snipcart-add-item:hover,
-.nightdriver-section .snipcart-add-item:hover {
-  background-color: var(--color-accent) !important;
-  color: var(--color-background) !important;
-}
-
 /* ========================================
    SINGLE POST
    ======================================== */
@@ -2230,7 +2403,7 @@ ins {
   margin-right: -50vw;
 }
 
-/* Option C Instrument panel */
+/* Reading Progress Bar Track */
 
 .nightdriver-progress {
   position: absolute;
@@ -2259,7 +2432,7 @@ ins {
    Only ONE option should be active at a time
    ======================================== */
 
-/* OPTION 1: FLOWING SHINE (Default - Active) */
+/* Option 1: Flowing Shine (Default, Active) */
 
 .nightdriver-progress-bar::before {
   content: '';
@@ -2288,7 +2461,7 @@ ins {
   }
 }
 
-/* OPTION 2: NO ANIMATION - Uncomment to use solid color only */
+/* Option 2: No Animation (Uncomment for Solid Color Only) */
 /*
 .nightdriver-progress-bar::before {
   display: none;
@@ -2399,36 +2572,36 @@ html.nightdriver-theme-mode-nightmode{
 }
 
 html.nightdriver-theme-mode-custommode{
-  /* Custom Mode colors are now fully customizable via Ghost Admin settings */
-  /* See the "Custom Mode" settings group in Design settings */
-  /* Colors are injected dynamically in default.hbs */
+  /* Custom Mode Colors Are Fully Configurable via Ghost Admin Settings. */
+  /* See the "Custom Mode" Settings Group in Design Settings. */
+  /* Color Values Are Injected Dynamically in default.hbs. */
   --body-tracking: -0.008em;
   --heading-tracking: -0.015em;
 }
 
-/* Custom Mode hybrid menu - colors injected via default.hbs */
+/* Custom Mode Header and Nav Hooks (Colors Injected via default.hbs) */
 html.nightdriver-theme-mode-custommode .nightdriver-site-header{
-  /* Custom header styling handled in default.hbs */
+  /* Header styling is handled in default.hbs. */
 }
 
 html.nightdriver-theme-mode-custommode .nightdriver-site-logo{
-  /* Logo color handled in default.hbs */
+  /* Logo color is handled in default.hbs. */
 }
 
 html.nightdriver-theme-mode-custommode .nightdriver-site-logo:hover{
-  /* Hover handled in default.hbs */
+  /* Logo hover color is handled in default.hbs. */
 }
 
 html.nightdriver-theme-mode-custommode .nightdriver-nav-item a{
-  /* Nav colors handled in default.hbs */
+  /* Nav colors are handled in default.hbs. */
 }
 
 html.nightdriver-theme-mode-custommode .nightdriver-nav-item a:hover{
-  /* Nav hover handled in default.hbs */
+  /* Nav hover colors are handled in default.hbs. */
 }
 
 html.nightdriver-theme-mode-custommode .nightdriver-nav-item.nightdriver-nav-item--active a{
-  /* Active nav handled in default.hbs */
+  /* Active nav color is handled in default.hbs. */
 }
 
 
@@ -2449,7 +2622,7 @@ html.nightdriver-theme-mode-custommode .nightdriver-nav-item.nightdriver-nav-ite
   padding: 12px var(--container-padding) 8px;
 }
 
-/* CTA card (featured-card structure) */
+/* CTA Card (Featured Card Structure) */
 .nightdriver-grid-card--cta .nightdriver-card-media {
   display: flex;
   align-items: center;
@@ -2483,34 +2656,7 @@ html.nightdriver-theme-mode-custommode .nightdriver-nav-item.nightdriver-nav-ite
   gap: 0.5rem;
 }
 
-.nightdriver-cta-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-ui);
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-ui);
-  text-decoration: none;
-  color: var(--color-text);
-  padding: 0.3rem 0.55rem;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--color-border);
-  background: var(--color-surface);
-  transition: var(--transition);
-}
-
-.nightdriver-cta-btn:hover {
-  border-color: var(--color-text-secondary);
-  color: var(--color-text);
-}
-
-.nightdriver-cta-btn--secondary {
-  background: transparent;
-}
-
-/* Unified action button style across cards/sections */
+/* Unified Action Button Style Across Cards and Sections */
 .nightdriver-cta-btn,
 .nightdriver-bento-btn,
 .nightdriver-bento-chip--link,
@@ -2542,37 +2688,6 @@ html.nightdriver-theme-mode-custommode .nightdriver-nav-item.nightdriver-nav-ite
   border-color: var(--color-text);
   color: var(--color-text);
   background: color-mix(in srgb, var(--color-surface) 68%, var(--color-background));
-}
-
-/* Snipcart add-to-cart: force Nightdriver CTA styling when both classes are present */
-.snipcart-add-item.nightdriver-cta-btn,
-.nightdriver-post-full-content .snipcart-add-item.nightdriver-cta-btn,
-.nightdriver-section .snipcart-add-item.nightdriver-cta-btn {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  min-height: 2.15rem !important;
-  padding: 0 0.75rem !important;
-  border-radius: 0 !important;
-  border: 1px solid color-mix(in srgb, var(--color-text) 22%, var(--color-border)) !important;
-  background: color-mix(in srgb, var(--color-surface) 82%, transparent) !important;
-  color: var(--color-text) !important;
-  font-family: var(--font-ui) !important;
-  font-size: 0.75rem !important;
-  font-weight: 600 !important;
-  letter-spacing: var(--tracking-ui) !important;
-  text-transform: uppercase !important;
-  text-decoration: none !important;
-  line-height: 1 !important;
-  transition: var(--transition) !important;
-}
-
-.snipcart-add-item.nightdriver-cta-btn:hover,
-.nightdriver-post-full-content .snipcart-add-item.nightdriver-cta-btn:hover,
-.nightdriver-section .snipcart-add-item.nightdriver-cta-btn:hover {
-  border-color: var(--color-text) !important;
-  color: var(--color-text) !important;
-  background: color-mix(in srgb, var(--color-surface) 68%, var(--color-background)) !important;
 }
 
 .nightdriver-flexible-grid--single {
@@ -2693,6 +2808,10 @@ html.nightdriver-theme-mode-custommode .nightdriver-site-footer {
 }
 
 @media (max-width: 768px) {
+  .nightdriver-cart-summary--top {
+    display: none;
+  }
+
   .nightdriver-header-utility .nightdriver-control--brackets::before,
   .nightdriver-header-utility .nightdriver-control--brackets::after {
     display: none;
@@ -2715,6 +2834,23 @@ html.nightdriver-theme-mode-custommode .nightdriver-site-footer {
   .nightdriver-header-utility-right {
     display: none;
   }
+
+  .nightdriver-header-utility-right--has-cart {
+    display: inline-flex;
+  }
+
+  .nightdriver-header-utility-right .nightdriver-header-cta {
+    display: none;
+  }
+
+  .nightdriver-cart-summary--utility {
+    display: inline-flex;
+  }
+
+  .nightdriver-cart-summary--utility .nightdriver-cart-summary-divider,
+  .nightdriver-cart-summary--utility .nightdriver-cart-summary-total {
+    display: none;
+  }
 }
 
 @media (max-width: 480px) {
@@ -2734,7 +2870,7 @@ html.nightdriver-theme-mode-custommode .nightdriver-site-footer {
    TOP NAV
    ======================================== */
 
-   /* Desktop vs mobile */
+/* Desktop vs. Mobile */
 .nightdriver-nav-toggle { display: none; }
 
 @media (max-width: 900px) {
@@ -2742,7 +2878,7 @@ html.nightdriver-theme-mode-custommode .nightdriver-site-footer {
   .nightdriver-nav-toggle { display: inline-flex; }
 }
 
-/* Toggle button */
+/* Toggle Button */
 .nightdriver-nav-toggle {
   align-items: center;
   justify-content: center;
@@ -2760,7 +2896,7 @@ html.nightdriver-theme-mode-custommode .nightdriver-site-footer {
   color: var(--color-text);
 }
 
-/* SVG-based hamburger/close icon */
+/* SVG-Based Hamburger and Close Icons */
 .nightdriver-nav-toggle-icon {
   position: relative;
   width: 24px;
@@ -2776,7 +2912,7 @@ html.nightdriver-theme-mode-custommode .nightdriver-site-footer {
   display: none;
 }
 
-/* Drawer base */
+/* Drawer Base */
 .nightdriver-nav-drawer {
   position: fixed;
   top: var(--header-height);
@@ -2809,14 +2945,14 @@ html.nightdriver-theme-mode-custommode .nightdriver-site-footer {
   border-bottom-left-radius: 16px;
 }
 
-/* Open state */
+/* Open State */
 .nightdriver-nav-open .nightdriver-nav-drawer-panel {
   transform: translateX(0);
 }
 
-/* Animate hamburger -> X when open (handled by SVG swap) */
+/* Open-State Icon Swap (Hamburger to Close) */
 
-/* Drawer header */
+/* Drawer Header */
 .nightdriver-nav-drawer-header {
   display: flex;
   align-items: center;
@@ -2836,7 +2972,7 @@ html.nightdriver-theme-mode-custommode .nightdriver-site-footer {
 }
 
 
-/* Mobile nav list styling (reuses your existing .nightdriver-nav-list) */
+/* Mobile Nav List Styling (Reuses Existing .nightdriver-nav-list) */
 .nightdriver-nav-drawer-nav .nightdriver-nav-list {
   display: grid;
   gap: 0px;
@@ -2859,14 +2995,14 @@ html.nightdriver-theme-mode-custommode .nightdriver-site-footer {
   color: currentColor;
 }
 
-/* Both icons should be exactly the same size */
+/* Keep Both Icons at Identical Size */
 .nightdriver-nav-toggle-icon .nightdriver-icon-menu,
 .nightdriver-nav-toggle-icon .nightdriver-icon-menu-close {
   width: 24px;
   height: 24px;
 }
 
-/* Show only one icon based on state */
+/* Show Only One Icon per State */
 .nightdriver-nav-toggle .nightdriver-icon-menu,
 .nightdriver-nav-toggle .nightdriver-icon-menu-close {
   display: none;
@@ -2902,7 +3038,7 @@ html.nightdriver-theme-mode-custommode .nightdriver-site-footer {
    Overrides Ghost editor inline styles
    ======================================== */
 
-/* Master rule: All text elements left-aligned */
+/* Master Rule: Left-Align All Text Elements */
 h1, h2, h3, h4, h5, h6,
 p, li, td, th, dt, dd,
 blockquote, figcaption, caption,
@@ -2933,7 +3069,7 @@ blockquote, figcaption, caption,
   text-align: left !important;
 }
 
-/* Override Ghost editor inline styles */
+/* Override Ghost Editor Inline Styles */
 [style*="text-align: center"],
 [style*="text-align:center"],
 [style*="text-align: justify"],
@@ -2941,7 +3077,7 @@ blockquote, figcaption, caption,
   text-align: left !important;
 }
 
-/* Ghost editor button card styling */
+/* Ghost Editor Button Card Styling */
 .kg-button-card {
   margin: var(--space-xl) 0;
 }
@@ -2999,8 +3135,6 @@ blockquote, figcaption, caption,
   .nightdriver-bento-chip--link,
   .nightdriver-bento-links a,
   .nightdriver-product-button,
-  .snipcart-add-item,
-  .snipcart-add-item.nightdriver-cta-btn,
   .nightdriver-tag a,
   .nightdriver-card-tag,
   .nightdriver-post-tag,
@@ -3041,8 +3175,6 @@ blockquote, figcaption, caption,
   .nightdriver-bento-chip--link,
   .nightdriver-bento-links a,
   .nightdriver-product-button,
-  .snipcart-add-item,
-  .snipcart-add-item.nightdriver-cta-btn,
   .nightdriver-tag a,
   .nightdriver-card-tag,
   .nightdriver-post-tag,
@@ -3057,6 +3189,44 @@ blockquote, figcaption, caption,
   color: var(--color-text) !important;
 }
 
+.snipcart-add-item {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: var(--nightdriver-btn-height) !important;
+  padding: 0 var(--nightdriver-btn-pad-x) !important;
+  border-radius: 0 !important;
+  border: 1px solid var(--nightdriver-btn-border) !important;
+  background-color: var(--nightdriver-btn-bg) !important;
+  color: var(--color-text) !important;
+  font-family: var(--font-ui) !important;
+  font-size: var(--nightdriver-btn-font-size) !important;
+  font-weight: var(--nightdriver-btn-weight) !important;
+  letter-spacing: var(--nightdriver-btn-letter) !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  line-height: 1 !important;
+  box-shadow: none !important;
+  transition: var(--transition) !important;
+}
+
+.snipcart-add-item:hover {
+  border-color: var(--color-text) !important;
+  background-color: var(--nightdriver-btn-bg-hover) !important;
+  color: var(--color-text) !important;
+}
+
+/* Match Page and Post Snipcart Buttons to Homepage Advert Primary CTA */
+.nightdriver-post-full-content .snipcart-add-item {
+  --nightdriver-btn-border: color-mix(in srgb, var(--color-accent) 65%, var(--color-border));
+  --nightdriver-btn-bg: color-mix(in srgb, var(--color-accent) 18%, var(--color-surface));
+  --nightdriver-btn-bg-hover: color-mix(in srgb, var(--color-accent) 30%, var(--color-surface));
+}
+
+.nightdriver-post-full-content .snipcart-add-item:hover {
+  border-color: color-mix(in srgb, var(--color-accent) 82%, var(--color-border)) !important;
+}
+
 .nightdriver-copy-code-button {
   position: absolute;
   top: 0.5rem;
@@ -3064,7 +3234,7 @@ blockquote, figcaption, caption,
   z-index: 2;
 }
 
-/* Ghost bookmark card spacing */
+/* Ghost Bookmark Card Spacing */
 .kg-bookmark-metadata {
   display: inline-flex;
   align-items: center;

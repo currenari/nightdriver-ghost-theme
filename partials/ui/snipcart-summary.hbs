@@ -1,0 +1,15 @@
+{{!-- Snipcart cart summary control (count + total) --}}
+{{#if @custom.snipcart_public_api_key}}
+  <div class="snipcart-summary nightdriver-cart-summary {{class}}">
+    <button
+      class="snipcart-checkout nightdriver-cart-summary-button nightdriver-control nightdriver-control--brackets"
+      type="button"
+      aria-label="Open cart"
+    >
+      <span class="nightdriver-cart-summary-label">Cart</span>
+      <span class="nightdriver-cart-summary-count snipcart-items-count">0</span>
+      <span class="nightdriver-cart-summary-divider" aria-hidden="true">|</span>
+      <span class="nightdriver-cart-summary-total snipcart-total-price">$0.00</span>
+    </button>
+  </div>
+{{/if}}

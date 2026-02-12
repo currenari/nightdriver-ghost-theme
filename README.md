@@ -1,10 +1,15 @@
 # Nightdriver
 
-A tech-forward Ghost theme with three display modes, a collapsible utility bar, and a bento-style layout.
+Nightdriver — Premium Ghost Theme
+
+Nightdriver is a high-control, performance-focused Ghost theme for creators who value precision and clarity—built for focused reading and long-form publishing, with three display modes and 20 configurable settings managed directly in Ghost Admin.
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 **Demo:** <https://currenari.com>
+
+**Version:** 1.1.0  
+**Changelog:** See `CHANGELOG.md`
 
 ---
 
@@ -30,7 +35,7 @@ Ghost 5.0.0 or higher.
 ## Installation
 
 1. Download the theme `.zip`
-2. Go to Ghost Admin > Settings > Site > Theme > Change Theme > Upload theme
+2. Go to Ghost Admin > Settings > Design > Change theme > Upload theme
 3. Activate
 
 ---
@@ -43,7 +48,9 @@ All settings are accessed via Ghost Admin > Settings > Site - Design & branding 
 
 | Setting | Default |
 |---------|---------|
-| `snipcart_public_api_key` | (your_test_or_public_api_key) |
+| `snipcart_public_api_key` | (empty) |
+
+Set this in Ghost Admin: `Settings → Design → Customize`.
 
 ### Reading Progress Bar
 

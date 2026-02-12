@@ -1,0 +1,36 @@
+<section class="nightdriver-section nightdriver-section--home-advert">
+    <div class="nightdriver-container">
+        <div class="nightdriver-section-header nightdriver-section-text">
+            <h2 class="nightdriver-section-title">Premium Theme</h2>
+        </div>
+        <div class="nightdriver-section-content">
+            <article class="nightdriver-home-advert-card" style="--nightdriver-home-advert-image: url('{{asset "img/nightdriver_theme_ad_2xs.png"}}') center center / contain no-repeat;">
+                <div class="nightdriver-home-advert-card__content">
+                    <p class="nightdriver-home-advert-card__kicker">Theme spotlight</p>
+                    <h2 class="nightdriver-home-advert-card__title">Nightdriver</h2>
+                    <p class="nightdriver-home-advert-card__price">$37 - Lifetime updates</p>
+                    <p class="nightdriver-home-advert-card__meta">Built for Ghost with day, custom, and night display modes.</p>
+                    <div class="nightdriver-home-advert-card__actions">
+                        {{#if @custom.snipcart_public_api_key}}
+                            <button
+                                class="snipcart-add-item nightdriver-home-advert-card__action nightdriver-home-advert-card__action--primary"
+                                data-item-id="nightdriver-theme"
+                                data-item-name="Nightdriver Ghost Theme"
+                                data-item-price="37.00"
+                                data-item-url="https://currenari.com/nightdriver/"
+                                data-item-description="Nightdriver Ghost theme with three display modes and lifetime updates."
+                                data-item-image="{{asset "img/nightdriver_theme_ad_2xs.png"}}"
+                            >
+                                Buy now ($37)
+                            </button>
+                        {{else}}
+                            <a class="nightdriver-home-advert-card__action nightdriver-home-advert-card__action--primary" href="https://currenari.com/nightdriver/">Buy now ($37)</a>
+                        {{/if}}
+                        <a class="nightdriver-home-advert-card__action" href="https://currenari.com/nightdriver/">View theme page</a>
+                        <a class="nightdriver-home-advert-card__action nightdriver-home-advert-card__action--secondary" href="{{asset "img/nightdriver_theme_ad_2xs.png"}}" target="_blank" rel="noopener">View High-Res Preview</a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>

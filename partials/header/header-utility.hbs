@@ -17,7 +17,9 @@
         {{> "navigation/theme-toggle"}}
       </div>
 
-      <div class="nightdriver-header-utility-right">
+      <div class="nightdriver-header-utility-right {{#if @custom.snipcart_public_api_key}}nightdriver-header-utility-right--has-cart{{/if}}">
+        {{> "ui/snipcart-summary" class="nightdriver-cart-summary--utility"}}
+
         {{> "ui/control"
             element="a"
             class="nightdriver-header-cta nightdriver-control nightdriver-control--brackets"
