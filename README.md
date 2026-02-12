@@ -1,6 +1,8 @@
 # Nightdriver
 
-Nightdriver — Premium Ghost Theme
+<p align="center">
+  <img src="assets/img/nightdriver_theme_ad_2xs.png" alt="Nightdriver Ghost Theme Preview" width="100%">
+</p>
 
 Nightdriver is a high-control, performance-focused Ghost theme for creators who value precision and clarity—built for focused reading and long-form publishing, with three display modes and 20 configurable settings managed directly in Ghost Admin.
 
