@@ -1,0 +1,44 @@
+{{!-- Layby mixed-media section (latest posts tagged "layby") --}}
+{{#get "posts" filter="tag:layby" limit="6" order="published_at desc" formats="html,plaintext"}}
+  {{#if posts}}
+    <section class="nightdriver-section nightdriver-section--layby">
+      <div class="nightdriver-container">
+        <div class="nightdriver-section-header nightdriver-section-text">
+          <h2 class="nightdriver-section-title">Layby</h2>
+        </div>
+
+        <div class="nightdriver-section-content">
+          <div class="nightdriver-layby-grid">
+            {{#foreach posts}}
+              <article class="nightdriver-layby-card">
+                <header class="nightdriver-layby-card-header">
+                  <p class="nightdriver-layby-date">
+                    <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="MMM DD, YYYY"}}</time>
+                  </p>
+
+                  <h3 class="nightdriver-layby-title">
+                    <a href="{{url}}">{{title}}</a>
+                  </h3>
+                </header>
+
+                <div class="nightdriver-layby-content">
+                  {{#if html}}
+                    {{{html}}}
+                  {{else}}
+                    {{#if excerpt}}
+                      <p>{{excerpt words="42"}}</p>
+                    {{/if}}
+                  {{/if}}
+                </div>
+
+                <p class="nightdriver-layby-footer">
+                  <a class="nightdriver-layby-action" href="{{url}}">Open entry</a>
+                </p>
+              </article>
+            {{/foreach}}
+          </div>
+        </div>
+      </div>
+    </section>
+  {{/if}}
+{{/get}}

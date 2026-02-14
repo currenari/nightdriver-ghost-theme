@@ -1,8 +1,16 @@
 /**
  * nightdriver Theme - Main JavaScript
- * Clean, minimal interactions
+ * Interaction modules:
+ * - Shared UI helpers
+ * - Homepage drift/notes interactions
+ * - Utility bar behavior
+ * - Theme mode system
+ * - Mobile navigation drawer
  */
 
+/* -------------------------------------------------------------------------- */
+/* Shared UI behavior                                                         */
+/* -------------------------------------------------------------------------- */
 (function () {
   'use strict';
 
@@ -29,11 +37,6 @@
         });
       }
     });
-  });
-
-  // Add nightdriver-loaded class to body for CSS animations
-  window.addEventListener('load', function () {
-    document.body.classList.add('nightdriver-loaded');
   });
 
   // Header scroll behavior (adds shadow on scroll)
@@ -82,11 +85,24 @@
     pre.appendChild(button);
 
     button.addEventListener('click', function () {
+      if (!navigator.clipboard || !navigator.clipboard.writeText) {
+        button.textContent = 'Unavailable';
+        setTimeout(function () {
+          button.textContent = 'Copy';
+        }, 1400);
+        return;
+      }
+
       navigator.clipboard.writeText(codeBlock.textContent).then(function () {
         button.textContent = 'Copied!';
         setTimeout(function () {
           button.textContent = 'Copy';
         }, 2000);
+      }).catch(function () {
+        button.textContent = 'Failed';
+        setTimeout(function () {
+          button.textContent = 'Copy';
+        }, 1400);
       });
     });
 
@@ -235,8 +251,125 @@
     });
   })();
 
+  // Layby YouTube embeds: replace iframe with clean poster card + play button
+  (function () {
+    var laybyContentBlocks = document.querySelectorAll('.nightdriver-layby-content');
+    if (!laybyContentBlocks.length) return;
+
+    function getYoutubeId(rawUrl) {
+      if (!rawUrl) return null;
+
+      var parsed;
+      try {
+        parsed = new URL(rawUrl, window.location.origin);
+      } catch (error) {
+        return null;
+      }
+
+      var host = parsed.hostname.replace(/^www\./, '');
+      if (host === 'youtu.be') {
+        return (parsed.pathname || '').replace(/^\/+/, '').split(/[/?#&]/)[0] || null;
+      }
+
+      if (host === 'youtube.com' || host === 'youtube-nocookie.com' || host.endsWith('.youtube.com')) {
+        var embedMatch = parsed.pathname.match(/\/embed\/([^/?#&]+)/);
+        if (embedMatch && embedMatch[1]) return embedMatch[1];
+        var v = parsed.searchParams.get('v');
+        if (v) return v;
+      }
+
+      return null;
+    }
+
+    laybyContentBlocks.forEach(function (contentBlock) {
+      var embedIframe = contentBlock.querySelector('.kg-embed-card iframe[src]');
+      if (!embedIframe) return;
+
+      var videoId = getYoutubeId(embedIframe.getAttribute('src'));
+      if (!videoId) return;
+      var parentCard = contentBlock.closest('.nightdriver-layby-card');
+      var cardTitleEl = parentCard ? parentCard.querySelector('.nightdriver-layby-title a, .nightdriver-layby-title') : null;
+      var cardTitle = cardTitleEl ? (cardTitleEl.textContent || '').trim() : 'Watch on YouTube';
+
+      var posterLink = document.createElement('a');
+      posterLink.className = 'nightdriver-layby-video-poster';
+      posterLink.href = 'https://www.youtube.com/watch?v=' + encodeURIComponent(videoId);
+      posterLink.target = '_blank';
+      posterLink.rel = 'noopener noreferrer';
+      posterLink.setAttribute('aria-label', 'Play "' + cardTitle + '" on YouTube');
+
+      var thumb = document.createElement('img');
+      thumb.className = 'nightdriver-layby-video-poster-img';
+      thumb.alt = cardTitle;
+      thumb.loading = 'lazy';
+      thumb.decoding = 'async';
+
+      var thumbSources = [
+        'https://img.youtube.com/vi/' + encodeURIComponent(videoId) + '/maxresdefault.jpg',
+        'https://img.youtube.com/vi/' + encodeURIComponent(videoId) + '/hqdefault.jpg',
+        'https://img.youtube.com/vi/' + encodeURIComponent(videoId) + '/mqdefault.jpg'
+      ];
+      var thumbIndex = 0;
+      thumb.src = thumbSources[thumbIndex];
+      thumb.addEventListener('error', function () {
+        thumbIndex += 1;
+        if (thumbIndex < thumbSources.length) {
+          thumb.src = thumbSources[thumbIndex];
+        } else {
+          thumb.remove();
+        }
+      });
+      posterLink.appendChild(thumb);
+
+      var titleBadge = document.createElement('span');
+      titleBadge.className = 'nightdriver-layby-video-poster-title';
+      titleBadge.textContent = cardTitle;
+      posterLink.appendChild(titleBadge);
+
+      var playBadge = document.createElement('span');
+      playBadge.className = 'nightdriver-layby-video-poster-play';
+      playBadge.setAttribute('aria-hidden', 'true');
+      posterLink.appendChild(playBadge);
+
+      contentBlock.textContent = '';
+      contentBlock.appendChild(posterLink);
+      contentBlock.classList.add('nightdriver-layby-content--poster');
+    });
+  })();
+
+  // Single-post embeds: first video is lead media, remaining are compact inline
+  (function () {
+    var postContent = document.querySelector('.nightdriver-post-full--single .nightdriver-post-full-content');
+    if (!postContent) return;
+
+    var nodes = Array.prototype.slice.call(postContent.querySelectorAll('.kg-embed-card, iframe'));
+    if (!nodes.length) return;
+
+    var embedItems = [];
+    nodes.forEach(function (node) {
+      if (node.tagName === 'IFRAME') {
+        if (node.closest('.kg-embed-card')) return;
+        embedItems.push(node);
+        return;
+      }
+
+      if (node.classList && node.classList.contains('kg-embed-card')) {
+        embedItems.push(node);
+      }
+    });
+
+    if (!embedItems.length) return;
+
+    embedItems.forEach(function (embedEl, index) {
+      embedEl.classList.add(index === 0 ? 'nightdriver-post-video--lead' : 'nightdriver-post-video--inline');
+    });
+  })();
+
 })();
 
+/* -------------------------------------------------------------------------- */
+/* Utility bar hide/pin controls                                              */
+/* -------------------------------------------------------------------------- */
 (function () {
   var utility = document.querySelector('.nightdriver-header-utility');
   if (!utility) return;
@@ -246,6 +379,12 @@
   var longPressTimer = null;
   var suppressClick = false;
   var longPressMs = 450;
+
+  function clearLongPressTimer() {
+    if (!longPressTimer) return;
+    clearTimeout(longPressTimer);
+    longPressTimer = null;
+  }
 
   function setUtilityHidden(hidden) {
     utility.classList.toggle('nightdriver-is-hidden', hidden);
@@ -279,9 +418,7 @@
     });
 
     handle.addEventListener('pointerdown', function () {
-      if (longPressTimer) {
-        clearTimeout(longPressTimer);
-      }
+      clearLongPressTimer();
       longPressTimer = setTimeout(function () {
         longPressTimer = null;
         suppressClick = true;
@@ -292,25 +429,18 @@
 
     handle.addEventListener('pointerup', function () {
       if (longPressTimer) {
-        clearTimeout(longPressTimer);
-        longPressTimer = null;
+        clearLongPressTimer();
         suppressClick = true;
         toggleHiddenFromClick();
       }
     });
 
     handle.addEventListener('pointerleave', function () {
-      if (longPressTimer) {
-        clearTimeout(longPressTimer);
-        longPressTimer = null;
-      }
+      clearLongPressTimer();
     });
 
     handle.addEventListener('pointercancel', function () {
-      if (longPressTimer) {
-        clearTimeout(longPressTimer);
-        longPressTimer = null;
-      }
+      clearLongPressTimer();
     });
 
     handle.addEventListener('keydown', function (event) {
@@ -339,6 +469,9 @@
   }, { passive: true });
 })();
 
+/* -------------------------------------------------------------------------- */
+/* Mode label text mapping from @custom.mode_labels                           */
+/* -------------------------------------------------------------------------- */
 (function () {
   var wrap = document.querySelector('[data-mode-labels]');
   if (!wrap) return;
@@ -374,6 +507,9 @@
   if (mid) mid.textContent = map.custommode || mid.textContent;
 })();
 
+/* -------------------------------------------------------------------------- */
+/* Theme mode switching (day/custom/night)                                    */
+/* -------------------------------------------------------------------------- */
 /* ========================================
    THEME SWITCHING SYSTEM
    Complete functionality for Day/Custom/Night modes
@@ -478,6 +614,9 @@
   })();
 })();
 
+/* -------------------------------------------------------------------------- */
+/* Mobile nav drawer                                                          */
+/* -------------------------------------------------------------------------- */
 (() => {
   const toggle = document.querySelector("[data-nav-toggle]");
   const drawer = document.getElementById("nightdriver-nav-drawer");

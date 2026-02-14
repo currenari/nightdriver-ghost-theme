@@ -1,0 +1,38 @@
+{{!-- Signal Notes (latest posts tagged "note") --}}
+{{#get "posts" filter="tag:note+status:published" limit="3" order="published_at desc"}}
+  {{#if posts}}
+    <section class="nightdriver-section nightdriver-section--notes nightdriver-section--surface">
+      <div class="nightdriver-container">
+        <div class="nightdriver-section-header nightdriver-section-text">
+          <h2 class="nightdriver-section-title">Signal Notes</h2>
+        </div>
+
+        <div class="nightdriver-section-content">
+          <div class="nightdriver-notes-grid">
+            {{#foreach posts}}
+              <article class="nightdriver-note-card nightdriver-note-card--quote">
+                <p class="nightdriver-note-meta">
+                  <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="MMM DD, YYYY"}}</time>
+                </p>
+                <blockquote class="nightdriver-note-quote">
+                  {{#if custom_excerpt}}
+                    <p>{{custom_excerpt}}</p>
+                  {{else}}
+                    {{#if excerpt}}
+                      <p>{{excerpt words="26"}}</p>
+                    {{else}}
+                      <p>{{title}}</p>
+                    {{/if}}
+                  {{/if}}
+                </blockquote>
+                <p class="nightdriver-note-source">
+                  <a href="{{url}}">Open note</a>
+                </p>
+              </article>
+            {{/foreach}}
+          </div>
+        </div>
+      </div>
+    </section>
+  {{/if}}
+{{/get}}

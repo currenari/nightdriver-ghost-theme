@@ -31,16 +31,16 @@
       } catch (e) {}
     })();
     </script>
-
-
-
-
-
-    {{!-- Custom Mode Variables --}}
+    {{!--
+      Theme runtime variables:
+      - Base custom settings are exposed on :root.
+      - Custom mode overrides are scoped to `html.nightdriver-theme-mode-custommode`.
+    --}}
     <style>
   :root {
     --nightdriver-progress-bar-color: {{@custom.progress_bar_color}};
     --nightdriver-progress-track-color: {{@custom.progress_track_color}};
+    --nightdriver-notes-gradient-tint: {{@custom.signal_notes_gradient_tint}};
     --nightdriver-progress-height: {{#match @custom.progress_bar_height "Off"}}0{{else}}{{@custom.progress_bar_height}}
     {{/match}};
   }
@@ -54,12 +54,6 @@
     --color-text-secondary: {{@custom.nightdriver_custom_mode_text_secondary}};
     --color-text-tertiary: {{@custom.nightdriver_custom_mode_text_tertiary}};
     --nightdriver-utility-bar-bg: {{@custom.nightdriver_custom_mode_header_utility_bg}};
-  }
-
-  /* Custom Mode - Custom Header */
-  html.nightdriver-theme-mode-custommode .nightdriver-site-header {
-    background-color: {{@custom.nightdriver_custom_mode_header_bg}};
-    border-bottom-color: {{@custom.nightdriver_custom_mode_border}};
   }
 
   html.nightdriver-theme-mode-custommode .nightdriver-site-logo {
@@ -95,13 +89,12 @@
 </head>
 <body class="{{body_class}}">
     {{#if @custom.snipcart_public_api_key}}
-      <div hidden id="snipcart" data-api-key="{{@custom.snipcart_public_api_key}}"></div>
+      <div hidden id="snipcart" data-api-key="{{@custom.snipcart_public_api_key}}" data-currency="gbp"></div>
       <script async src="https://cdn.snipcart.com/themes/v3.7.1/default/snipcart.js"></script>
     {{/if}}
 
     {{!-- Site Header --}}
     {{> "header/header"}}
-
 
     {{!-- Main Content --}}
     <main class="nightdriver-site-main">
@@ -111,8 +104,6 @@
 
     {{!-- Site Footer --}}
     {{> "footer/footer"}}
-
-
 
     {{!-- Ghost outputs important scripts and data --}}
     {{ghost_foot}}

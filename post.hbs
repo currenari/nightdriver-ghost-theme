@@ -41,7 +41,7 @@
                       {{img_url feature_image size="m"}} 600w,
                       {{img_url feature_image size="l"}} 1000w,
                       {{img_url feature_image size="xl"}} 2000w"
-              sizes="(max-width: 768px) 100vw, 1100px"
+              sizes="(max-width: 768px) 100vw, 680px"
               alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
               loading="eager"
             >
@@ -80,16 +80,20 @@
   {{> "post/post-navigation"}}
   {{> "post/post-comments"}}
 
-  {{#if primary_tag}}
-    {{#get "posts" filter="tag:{{primary_tag.slug}}+id:-{{id}}" limit="3"}}
-      {{#if posts}}
-        {{> "content/post-list"
-            title="Related Posts"
-            posts=posts
-            show_tags=false
-            heading="h3"
-        }}
-      {{/if}}
-    {{/get}}
-  {{/if}}
+  {{!-- Keep related content for normal posts only. --}}
+  {{#has tag="note,layby"}}
+  {{else}}
+    {{#if primary_tag}}
+      {{#get "posts" filter="tag:{{primary_tag.slug}}+id:-{{id}}+tag:-note+tag:-layby+status:published" limit="3"}}
+        {{#if posts}}
+          {{> "content/post-list"
+              title="Related Posts"
+              posts=posts
+              show_tags=false
+              heading="h3"
+          }}
+        {{/if}}
+      {{/get}}
+    {{/if}}
+  {{/has}}
 {{/post}}

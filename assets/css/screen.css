@@ -1,12 +1,14 @@
-/* ========================================
-   NIGHTDRIVER THEME
-   A tech-forward Ghost theme 
-   with three modes, a collapsible utility bar, 
-   and a bento-style layout.
-   ======================================== */
-
+/*
+  Nightdriver stylesheet map
+  1) Design tokens and base reset
+  2) Header + utility bar + mode rail
+  3) Shared sections/cards/controls
+  4) Homepage modules (featured, latest, drift zone, notes)
+  5) Post/page/article layouts
+  6) Ghost integrations (comments, Koenig cards, Snipcart)
+  7) Responsive rules + typography system
+*/
 :root {
-  /* Color Tokens */
   --color-background: #f7f7f5;
   --color-surface: #ffffff;
   --color-border: #e6e6e1;
@@ -17,44 +19,22 @@
   --color-accent-hover: #0284c7;
   --link-opacity: 0.77;
   --link-hover-opacity: 1;
-
-  /* ========================================
-     TYPOGRAPHY SYSTEM
-     Ghost Admin overrides:
-     --gh-font-heading, --gh-font-body
-     Three roles:
-     - Heading: titles, hero text
-     - Body: paragraphs, reading content
-     - UI: labels, nav, tags, buttons (follows heading)
-     ======================================== */
-  
-  /* Local Font Stacks */
   --font-mono-stack: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
   --font-sans-stack: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  
-  /* Ghost-Swappable Fonts */
   --font-heading: var(--gh-font-heading, var(--font-mono-stack));
   --font-body: var(--gh-font-body, var(--font-sans-stack));
   --font-ui: var(--font-heading);
-  
-  /* Tracking Tokens */
   --tracking-body: -0.011em;
   --tracking-heading: -0.02em;
   --tracking-ui: 0.08em;
-
-  /* Layout Tokens */
   --container-width: 1180px;
   --container-padding: 2rem;
   --header-height: 3.6rem;
   --nightdriver-utility-peek: 5px;
   --nightdriver-utility-handle-h: 6px;
-
-  /* Post Layout Tokens */
   --post-header-width: 720px;
   --post-content-width: 680px;
   --post-image-wide-width: 1100px;
-
-  /* Spacing Tokens */
   --space-sm: 0.5rem;
   --space-md: 1rem;
   --space-lg: 1.5rem;
@@ -62,50 +42,49 @@
   --space-2xl: 3rem;
   --space-3xl: 4rem;
   --space-4xl: 6rem;
-
-  /* Section Tokens */
   --section-pad-y: var(--space-4xl);
   --section-pad-y-compact: var(--space-3xl);
   --section-header-gap: calc(var(--space-md) + 0.25rem);
   --section-title-bottom: var(--space-sm);
   --section-content-gap: var(--space-lg);
   --ui-spacer-height: var(--space-3xl);
-
-  /* Radius Tokens */
   --radius-sm: 0.2rem;
   --radius-md: 0.3rem;
   --radius-lg: 0.4rem;
-
-  /* Surface Tokens */
+  --radius-card: var(--radius-md);
+  --radius-utility-handle: 6px;
+  --radius-control-touch: 0.625rem;
+  --radius-nav-drawer-link: 0.75rem;
+  --radius-drawer: 1rem;
   --card-bg: var(--color-surface);
   --card-border: var(--color-border);
-  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.06), 0 10px 24px rgba(0, 0, 0, 0.08);
-  --shadow-2: 0 2px 6px rgba(0, 0, 0, 0.06), 0 10px 22px rgba(0, 0, 0, 0.08);
-
-  /* Mode Rail Tokens */
+  --card-hover-lift: -2px;
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 14px rgba(0, 0, 0, 0.06);
+  --shadow-2: 0 2px 6px rgba(0, 0, 0, 0.05), 0 8px 18px rgba(0, 0, 0, 0.08);
+  --shadow-card-subtle: 0 0 0 1px color-mix(in srgb, var(--color-text) 8%, transparent);
+  --shadow-card-subtle-hover: 0 2px 10px color-mix(in srgb, var(--color-text) 10%, transparent);
+  --shadow-drawer: -24px 0 80px rgba(0, 0, 0, 0.35);
   --nightdriver-rail-track: color-mix(in srgb, var(--color-text) 18%, transparent);
   --nightdriver-rail-dot-border: color-mix(in srgb, var(--color-text) 28%, transparent);
   --nightdriver-rail-indicator-bg: color-mix(in srgb, var(--color-text) 8%, transparent);
   --nightdriver-rail-indicator-border: color-mix(in srgb, var(--color-text) 20%, transparent);
   --nightdriver-rail-focus: color-mix(in srgb, var(--color-text) 35%, transparent);
-
-  /* Motion Tokens */
   --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-
-  /* Header Control Tokens */
+  --nightdriver-btn-height: 2.15rem;
+  --nightdriver-btn-pad-x: 0.75rem;
+  --nightdriver-btn-font-size: 0.75rem;
+  --nightdriver-btn-weight: 600;
+  --nightdriver-btn-letter: var(--tracking-ui);
+  --nightdriver-btn-border: color-mix(in srgb, var(--color-text) 22%, var(--color-border));
+  --nightdriver-btn-bg: color-mix(in srgb, var(--color-surface) 82%, transparent);
+  --nightdriver-btn-bg-hover: color-mix(in srgb, var(--color-surface) 68%, var(--color-background));
   --nightdriver-control-h: 2.4rem;
 }
-
-/* ========================================
-   BASE
-   ======================================== */
-
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
-
 html {
   font-size: 14px;
   -webkit-text-size-adjust: 100%;
@@ -113,7 +92,6 @@ html {
   -moz-osx-font-smoothing: grayscale;
   min-height: 100%;
 }
-
 body {
   margin: 0;
   font-family: var(--font-body);
@@ -127,49 +105,32 @@ body {
   display: flex;
   flex-direction: column;
 }
-
 img,
 video {
   max-width: 100%;
   height: auto;
   display: block;
 }
-
 a {
   color: inherit;
 }
-
-/* Enhanced Heading Typography */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: var(--tracking-heading);
 }
-
 strong,
 b {
   font-weight: 500;
 }
-
-/* ========================================
-   GLOBAL: NO UNDERLINES ANYWHERE
-   ======================================== */
-
-a,
-a:link,
-a:visited,
-a:hover,
-a:active,
-a:focus,
-a:focus-visible {
+:where(a, a:link, a:visited, a:hover, a:active, a:focus, a:focus-visible) {
   text-decoration: none !important;
   text-decoration-thickness: 0 !important;
   text-underline-offset: 0 !important;
   box-shadow: none !important;
   background-image: none !important;
 }
-
 u,
 ins {
   text-decoration: none !important;
@@ -177,36 +138,26 @@ ins {
   text-underline-offset: 0 !important;
   border-bottom: 0 !important;
 }
-
 :where(a) {
   color: inherit;
   opacity: var(--link-opacity);
   transition: var(--transition);
 }
-
 :where(a:hover, a:focus-visible) {
   opacity: var(--link-hover-opacity);
 }
-
-/* ========================================
-   HEADER
-   ======================================== */
-
 .nightdriver-site-header {
   position: sticky;
   top: 0;
   z-index: 100;
   transition: var(--transition);
 }
-
-/* Top Bar (Layer 1) */
 .nightdriver-header-top {
   position: relative;
   z-index: 30;
   background-color: var(--color-background);
   border-bottom: 1px solid var(--color-border);
 }
-
 .nightdriver-header-container {
   min-height: var(--header-height);
   max-width: var(--container-width);
@@ -217,7 +168,6 @@ ins {
   justify-content: space-between;
   gap: var(--space-2xl);
 }
-
 .nightdriver-site-logo {
   display: flex;
   align-items: center;
@@ -230,25 +180,21 @@ ins {
   color: var(--color-text);
   transition: var(--transition);
 }
-
 .nightdriver-site-logo:hover {
   opacity: var(--link-hover-opacity);
 }
-
 .nightdriver-site-logo img {
   height: 2.4rem;
   width: auto;
   object-fit: contain;
   display: block;
 }
-
 .nightdriver-site-nav {
   flex: 1;
   display: flex;
   align-items: center;
   gap: var(--space-xl);
 }
-
 .nightdriver-nav-list {
   margin: 0;
   padding: 0;
@@ -256,25 +202,19 @@ ins {
   display: flex;
   gap: 0;
 }
-
 .nightdriver-nav-item {
   display: inline-flex;
   align-items: center;
 }
-
 .nightdriver-nav-item:not(:first-child) {
   padding-left: 0.65rem;
 }
-
-/* Desktop Navigation Separators */
 .nightdriver-site-nav .nightdriver-nav-item:not(:first-child)::before {
   content: "/";
   margin-right: 0.65rem;
   font-weight: 500;
   color: var(--color-text-tertiary);
 }
-
-
 .nightdriver-nav-item a {
   text-decoration: none;
   font-size: 0.75rem;
@@ -285,19 +225,15 @@ ins {
   opacity: 0.85;
   transition: var(--transition);
 }
-
 .nightdriver-nav-item a:hover {
   color: var(--color-text);
   opacity: 1;
 }
-
 .nightdriver-nav-item.nightdriver-nav-item--active a {
   color: var(--color-text);
   font-weight: 500;
   opacity: 1;
 }
-
-/* Progress Bar Pinned to Top Bar Bottom Edge */
 .nightdriver-header-top .nightdriver-progress {
   position: absolute;
   left: 0;
@@ -305,27 +241,19 @@ ins {
   bottom: 0;
   z-index: 40;
 }
-
-/* Utility Bar (Layer 2 Overlay) */
 .nightdriver-header-utility {
   position: absolute;
   left: 0;
   right: 0;
-
-  /* Positioned Directly Below the Top Bar */
   top: var(--header-height);
-
   z-index: 20;
   background: var(--nightdriver-utility-bar-bg, var(--color-surface));
-
   transition: transform 220ms ease;
   will-change: transform;
 }
-
 .nightdriver-header-utility-inner {
   overflow: hidden;
 }
-
 .nightdriver-header-utility-container {
   max-width: var(--nightdriver-utility-max, calc(var(--container-width) - 6rem));
   margin: 0 auto;
@@ -335,7 +263,6 @@ ins {
   align-items: center;
   gap: var(--space-xl);
 }
-
 .nightdriver-header-utility-left { justify-self: start; }
 .nightdriver-header-utility-center {
   justify-self: center;
@@ -348,8 +275,6 @@ ins {
   align-items: center;
   gap: var(--space-lg);
 }
-
-/* Mode Rail (Utility Bar) */
 .nightdriver-mode-rail {
   position: relative;
   display: grid;
@@ -361,7 +286,6 @@ ins {
   padding: 0;
   width: max-content;
 }
-
 .nightdriver-mode-rail__end {
   appearance: none;
   background: none;
@@ -371,11 +295,9 @@ ins {
   opacity: 0.85;
   color: var(--color-text-secondary);
 }
-
 .nightdriver-mode-rail__end[data-mode="day"] { grid-column: 1; grid-row: 1; justify-self: end; }
 .nightdriver-mode-rail__track { grid-column: 2; grid-row: 1; }
 .nightdriver-mode-rail__end[data-mode="night"] { grid-column: 3; grid-row: 1; justify-self: start; }
-
 .nightdriver-mode-rail__track {
   position: relative;
   height: 26px;
@@ -384,7 +306,6 @@ ins {
   justify-content: space-between;
   width: clamp(140px, 16vw, 180px);
 }
-
 .nightdriver-mode-rail__track::before {
   content: "";
   position: absolute;
@@ -395,7 +316,6 @@ ins {
   height: 1px;
   background: var(--nightdriver-rail-track-current, var(--nightdriver-rail-track));
 }
-
 .nightdriver-mode-rail__dot {
   position: relative;
   z-index: 2;
@@ -408,7 +328,6 @@ ins {
   padding: 0;
   transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
 }
-
 .nightdriver-mode-rail__indicator {
   position: absolute;
   z-index: 1;
@@ -423,14 +342,12 @@ ins {
   left: var(--nightdriver-rail-x, 50%);
   transition: left 180ms ease, background 180ms ease, border-color 180ms ease;
 }
-
 .nightdriver-mode-rail:has(.nightdriver-mode-rail__end:hover),
 .nightdriver-mode-rail:has(.nightdriver-mode-rail__midlabel:hover),
 .nightdriver-mode-rail:has(.nightdriver-mode-rail__end:focus-visible),
 .nightdriver-mode-rail:has(.nightdriver-mode-rail__midlabel:focus-visible) {
   --nightdriver-rail-track-current: color-mix(in srgb, var(--color-text) 26%, transparent);
 }
-
 .nightdriver-mode-rail:has(.nightdriver-mode-rail__end[data-mode="day"]:hover) .nightdriver-mode-rail__dot[data-mode="day"],
 .nightdriver-mode-rail:has(.nightdriver-mode-rail__end[data-mode="day"]:focus-visible) .nightdriver-mode-rail__dot[data-mode="day"],
 .nightdriver-mode-rail:has(.nightdriver-mode-rail__midlabel:hover) .nightdriver-mode-rail__dot[data-mode="custom"],
@@ -441,20 +358,17 @@ ins {
   border-color: color-mix(in srgb, var(--color-text) 45%, transparent);
   background: color-mix(in srgb, var(--color-text) 10%, transparent);
 }
-
 .nightdriver-mode-rail__dot:hover,
 .nightdriver-mode-rail__end:hover,
 .nightdriver-mode-rail__midlabel:hover {
   opacity: 1;
   color: var(--color-text);
 }
-
 .nightdriver-mode-rail__dot:hover {
   transform: scale(1.12);
   border-color: color-mix(in srgb, var(--color-text) 45%, transparent);
   background: color-mix(in srgb, var(--color-text) 10%, transparent);
 }
-
 .nightdriver-mode-rail__midlabel {
   grid-column: 2;
   grid-row: 2;
@@ -471,14 +385,11 @@ ins {
   position: relative;
   z-index: 2;
 }
-
 .nightdriver-mode-rail__dot:focus-visible,
 .nightdriver-mode-rail__end:focus-visible {
   outline: 2px solid var(--nightdriver-rail-focus);
   outline-offset: 3px;
 }
-
-/* Universal Control */
 .nightdriver-control {
   font-family: var(--font-ui);
   font-size: 0.75rem;
@@ -489,102 +400,81 @@ ins {
   opacity: 0.85;
   transition: var(--transition);
 }
-
 .nightdriver-control--brackets::before,
 .nightdriver-control--brackets::after {
-  color: var(--color-text-tertiary);
+  color: currentColor;
 }
-
 .nightdriver-control--brackets::before { content: "[ "; }
 .nightdriver-control--brackets::after { content: " ]"; }
-
-/* Search Button Uses the Same Control System as Mode Buttons */
 .nightdriver-search-btn {
   appearance: none;
   border: 0;
   cursor: pointer;
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.6rem;
-
   height: var(--nightdriver-control-h);
   min-width: auto;
   padding: 0 0.5rem;
-
   background: transparent;
   white-space: nowrap;
 }
-
 .nightdriver-search-btn:hover {
   opacity: 1;
   color: var(--color-text);
   background: transparent;
 }
-
 .nightdriver-search-btn:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
 }
-
 .nightdriver-search-btn .nightdriver-icon {
   width: 1.05rem;
   height: 1.05rem;
   display: block;
   color: currentColor;
 }
-
 .nightdriver-search-btn span {
   display: inline-block;
   transform: translateY(0.5px);
 }
-
 .nightdriver-header-cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.6rem;
-
   height: var(--nightdriver-control-h);
   min-width: auto;
   padding: 0 0.5rem;
-
   text-decoration: none;
 }
-
 .nightdriver-header-cta .nightdriver-icon {
   width: 1.15rem;
   height: 1.15rem;
   display: block;
   color: currentColor;
 }
-
 .nightdriver-header-utility .nightdriver-icon {
   display: block;
 }
-
 .nightdriver-header-utility .nightdriver-search-btn,
 .nightdriver-header-utility .nightdriver-header-cta {
   gap: 0.6rem;
 }
-
 .nightdriver-header-cta span {
   display: inline-block;
   transform: translateY(0.5px);
 }
-
 .nightdriver-header-cta:hover {
   opacity: 1;
   color: var(--color-text);
   background: transparent;
 }
-
 .nightdriver-cart-summary {
   display: inline-flex;
   align-items: center;
 }
-
 .nightdriver-cart-summary-button {
   appearance: none;
   border: 0 !important;
@@ -610,32 +500,24 @@ ins {
   box-shadow: none !important;
   transition: var(--transition) !important;
 }
-
 .nightdriver-cart-summary-button:hover {
   color: var(--color-text) !important;
   opacity: 1;
 }
-
 .nightdriver-cart-summary-divider {
   color: var(--color-text-tertiary);
   opacity: 0.8;
 }
-
 .nightdriver-cart-summary-count,
 .nightdriver-cart-summary-total {
   font-variant-numeric: tabular-nums;
 }
-
 .nightdriver-cart-summary--utility {
   display: none;
 }
-
-/* Hidden State: Slides Up Behind the Top Bar */
 .nightdriver-header-utility.nightdriver-is-hidden {
   transform: translateY(calc(-100% + var(--nightdriver-utility-peek)));
 }
-
-/* Utility Handle */
 .nightdriver-header-utility-handle {
   position: absolute;
   left: 50%;
@@ -644,45 +526,38 @@ ins {
   transform-origin: top center;
   width: 72px;
   height: var(--nightdriver-utility-handle-h);
-  border-radius: 0 0 6px 6px;
+  border-radius: 0 0 var(--radius-utility-handle) var(--radius-utility-handle);
   background: var(--color-border);
   opacity: 0.6;
   border: 0;
   padding: 0;
   cursor: pointer;
   appearance: none;
+  transition: var(--transition);
 }
-
+.nightdriver-header-utility-handle:hover {
+  opacity: 0.88;
+  background: color-mix(in srgb, var(--color-text) 14%, var(--color-border));
+  transform: translateX(-50%) scaleY(1.12);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-text) 12%, transparent);
+}
 .nightdriver-header-utility-handle:focus-visible {
   outline: 2px solid var(--nightdriver-rail-focus);
   outline-offset: 3px;
 }
-
 .nightdriver-header-utility[data-pinned="true"] .nightdriver-header-utility-handle {
   opacity: 0.95;
   background: color-mix(in srgb, var(--color-text) 22%, var(--color-border));
   transform: translateX(-50%) scaleY(1.6);
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-text) 18%, transparent);
 }
-
-/* ========================================
-   LAYOUT
-   ======================================== */
-
 .nightdriver-site-main {
   min-height: 0;
   flex: 1 0 auto;
 }
-
 .nightdriver-site-main > .nightdriver-section:last-child {
   padding-bottom: var(--section-pad-y-compact);
 }
-
-/* UI Spacer
-   Flexible breathing room element.
-   - Transparent in day/night mode (inherits page background)
-   - Custom color in Nightdriver custom mode
-*/
 .nightdriver-ui-spacer {
   display: block;
   height: var(--ui-spacer-height, 2rem);
@@ -690,46 +565,38 @@ ins {
   width: 100%;
   background-color: transparent;
 }
-
 .nightdriver-container {
   max-width: var(--container-width);
   margin: 0 auto;
   padding: 0 var(--container-padding);
 }
-
-/* ========================================
-   SECTION SYSTEM
-   
-   Base:     .nightdriver-section
-   Modifiers:
-     --no-header   zero header gap
-     --hero        centered text
-     --surface     background color
-   ======================================== */
-
 .nightdriver-section {
   padding: var(--section-pad-y) 0;
 }
-
 .nightdriver-section--no-header {
   --section-header-gap: 0;
   --section-title-bottom: 0;
 }
-
 .nightdriver-section--hero {
   text-align: left;
   --section-content-gap: 0;
 }
-
 .nightdriver-section--surface {
   background-color: var(--color-surface);
 }
-
-/* Section Children */
 .nightdriver-section-header {
   margin-bottom: var(--section-header-gap);
 }
-
+.nightdriver-section-header.nightdriver-section-text {
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+}
+.nightdriver-section-header.nightdriver-section-header--narrow {
+  max-width: var(--post-content-width);
+  margin-left: auto;
+  margin-right: auto;
+}
 .nightdriver-section-title {
   margin: 0 0 var(--section-title-bottom);
   display: inline-flex;
@@ -747,7 +614,6 @@ ins {
   background: transparent;
   border: 0;
 }
-
 .nightdriver-section-title::before {
   content: "";
   width: 18px;
@@ -756,22 +622,20 @@ ins {
   display: inline-block;
   transform: translateY(1px);
 }
-
 .nightdriver-section-content {
   display: grid;
   gap: var(--section-content-gap);
 }
-
 .nightdriver-section-text {
   max-width: var(--post-content-width);
   margin-left: auto;
   margin-right: auto;
 }
-
-/* ========================================
-   HERO CONTENT
-   ======================================== */
-
+.nightdriver-section-text--full {
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+}
 .nightdriver-hero-title {
   margin: 0 0 var(--space-lg);
   font-size: 3rem;
@@ -779,7 +643,6 @@ ins {
   line-height: 1.1;
   letter-spacing: -0.03em;
 }
-
 .nightdriver-hero-description {
   margin: 0 auto;
   max-width: 600px;
@@ -787,7 +650,6 @@ ins {
   line-height: 1.5;
   color: var(--color-text-secondary);
 }
-
 .nightdriver-author-avatar {
   width: 80px;
   height: 80px;
@@ -795,13 +657,11 @@ ins {
   margin-bottom: var(--space-lg);
   object-fit: cover;
 }
-
 .nightdriver-author-profile {
   background: transparent;
   border: 0;
   box-shadow: none;
 }
-
 .nightdriver-author-header {
   padding: var(--space-lg) 0 var(--space-md);
   width: min(100%, 72ch);
@@ -813,7 +673,6 @@ ins {
   align-items: start;
   justify-content: space-between;
 }
-
 .nightdriver-author-header .nightdriver-author-avatar {
   grid-column: 2;
   grid-row: 2;
@@ -823,98 +682,75 @@ ins {
   width: 64px;
   height: 64px;
 }
-
 .nightdriver-author-header .nightdriver-hero-title {
   grid-column: 1;
   margin: 0 0 0.2rem;
   font-size: clamp(2.2rem, 5vw, 3.6rem);
 }
-
 .nightdriver-author-rule {
   grid-column: 1;
   width: calc(100% - 0.9rem);
   height: 1px;
   background: color-mix(in srgb, var(--color-text) 16%, transparent);
 }
-
 .nightdriver-author-header .nightdriver-hero-description {
   grid-column: 1;
   max-width: 72ch;
   margin: 0.1rem 0 0;
 }
-
 @media (max-width: 760px) {
   .nightdriver-author-header {
     grid-template-columns: 1fr;
     column-gap: 0;
   }
-
   .nightdriver-author-header .nightdriver-author-avatar {
     grid-column: 1;
     grid-row: 3;
     margin: 0.5rem 0 0;
   }
-
   .nightdriver-author-rule {
     width: 100%;
   }
 }
-
 .nightdriver-author-meta {
   padding: 0 0 var(--space-lg);
   width: min(100%, 72ch);
   margin: 0 auto;
   margin-top: var(--space-xl);
 }
-
 .nightdriver-author-info-grid {
   display: grid;
   gap: var(--space-lg);
 }
-
 .nightdriver-author-info-block {
   display: grid;
   gap: 0.6rem;
 }
-
 .nightdriver-author-info-value {
   margin: 0;
   color: var(--color-text-tertiary);
   font-size: 0.9375rem;
 }
-
 .nightdriver-author-meta .nightdriver-section-title {
   font-size: 0.7rem;
   color: var(--color-text-tertiary);
 }
-
 .nightdriver-author-meta .nightdriver-bento-chip,
 .nightdriver-author-meta .nightdriver-bento-chip--link {
   min-height: 1.95rem;
   font-size: 0.68rem;
   color: var(--color-text-secondary);
 }
-
 .nightdriver-author-meta .nightdriver-bento-chip--link:hover {
   border-color: var(--color-text-secondary);
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-text) 20%, transparent),
               0 0 14px color-mix(in srgb, var(--color-text) 14%, transparent);
 }
-
-/* ========================================
-   FEATURED GRID (3-card system)
-   ======================================== */
-
 .nightdriver-flexible-grid{
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--space-md);
 }
-
-/* ========================================
-   DRIFT ZONE BENTO GRID
-   ======================================== */
-
 .nightdriver-bento-grid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -923,12 +759,11 @@ ins {
   grid-auto-flow: dense;
   width: 100%;
 }
-
 .nightdriver-bento-card {
   grid-column: span 4;
   background: var(--card-bg);
   border: 1px solid var(--card-border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-card);
   box-shadow: var(--shadow-1);
   overflow: hidden;
   display: flex;
@@ -937,33 +772,27 @@ ins {
   position: relative;
   transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
 }
-
 .nightdriver-bento-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(var(--card-hover-lift));
   box-shadow: var(--shadow-2);
   border-color: color-mix(in srgb, var(--color-text-tertiary) 50%, transparent);
 }
-
 .nightdriver-bento-card--wide {
   grid-column: span 6;
 }
-
 .nightdriver-bento-card--author {
   grid-column: span 6;
 }
-
 .nightdriver-bento-author-rotator {
   grid-column: span 6;
   display: flex;
   height: 100%;
 }
-
 .nightdriver-bento-author-rotator.is-rotating {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   grid-template-rows: minmax(0, 1fr);
 }
-
 .nightdriver-bento-author-rotator.is-rotating .nightdriver-bento-card--author {
   grid-area: 1 / 1;
   opacity: 0;
@@ -972,7 +801,6 @@ ins {
   transform: translateY(8px);
   transition: opacity 420ms ease, transform 420ms ease;
 }
-
 .nightdriver-bento-author-rotator.is-rotating .nightdriver-bento-card--author.is-active {
   opacity: 1;
   visibility: visible;
@@ -980,24 +808,19 @@ ins {
   transform: translateY(0);
   z-index: 1;
 }
-
 .nightdriver-bento-author-rotator .nightdriver-bento-card--author {
   width: 100%;
   height: 100%;
 }
-
 .nightdriver-bento-author-rotator[data-rotate-on-click="true"] {
   cursor: pointer;
 }
-
 .nightdriver-bento-card--tall {
   grid-row: span 2;
 }
-
 .nightdriver-bento-card-top {
   padding: 10px 16px 0;
 }
-
 .nightdriver-bento-card-body {
   padding: 12px 16px 16px;
   display: flex;
@@ -1005,13 +828,11 @@ ins {
   gap: 10px;
   height: 100%;
 }
-
 .nightdriver-bento-card-body > .nightdriver-bento-meta,
 .nightdriver-bento-card-body > .nightdriver-bento-btn,
 .nightdriver-bento-card-body > .nightdriver-cta-actions {
   margin-top: auto;
 }
-
 .nightdriver-bento-eyebrow {
   display: inline-flex;
   align-items: center;
@@ -1023,27 +844,23 @@ ins {
   text-transform: uppercase;
   color: var(--color-text-secondary);
 }
-
 .nightdriver-bento-title {
   margin: 0;
   font-family: var(--font-heading);
   font-size: 1rem;
   letter-spacing: -0.01em;
 }
-
 .nightdriver-bento-text {
   margin: 0;
   color: var(--color-text-secondary);
   font-size: 0.9rem;
   line-height: 1.5;
 }
-
 .nightdriver-bento-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
-
 .nightdriver-bento-chip {
   display: inline-flex;
   align-items: center;
@@ -1058,17 +875,14 @@ ins {
   color: var(--color-text-secondary);
   background: var(--color-surface);
 }
-
 .nightdriver-bento-chip--link {
   text-decoration: none;
   color: var(--color-text);
   border-color: color-mix(in srgb, var(--color-text) 18%, var(--color-border));
 }
-
 .nightdriver-bento-chip--link:hover {
   border-color: var(--color-text);
 }
-
 .nightdriver-bento-btn {
   display: inline-flex;
   align-items: center;
@@ -1085,11 +899,9 @@ ins {
   font-family: var(--font-ui);
   font-size: 0.75rem;
 }
-
 .nightdriver-bento-btn:hover {
   border-color: var(--color-text-secondary);
 }
-
 .nightdriver-bento-author-media {
   position: relative;
   height: 170px;
@@ -1098,14 +910,12 @@ ins {
   overflow: visible;
   background: color-mix(in srgb, var(--color-border) 12%, transparent);
 }
-
 .nightdriver-bento-author-cover {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
-
 .nightdriver-bento-author-avatar {
   position: absolute;
   left: 50%;
@@ -1120,11 +930,9 @@ ins {
   background: var(--color-surface);
   z-index: 2;
 }
-
 .nightdriver-bento-card--author .nightdriver-bento-card-body {
   padding-top: 36px;
 }
-
 .nightdriver-bento-cta-media {
   position: relative;
   height: 170px;
@@ -1133,14 +941,12 @@ ins {
   overflow: visible;
   background: color-mix(in srgb, var(--color-border) 12%, transparent);
 }
-
 .nightdriver-bento-cta-cover {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
-
 .nightdriver-bento-cta-logo {
   position: absolute;
   left: 50%;
@@ -1155,11 +961,9 @@ ins {
   background: var(--color-surface);
   z-index: 2;
 }
-
 .nightdriver-bento-card--cta .nightdriver-bento-card-body {
   padding-top: 36px;
 }
-
 .nightdriver-bento-author-rail {
   position: absolute;
   top: 0;
@@ -1171,7 +975,6 @@ ins {
   justify-content: center;
   background: color-mix(in srgb, var(--card-bg) 70%, transparent);
 }
-
 .nightdriver-bento-author-rail-text {
   writing-mode: vertical-rl;
   text-orientation: mixed;
@@ -1183,18 +986,15 @@ ins {
   text-transform: uppercase;
   color: var(--color-text-secondary);
 }
-
 .nightdriver-bento-share-graphic {
   padding: 18px 18px 0;
 }
-
 .nightdriver-bento-share-icon {
   width: 100%;
   height: 180px;
   display: block;
   color: color-mix(in srgb, var(--color-text) 70%, transparent);
 }
-
 .nightdriver-bento-links .nav,
 .nightdriver-bento-links ul {
   list-style: none;
@@ -1204,7 +1004,6 @@ ins {
   flex-wrap: wrap;
   gap: 0.5rem;
 }
-
 .nightdriver-bento-links a {
   display: flex;
   align-items: center;
@@ -1222,17 +1021,14 @@ ins {
   font-weight: 600;
   transition: var(--transition);
 }
-
 .nightdriver-bento-links .nav a:hover {
   border-color: var(--color-text-secondary);
 }
-
 .nightdriver-bento-tag-cloud {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
-
 .nightdriver-bento-tag {
   display: inline-flex;
   align-items: center;
@@ -1247,19 +1043,16 @@ ins {
   color: var(--color-text-secondary);
   background: var(--color-surface);
 }
-
 .nightdriver-bento-tag:hover {
   border-color: var(--color-text);
   color: var(--color-text);
 }
-
 .nightdriver-bento-tag-cloud[data-rotate="true"] {
   position: relative;
   --tag-rotator-row: var(--nightdriver-btn-height, 2.15rem);
   min-height: calc(var(--tag-rotator-row) * 3);
   overflow: hidden;
 }
-
 .nightdriver-bento-tag-cloud[data-rotate="true"] .nightdriver-bento-tag {
   position: absolute;
   left: 0;
@@ -1272,71 +1065,67 @@ ins {
   text-overflow: ellipsis;
   overflow: hidden;
 }
-
 .nightdriver-bento-tag-cloud[data-rotate="true"] .nightdriver-bento-tag.is-active {
   opacity: 1;
   transform: translateY(0);
 }
-
 .nightdriver-bento-tag-cloud[data-rotate="true"] .nightdriver-bento-tag.is-active-2 {
   opacity: 1;
   transform: translateY(var(--tag-rotator-row));
 }
-
 .nightdriver-bento-tag-cloud[data-rotate="true"] .nightdriver-bento-tag.is-active-3 {
   opacity: 1;
   transform: translateY(calc(var(--tag-rotator-row) * 2));
 }
-
 .nightdriver-bento-card--share {
   background: var(--card-bg);
 }
-
 .nightdriver-bento-card--donate {
   background: var(--card-bg);
 }
-
 @media (max-width: 900px) {
   .nightdriver-bento-grid {
     grid-template-columns: repeat(6, minmax(0, 1fr));
   }
-
   .nightdriver-bento-card {
     grid-column: span 6;
   }
-
   .nightdriver-bento-card--wide {
     grid-column: span 6;
   }
-
   .nightdriver-bento-author-rotator {
     grid-column: span 6;
   }
+  .nightdriver-flexible-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+  .nightdriver-notes-grid {
+    grid-template-columns: 1fr;
+  }
+  .nightdriver-site-nav {
+    display: none;
+  }
+  .nightdriver-nav-toggle {
+    display: inline-flex;
+  }
 }
-
 @media (max-width: 640px) {
   .nightdriver-bento-grid {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
-
   .nightdriver-bento-card,
   .nightdriver-bento-card--wide,
   .nightdriver-bento-card--tall {
     grid-column: span 1;
     grid-row: auto;
   }
-
   .nightdriver-bento-author-rotator {
     grid-column: span 1;
   }
 }
-
-/* ========================================
-   CARD SHELL - Modern proportions
-   ======================================== */
-
 .nightdriver-grid-card{
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-card);
   background: var(--card-bg);
   border: 1px solid var(--card-border);
   overflow: hidden;
@@ -1345,42 +1134,30 @@ ins {
   flex-direction: column;
   text-decoration: none;
   position: relative;
-  
   box-shadow: var(--shadow-1);
 }
-
 .nightdriver-grid-card::before {
   display: none;
 }
-
 .nightdriver-grid-card *{ 
   text-decoration: none; 
 }
-
 .nightdriver-grid-card:hover{
-  transform: translateY(-2px);
+  transform: translateY(var(--card-hover-lift));
   box-shadow: var(--shadow-2);
   border-color: color-mix(in srgb, var(--color-text-tertiary) 50%, transparent);
 }
-
-
-/* ========================================
-   IMAGE REGION - Taller, more premium ratio
-   ======================================== */
-
 .nightdriver-card-media{
   position: relative;
   height: clamp(145px, 14vw, 190px);
   background: linear-gradient(135deg, rgba(20, 30, 48, 0.8), rgba(36, 59, 85, 0.8));
   overflow: hidden;
 }
-
 .nightdriver-card-top{
   padding: 6px 16px 6px;
   background: transparent;
   border-bottom: 1px solid var(--card-border);
 }
-
 .nightdriver-card-image{
   position: absolute;
   inset: 0;
@@ -1391,12 +1168,10 @@ ins {
   transition: transform 420ms cubic-bezier(0.4, 0, 0.2, 1);
   filter: brightness(0.95) contrast(1.05);
 }
-
 .nightdriver-grid-card:hover .nightdriver-card-image{
   transform: scale(1.05);
   filter: brightness(1) contrast(1.08);
 }
-
 .nightdriver-card-media::after{
   content: "";
   position: absolute;
@@ -1413,73 +1188,389 @@ ins {
   );
   z-index: 1;
 }
-
-/* Featured Section: Keep Imagery Clean and Bright */
 .nightdriver-section--featured {
   padding-top: calc(var(--section-pad-y) - 1.125rem);
 }
-
 .nightdriver-section--featured .nightdriver-card-media::after {
   opacity: 0;
 }
-
 .nightdriver-section--featured .nightdriver-card-image {
   filter: none;
 }
-
 .nightdriver-section--featured .nightdriver-grid-card:hover .nightdriver-card-image {
   filter: brightness(1.02) contrast(1.02);
 }
-
-/* ========================================
-   HOMEPAGE ADVERT
-   ======================================== */
-
+.nightdriver-section--notes {
+  padding-top: var(--space-xl);
+  padding-bottom: var(--space-3xl);
+}
+.nightdriver-notes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-lg);
+}
+.nightdriver-note-card {
+  position: relative;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-card);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--card-bg) 96%, var(--nightdriver-notes-gradient-tint, var(--color-border)) 4%) 0%,
+    var(--card-bg) 100%
+  );
+  box-shadow: var(--shadow-1);
+  padding: var(--space-lg) var(--space-lg) var(--space-md);
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  transition: var(--transition);
+  overflow: hidden;
+}
+.nightdriver-note-card:hover {
+  transform: translateY(var(--card-hover-lift));
+  box-shadow: var(--shadow-2);
+  border-color: color-mix(in srgb, var(--color-text) 20%, var(--card-border));
+}
+.nightdriver-note-card--quote::before {
+  content: '"';
+  position: absolute;
+  top: -0.6rem;
+  right: 0.7rem;
+  font-family: var(--font-heading);
+  font-size: 5rem;
+  line-height: 1;
+  color: color-mix(in srgb, var(--nightdriver-notes-gradient-tint, var(--color-text-tertiary)) 25%, transparent);
+  pointer-events: none;
+}
+.nightdriver-note-meta {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: 0.67rem;
+  letter-spacing: var(--tracking-ui);
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  position: relative;
+  z-index: 1;
+}
+.nightdriver-note-quote {
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+.nightdriver-note-quote p {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 1.02rem;
+  line-height: 1.55;
+  color: var(--color-text);
+}
+.nightdriver-note-source {
+  margin: 0;
+  margin-top: auto;
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 900px) {
+  .nightdriver-notes-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.nightdriver-section--layby {
+  padding-top: var(--space-xl);
+  padding-bottom: var(--space-3xl);
+}
+.nightdriver-layby-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-lg);
+}
+.nightdriver-layby-grid:has(> .nightdriver-layby-card:only-child) {
+  grid-template-columns: minmax(0, min(100%, var(--post-content-width)));
+  justify-content: center;
+}
+.nightdriver-layby-grid:has(> .nightdriver-layby-card:nth-child(2):last-child),
+.nightdriver-layby-grid:has(> .nightdriver-layby-card:nth-child(4):last-child) {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.nightdriver-layby-grid:has(> .nightdriver-layby-card:nth-child(5):last-child) {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+.nightdriver-layby-grid:has(> .nightdriver-layby-card:nth-child(5):last-child) > .nightdriver-layby-card {
+  grid-column: span 2;
+}
+.nightdriver-layby-grid:has(> .nightdriver-layby-card:nth-child(5):last-child) > .nightdriver-layby-card:nth-child(n + 4) {
+  grid-column: span 3;
+}
+.nightdriver-layby-card {
+  min-width: 0;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-card);
+  background: var(--card-bg);
+  box-shadow: var(--shadow-1);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  transition: var(--transition);
+}
+.nightdriver-layby-card:hover {
+  transform: translateY(var(--card-hover-lift));
+  box-shadow: var(--shadow-2);
+  border-color: color-mix(in srgb, var(--color-text) 20%, var(--card-border));
+}
+.nightdriver-layby-card-header {
+  display: grid;
+  gap: 0.35rem;
+}
+.nightdriver-layby-date {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: 0.67rem;
+  letter-spacing: var(--tracking-ui);
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+.nightdriver-layby-title {
+  margin: 0;
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.15rem);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+.nightdriver-layby-title a {
+  color: inherit;
+}
+.nightdriver-layby-content {
+  display: grid;
+  gap: var(--space-md);
+  min-width: 0;
+}
+.nightdriver-layby-content:has(> .kg-embed-card) > * {
+  display: none;
+}
+.nightdriver-layby-content:has(> .kg-embed-card) > .kg-embed-card:first-of-type {
+  display: block;
+  margin: 0;
+}
+.nightdriver-layby-content:has(> .kg-embed-card) > .kg-embed-card:first-of-type .kg-embed-card-container {
+  position: relative;
+  width: 100% !important;
+  max-width: 100% !important;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+}
+.nightdriver-layby-content:has(> .kg-embed-card) > .kg-embed-card:first-of-type > .kg-embed-card-container > iframe,
+.nightdriver-layby-content:has(> .kg-embed-card) > .kg-embed-card:first-of-type > iframe {
+  width: 100% !important;
+  max-width: 100% !important;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  border: 0;
+  border-radius: var(--radius-sm);
+  display: block;
+}
+.nightdriver-layby-content:has(> .kg-embed-card) > .kg-embed-card:first-of-type > .kg-embed-card-container > iframe {
+  width: 100% !important;
+  height: 100% !important;
+}
+.nightdriver-layby-content--poster {
+  display: block;
+}
+.nightdriver-layby-video-poster {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--color-surface) 82%, var(--color-background));
+  text-decoration: none;
+}
+.nightdriver-layby-video-poster-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.nightdriver-layby-video-poster::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--color-background) 20%, transparent) 0%,
+    transparent 45%,
+    color-mix(in srgb, var(--color-background) 36%, transparent) 100%
+  );
+}
+.nightdriver-layby-video-poster-title {
+  position: absolute;
+  top: 0.55rem;
+  left: 0.6rem;
+  right: 0.6rem;
+  z-index: 2;
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  line-height: 1.25;
+  color: #fff;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.65);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.nightdriver-layby-video-poster-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  width: clamp(58px, 7vw, 74px);
+  height: clamp(40px, 5vw, 52px);
+  transform: translate(-50%, -50%);
+  border-radius: 14px;
+  background: #ff0033;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nightdriver-layby-video-poster-play::before {
+  content: "";
+  margin-left: 0.2rem;
+  border-style: solid;
+  border-width: 10px 0 10px 16px;
+  border-color: transparent transparent transparent #ffffff;
+}
+.nightdriver-layby-video-poster:hover .nightdriver-layby-video-poster-play {
+  transform: translate(-50%, -50%) scale(1.03);
+}
+.nightdriver-layby-content > :first-child {
+  margin-top: 0;
+}
+.nightdriver-layby-content > :last-child {
+  margin-bottom: 0;
+}
+.nightdriver-layby-content :where(img, video, iframe) {
+  max-width: 100%;
+  border-radius: var(--radius-sm);
+}
+.nightdriver-layby-content :where(pre) {
+  overflow-x: auto;
+}
+.nightdriver-layby-content .kg-card {
+  margin: 0;
+}
+.nightdriver-layby-footer {
+  margin: 0;
+  margin-top: auto;
+}
+.nightdriver-layby-action {
+  color: inherit;
+}
+@media (max-width: 1024px) {
+  .nightdriver-layby-grid,
+  .nightdriver-layby-grid:has(> .nightdriver-layby-card:nth-child(5):last-child) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .nightdriver-layby-grid:has(> .nightdriver-layby-card:nth-child(5):last-child) > .nightdriver-layby-card {
+    grid-column: auto;
+  }
+}
+@media (max-width: 700px) {
+  .nightdriver-layby-grid,
+  .nightdriver-layby-grid:has(> .nightdriver-layby-card:only-child),
+  .nightdriver-layby-grid:has(> .nightdriver-layby-card:nth-child(2):last-child),
+  .nightdriver-layby-grid:has(> .nightdriver-layby-card:nth-child(4):last-child),
+  .nightdriver-layby-grid:has(> .nightdriver-layby-card:nth-child(5):last-child) {
+    grid-template-columns: 1fr;
+    justify-content: stretch;
+  }
+  .nightdriver-layby-content:has(> .kg-embed-card) > .kg-embed-card:first-of-type .kg-embed-card-container,
+  .nightdriver-layby-content:has(> .kg-embed-card) > .kg-embed-card:first-of-type > iframe {
+    width: 100% !important;
+    aspect-ratio: 16 / 9;
+    min-height: 0;
+  }
+}
 .nightdriver-section--home-advert {
   padding-top: var(--space-xl);
   padding-bottom: var(--space-2xl);
 }
-
 .nightdriver-home-advert-card {
   position: relative;
   display: flex;
-  align-items: flex-end;
-  min-height: clamp(290px, 38vw, 520px);
-  padding: clamp(1.2rem, 2.8vw, 2.2rem);
+  align-items: stretch;
+  flex-direction: column;
+  min-height: 0;
+  padding: 0;
   border: 1px solid var(--card-border);
-  background:
-    linear-gradient(
-      118deg,
-      color-mix(in srgb, var(--color-background) 88%, transparent) 0%,
-      color-mix(in srgb, var(--color-background) 64%, transparent) 45%,
-      rgba(0, 0, 0, 0.1) 100%
-    ),
-    var(--nightdriver-home-advert-image, none),
-    var(--card-bg);
+  border-radius: var(--radius-card);
+  background: var(--card-bg);
   box-shadow: var(--shadow-1);
   overflow: hidden;
   isolation: isolate;
 }
-
-.nightdriver-home-advert-card::after {
+.nightdriver-home-advert-card__media {
+  --nightdriver-advert-media-pad: clamp(0.7rem, 1.1vw, 1rem);
+  position: relative;
+  inset: auto;
+  width: 100%;
+  min-height: clamp(230px, 32vw, 390px);
+  padding: var(--nightdriver-advert-media-pad);
+  pointer-events: none;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(
+      80% 125% at 50% 8%,
+      color-mix(in srgb, var(--color-accent) 5%, transparent) 0%,
+      transparent 65%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-background) 8%, var(--card-bg)) 0%,
+      color-mix(in srgb, var(--color-background) 20%, var(--card-bg)) 100%
+    );
+  border-bottom: 1px solid var(--card-border);
+}
+.nightdriver-home-advert-card__media::before {
   content: "";
   position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
+  inset: var(--nightdriver-advert-media-pad);
+  z-index: 1;
+  background: var(--nightdriver-home-advert-image, none);
+  filter: saturate(1.08) contrast(1.06) drop-shadow(0 16px 26px rgba(0, 0, 0, 0.32));
+  transition: transform 260ms ease, filter 260ms ease;
+}
+.nightdriver-home-advert-card__media::after {
+  content: "";
+  position: absolute;
+  inset: var(--nightdriver-advert-media-pad);
+  z-index: 2;
   background: linear-gradient(
-    to top,
-    color-mix(in srgb, var(--color-background) 74%, transparent) 5%,
-    transparent 62%
+    to bottom,
+    color-mix(in srgb, var(--color-background) 9%, transparent) 0%,
+    transparent 36%,
+    color-mix(in srgb, var(--color-background) 14%, transparent) 100%
   );
 }
-
+.nightdriver-home-advert-card:hover .nightdriver-home-advert-card__media::before {
+  transform: scale(1.01);
+  filter: saturate(1.12) contrast(1.08) drop-shadow(0 20px 30px rgba(0, 0, 0, 0.38));
+}
+.nightdriver-home-advert-card::after {
+  display: none;
+}
 .nightdriver-home-advert-card__content {
-  width: min(100%, 36rem);
+  width: 100%;
+  padding: clamp(1rem, 2.4vw, 1.35rem);
   display: grid;
   gap: 0.35rem;
 }
-
 .nightdriver-home-advert-card__kicker {
   margin: 0;
   font-family: var(--font-ui);
@@ -1489,7 +1580,6 @@ ins {
   text-transform: uppercase;
   color: var(--color-text-secondary);
 }
-
 .nightdriver-home-advert-card__title {
   margin: 0;
   font-size: clamp(1.8rem, 3.8vw, 3.1rem);
@@ -1498,7 +1588,6 @@ ins {
   letter-spacing: -0.02em;
   color: var(--color-text);
 }
-
 .nightdriver-home-advert-card__price {
   margin: 0;
   font-family: var(--font-heading);
@@ -1509,14 +1598,12 @@ ins {
   letter-spacing: 0.04em;
   color: var(--color-text);
 }
-
 .nightdriver-home-advert-card__meta {
   margin: 0;
   font-size: 0.86rem;
   line-height: 1.45;
   color: var(--color-text-secondary);
 }
-
 .nightdriver-home-advert-card__actions {
   display: flex;
   align-items: center;
@@ -1524,7 +1611,6 @@ ins {
   gap: 0.55rem;
   margin-top: 0.35rem;
 }
-
 .nightdriver-home-advert-card__action {
   width: fit-content;
   display: inline-flex;
@@ -1544,23 +1630,18 @@ ins {
   background: color-mix(in srgb, var(--color-surface) 70%, transparent);
   transition: var(--transition);
 }
-
 .nightdriver-home-advert-card__action:hover {
   border-color: var(--color-text-secondary);
   background: color-mix(in srgb, var(--color-surface) 84%, transparent);
 }
-
 .nightdriver-home-advert-card__action--primary {
   border-color: color-mix(in srgb, var(--color-accent) 65%, var(--color-border));
   background: color-mix(in srgb, var(--color-accent) 18%, var(--color-surface));
 }
-
 .nightdriver-home-advert-card__action--primary:hover {
   border-color: color-mix(in srgb, var(--color-accent) 82%, var(--color-border));
   background: color-mix(in srgb, var(--color-accent) 30%, var(--color-surface));
 }
-
-/* Keep Snipcart-Powered Advert CTA Visually Identical to Anchor CTA */
 .nightdriver-home-advert-card__action.snipcart-add-item {
   --nightdriver-btn-height: 2.2rem;
   --nightdriver-btn-pad-x: 0.8rem;
@@ -1569,37 +1650,30 @@ ins {
   --nightdriver-btn-bg: color-mix(in srgb, var(--color-surface) 70%, transparent);
   --nightdriver-btn-bg-hover: color-mix(in srgb, var(--color-surface) 84%, transparent);
 }
-
 .nightdriver-home-advert-card__action--primary.snipcart-add-item {
   --nightdriver-btn-border: color-mix(in srgb, var(--color-accent) 65%, var(--color-border));
   --nightdriver-btn-bg: color-mix(in srgb, var(--color-accent) 18%, var(--color-surface));
   --nightdriver-btn-bg-hover: color-mix(in srgb, var(--color-accent) 30%, var(--color-surface));
 }
-
 .nightdriver-home-advert-card__action--secondary {
   background: transparent;
 }
-
 @media (max-width: 760px) {
   .nightdriver-section--home-advert {
     padding-top: var(--space-lg);
     padding-bottom: var(--space-xl);
   }
-
-  .nightdriver-home-advert-card {
-    min-height: clamp(220px, 62vw, 360px);
-    align-items: flex-start;
+  .nightdriver-home-advert-card__media {
+    --nightdriver-advert-media-pad: clamp(0.55rem, 2.4vw, 0.9rem);
+    min-height: clamp(205px, 58vw, 300px);
   }
-
+  .nightdriver-home-advert-card__content {
+    padding: clamp(1rem, 4vw, 1.25rem);
+  }
   .nightdriver-home-advert-card__meta {
-    max-width: 30ch;
+    max-width: none;
   }
 }
-
-/* ========================================
-   VERTICAL DATE BADGE - More refined
-   ======================================== */
-
 .nightdriver-card-meta-vert{
   position: absolute;
   top: 0;
@@ -1612,7 +1686,6 @@ ins {
   pointer-events: none;
   z-index: 2;
 }
-
 .nightdriver-card-meta-vert::before{
   content: "";
   position: absolute;
@@ -1620,29 +1693,20 @@ ins {
   background: var(--card-bg);
   opacity: 0.8;
 }
-
 .nightdriver-card-meta-vert-text{
   position: relative;
   z-index: 1;
   margin-bottom: 16px;
-
   writing-mode: vertical-rl;
   text-orientation: mixed;
   transform: rotate(180deg);
-
   font-family: var(--font-ui);
   font-size: 0.625rem;
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-
   color: var(--color-text-secondary);
 }
-
-/* ========================================
-   BOTTOM CONTENT PANEL - Better spacing
-   ======================================== */
-
 .nightdriver-card-bottom{
   padding: 12px 16px 14px;
   background: transparent;
@@ -1652,7 +1716,6 @@ ins {
   flex-direction: column;
   gap: 8px;
 }
-
 .nightdriver-card-tag{
   margin: 0;
   display: inline-flex;
@@ -1667,22 +1730,18 @@ ins {
   background: var(--color-surface);
   transition: opacity 200ms ease;
 }
-
 .nightdriver-card-top .nightdriver-card-tag {
   padding: 0;
   border: 0;
   background: transparent;
 }
-
 .nightdriver-grid-card:hover .nightdriver-card-tag{
   opacity: 0.8;
 }
-
 .nightdriver-card-tag:hover {
   color: var(--color-text);
   border-color: var(--color-text-tertiary);
 }
-
 .nightdriver-card-title{
   margin: 0;
   font-family: var(--font-heading);
@@ -1691,102 +1750,63 @@ ins {
   line-height: 1.35;
   letter-spacing: -0.02em;
   color: var(--color-text);
-
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   line-clamp: 2;
   overflow: hidden;
-  
   transition: color 200ms ease;
 }
-
 .nightdriver-grid-card:hover .nightdriver-card-title{
   color: var(--color-text);
 }
-
 .nightdriver-card-title-text{
   color: inherit;
   text-decoration: none;
 }
-
-/* ========================================
-   CARD VARIANTS
-   ======================================== */
-
 .nightdriver-grid-card--featured3-mid{
   border-color: rgba(255, 255, 255, 0.08);
 }
-
 .nightdriver-grid-card--featured3-mid:hover{
   border-color: rgba(255, 255, 255, 0.14);
   transform: translateY(-6px);
 }
-
 .nightdriver-grid-card--no-image .nightdriver-card-media{ 
   display: none; 
 }
-
 .nightdriver-grid-card--no-image .nightdriver-card-meta-vert{ 
   display: none; 
 }
-
 .nightdriver-grid-card--no-image .nightdriver-card-bottom{
   padding: 28px 24px 30px;
   min-height: 180px;
 }
-
 .nightdriver-grid-card--no-image .nightdriver-card-title{
   font-size: 1.25rem;
   -webkit-line-clamp: 3;
   line-clamp: 3;
 }
-
-/* ========================================
-   RESPONSIVE DESIGN
-   ======================================== */
-
-@media (max-width: 840px){
-  .nightdriver-flexible-grid{ 
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-lg);
-  }
-}
-
 @media (max-width: 600px){
-  .nightdriver-flexible-grid{ 
-    grid-template-columns: 1fr;
-  }
-  
   .nightdriver-card-bottom{
     padding: 16px 18px 18px;
   }
 }
-
-/* ========================================
-   ACCESSIBILITY & POLISH
-   ======================================== */
-
 .nightdriver-grid-card:focus-visible{
   outline: 2px solid rgba(255, 255, 255, 0.4);
   outline-offset: 2px;
 }
-
 @media (prefers-reduced-motion: reduce) {
   .nightdriver-grid-card,
   .nightdriver-card-image {
     transition: none;
   }
-  
   .nightdriver-grid-card:hover {
     transform: none;
   }
-  
   .nightdriver-grid-card:hover .nightdriver-card-image {
     transform: none;
   }
 }
-
 @media (prefers-color-scheme: light) {
   .nightdriver-grid-card {
     border-color: rgba(0, 0, 0, 0.08);
@@ -1794,27 +1814,25 @@ ins {
       0 1px 3px rgba(0, 0, 0, 0.06),
       0 4px 12px rgba(0, 0, 0, 0.04);
   }
-  
   .nightdriver-grid-card:hover {
     border-color: rgba(0, 0, 0, 0.12);
     box-shadow: 
       0 4px 12px rgba(0, 0, 0, 0.08),
       0 16px 32px rgba(0, 0, 0, 0.06);
   }
-  
   .nightdriver-card-bottom {
     border-top-color: rgba(0, 0, 0, 0.06);
   }
 }
-/* ========================================
-   POSTS LIST
-   ======================================== */
-
 .nightdriver-posts-list {
   display: flex;
   flex-direction: column;
 }
-
+.nightdriver-posts-list--double {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-xl);
+}
 .nightdriver-post-item {
   padding: var(--space-2xl) 0;
   border-bottom: 1px solid var(--color-border);
@@ -1824,16 +1842,13 @@ ins {
   align-items: center;
   transition: var(--transition);
 }
-
 .nightdriver-post-item:first-child {
   padding-top: 0;
 }
-
 .nightdriver-post-item:last-child {
   border-bottom: none;
   padding-bottom: 0;
 }
-
 .nightdriver-post-item:hover {
   background-color: rgba(0, 0, 0, 0.01);
   padding-left: var(--space-lg);
@@ -1841,13 +1856,35 @@ ins {
   margin-left: calc(var(--space-lg) * -1);
   margin-right: calc(var(--space-lg) * -1);
 }
-
+.nightdriver-posts-list--double .nightdriver-post-item {
+  padding: var(--space-xl);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card-subtle);
+  margin: 0;
+}
+.nightdriver-posts-list--double .nightdriver-post-item:first-child {
+  padding-top: var(--space-xl);
+}
+.nightdriver-posts-list--double .nightdriver-post-item:last-child {
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--space-xl);
+}
+.nightdriver-posts-list--double .nightdriver-post-item:hover {
+  background: color-mix(in srgb, var(--color-surface) 90%, var(--color-background) 10%);
+  border-color: color-mix(in srgb, var(--color-text) 20%, var(--color-border));
+  box-shadow: var(--shadow-card-subtle-hover);
+  padding-left: var(--space-xl);
+  padding-right: var(--space-xl);
+  margin-left: 0;
+  margin-right: 0;
+}
 .nightdriver-post-content {
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
 }
-
 .nightdriver-post-meta-top {
   display: flex;
   align-items: center;
@@ -1855,16 +1892,16 @@ ins {
   flex-wrap: wrap;
   row-gap: 0.35rem;
   font-family: var(--font-ui);
-  font-size: 0.8125rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   color: var(--color-text-tertiary);
 }
-
 .nightdriver-post-tags {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
 }
-
 .nightdriver-post-tag {
   display: inline-flex;
   align-items: center;
@@ -1880,12 +1917,10 @@ ins {
   background: var(--color-surface);
   transition: var(--transition);
 }
-
 .nightdriver-post-tag:hover {
   color: var(--color-text);
   border-color: var(--color-text-tertiary);
 }
-
 .nightdriver-post-readtime {
   margin-left: auto;
   font-family: var(--font-ui);
@@ -1893,7 +1928,6 @@ ins {
   color: var(--color-text-tertiary);
   white-space: nowrap;
 }
-
 .nightdriver-post-item-title {
   margin: 0;
   font-size: 1.5rem;
@@ -1901,18 +1935,15 @@ ins {
   line-height: 1.3;
   letter-spacing: -0.01em;
 }
-
 .nightdriver-post-item-title a {
   text-decoration: none;
 }
-
 .nightdriver-post-item-excerpt {
   margin: 0;
   font-size: 1rem;
   line-height: 1.6;
   color: var(--color-text-secondary);
 }
-
 .nightdriver-post-tags-list {
   margin-top: var(--space-sm);
   display: flex;
@@ -1922,23 +1953,18 @@ ins {
   font-size: 0.75rem;
   color: var(--color-text-tertiary);
 }
-
 .nightdriver-post-tags-section {
   padding: var(--space-md) 0;
 }
-
 .nightdriver-post-tags-list--full {
   margin-top: 0;
 }
-
 .nightdriver-section--tight {
   padding: var(--space-md) 0;
 }
-
 .nightdriver-post-full--single {
   padding-bottom: var(--space-md);
 }
-
 .nightdriver-post-taglink {
   display: inline-flex;
   align-items: center;
@@ -1950,18 +1976,10 @@ ins {
   color: var(--color-text-secondary);
   transition: var(--transition);
 }
-
 .nightdriver-post-taglink:hover {
   color: var(--color-text);
   border-color: var(--color-text-tertiary);
 }
-
-@media (max-width: 768px) {
-  .nightdriver-post-readtime {
-    margin-left: 0;
-  }
-}
-
 .nightdriver-pagination {
   display: flex;
   align-items: center;
@@ -1971,7 +1989,6 @@ ins {
   font-size: 0.75rem;
   color: var(--color-text-tertiary);
 }
-
 .nightdriver-pagination a {
   color: inherit;
   text-decoration: none;
@@ -1980,65 +1997,73 @@ ins {
   border-radius: var(--radius-sm);
   transition: var(--transition);
 }
-
 .nightdriver-pagination a:hover {
   color: var(--color-text);
   border-color: var(--color-text-tertiary);
 }
-
-/* ========================================
-   PRODUCTS
-   ======================================== */
-
+.nightdriver-pagination-current {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-ui);
+  color: var(--color-text-secondary);
+  opacity: 0.9;
+  font-variant-numeric: tabular-nums;
+}
+.nightdriver-pagination-current::before {
+  content: "";
+  width: 18px;
+  height: 1px;
+  background: color-mix(in srgb, var(--color-text) 22%, transparent);
+  display: inline-block;
+  transform: translateY(1px);
+}
 .nightdriver-products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: var(--space-2xl);
 }
-
 .nightdriver-product-card {
   background-color: var(--color-background);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-1);
   overflow: hidden;
   transition: var(--transition);
 }
-
 .nightdriver-product-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transform: translateY(var(--card-hover-lift));
+  box-shadow: var(--shadow-2);
   border-color: var(--color-text-tertiary);
 }
-
 .nightdriver-product-card-image {
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
   background-color: var(--color-surface);
 }
-
 .nightdriver-product-card-content {
   padding: var(--space-xl);
 }
-
 .nightdriver-product-card-title {
   margin: 0 0 var(--space-sm);
   font-size: 1.25rem;
   font-weight: 600;
   letter-spacing: -0.01em;
 }
-
 .nightdriver-product-card-title a {
   text-decoration: none;
 }
-
 .nightdriver-product-card-description {
   margin: 0 0 var(--space-lg);
   font-size: 0.9375rem;
   line-height: 1.6;
   color: var(--color-text-secondary);
 }
-
 .nightdriver-product-card-footer {
   padding-top: var(--space-md);
   border-top: 1px solid var(--color-border);
@@ -2046,40 +2071,48 @@ ins {
   align-items: center;
   justify-content: space-between;
 }
-
 .nightdriver-product-price {
   font-family: var(--font-ui);
   font-size: 1.125rem;
   font-weight: 600;
   color: var(--color-text);
 }
-
-/* ========================================
-   SINGLE POST
-   ======================================== */
-
 .nightdriver-post-full {
   --section-content-gap: var(--space-2xl);
   --post-header-width: var(--post-content-width);
 }
-
+.nightdriver-post-full--single .nightdriver-section-content {
+  max-width: var(--post-content-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+.nightdriver-post-full--single .nightdriver-post-full-text {
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
 .nightdriver-post-full-header {
   max-width: 100%;
   margin: 0;
   padding: 0;
   text-align: left;
 }
-
+.nightdriver-post-full--single .nightdriver-post-full-header,
+.nightdriver-post-full--single .nightdriver-post-full-meta,
+.nightdriver-post-full--single .nightdriver-post-full-title,
+.nightdriver-post-full--single .nightdriver-post-full-excerpt {
+  text-align: left !important;
+  margin-left: 0;
+  margin-right: auto;
+}
 .nightdriver-post-full--page .nightdriver-post-full-header {
   max-width: var(--post-content-width);
   text-align: left;
 }
-
 .nightdriver-post-full--page .nightdriver-post-full-title,
 .nightdriver-post-full--page .nightdriver-post-full-excerpt {
   text-align: left;
 }
-
 .nightdriver-post-full-meta {
   display: flex;
   justify-content: flex-start;
@@ -2087,41 +2120,41 @@ ins {
   gap: var(--space-sm);
   margin: 0 0 1.25rem;
   font-family: var(--font-ui);
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   color: var(--color-text-tertiary);
-  letter-spacing: 0.01em;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
-
 .nightdriver-post-full-title {
   margin: 0 0 var(--space-lg);
-  font-size: 3rem;
+  font-size: 3.25rem;
   font-weight: 600;
   line-height: 1.1;
   letter-spacing: -0.03em;
 }
-
 .nightdriver-post-full-excerpt {
   margin: 0 0 var(--space-xl);
   font-size: 1.25rem;
   line-height: 1.5;
   color: var(--color-text-secondary);
 }
-
 .nightdriver-post-full-image {
   position: relative;
   margin: 0 auto;
   padding: 0 var(--space-md);
 }
-
+.nightdriver-post-full--single .nightdriver-post-full-image,
+.nightdriver-post-full--single .nightdriver-post-full-image.nightdriver-post-full-image-wide {
+  max-width: 100%;
+  padding: 0;
+}
 .nightdriver-post-full-image.nightdriver-post-full-image-wide {
   max-width: var(--post-image-wide-width);
 }
-
 .nightdriver-post-full-image img {
   width: 100%;
   border-radius: var(--radius-lg);
 }
-
 .nightdriver-post-full-caption {
   margin-top: var(--space-md);
   font-family: var(--font-ui);
@@ -2129,51 +2162,55 @@ ins {
   color: var(--color-text-tertiary);
   text-align: left;
 }
-
-.nightdriver-post-full-content {
-  max-width: 100%;
+:is(.post-content, .page-content, .nightdriver-post-full-content) {
   margin: 0;
   padding: 0;
   font-size: 1.0625rem;
-  line-height: 1.65;
+  line-height: 1.7;
+  letter-spacing: 0.005em;
+  font-feature-settings: "kern" 1, "liga" 1, "cv02";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  max-width: 68ch;
 }
-
 .nightdriver-post-full-content > :last-child {
   margin-bottom: 0;
 }
-
-.nightdriver-post-full-content p {
-  margin: 0 0 1.25rem;
+:is(.post-content, .page-content, .nightdriver-post-full-content) :is(h1, h2, h3, h4, h5, h6) {
+  font-weight: 600;
 }
-
-.nightdriver-post-full-content h2 {
-  margin: 3rem 0 1rem;
+:is(.post-content, .page-content, .nightdriver-post-full-content) h1 {
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+}
+:is(.post-content, .page-content, .nightdriver-post-full-content) p {
+  margin: 0 0 1.5em;
+}
+:is(.post-content, .page-content, .nightdriver-post-full-content) h2 {
+  margin: 2.5em 0 0.75em;
   font-size: 2rem;
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
 }
-
-.nightdriver-post-full-content h3 {
-  margin: 2.25rem 0 0.75rem;
+:is(.post-content, .page-content, .nightdriver-post-full-content) h3 {
+  margin: 2.5em 0 0.75em;
   font-size: 1.5rem;
   font-weight: 600;
   letter-spacing: -0.01em;
+  line-height: 1.25;
 }
-
-
 .nightdriver-post-full-content img {
   border-radius: var(--radius-md);
   margin: var(--space-2xl) 0;
 }
-
 .nightdriver-post-full-content figure {
   margin: var(--space-2xl) 0;
 }
-
 .nightdriver-post-full-content figure img {
   margin: 0;
 }
-
 .nightdriver-post-full-content figure figcaption {
   margin-top: var(--space-md);
   font-family: var(--font-ui);
@@ -2181,24 +2218,21 @@ ins {
   color: var(--color-text-tertiary);
   text-align: left;
 }
-
-.nightdriver-post-full-content blockquote {
+:is(.post-content, .page-content, .nightdriver-post-full-content) blockquote {
   margin: var(--space-2xl) 0;
-  padding-left: var(--space-xl);
+  padding-left: 1.2rem;
   border-left: 3px solid var(--color-accent);
-  font-style: italic;
+  font-style: normal;
   color: var(--color-text-secondary);
 }
-
-.nightdriver-post-full-content code {
+:is(.post-content, .page-content, .nightdriver-post-full-content) :not(pre) > code {
   font-family: var(--font-ui);
-  font-size: 0.9em;
+  font-size: 0.92em;
   background-color: var(--color-surface);
   padding: 0.2em 0.4em;
   border-radius: var(--radius-sm);
   border: 1px solid var(--color-border);
 }
-
 .nightdriver-post-full-content pre {
   margin: var(--space-2xl) 0;
   padding: var(--space-xl);
@@ -2207,44 +2241,110 @@ ins {
   color: var(--color-background);
   overflow-x: auto;
 }
-
 .nightdriver-post-full-content pre code {
   background: transparent;
   border: 0;
   padding: 0;
   color: inherit;
 }
-
 .nightdriver-post-full-content ul,
 .nightdriver-post-full-content ol {
   margin: 0 0 var(--space-lg);
   padding-left: var(--space-xl);
 }
-
-.nightdriver-post-full-content li {
-  margin-bottom: 0.4rem;
+:is(.post-content, .page-content, .nightdriver-post-full-content) li {
+  line-height: inherit;
+  margin-bottom: 0.5em;
 }
-
+:is(.post-content, .page-content, .nightdriver-post-full-content) li:last-child {
+  margin-bottom: 0;
+}
+:is(.post-content, .page-content, .nightdriver-post-full-content) .kg-embed-card {
+  display: block;
+  width: 100% !important;
+  max-width: min(100%, var(--post-image-wide-width)) !important;
+  margin: var(--space-xl) auto;
+}
+:is(.post-content, .page-content, .nightdriver-post-full-content) .kg-embed-card > .kg-embed-card-container {
+  position: relative;
+  width: 100% !important;
+  max-width: 100% !important;
+  aspect-ratio: 16 / 9;
+  min-height: clamp(220px, 30vw, 430px);
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+}
+:is(.post-content, .page-content, .nightdriver-post-full-content) .kg-embed-card > .kg-embed-card-container > iframe {
+  width: 100% !important;
+  height: 100% !important;
+  border: 0;
+  display: block;
+}
+:is(.post-content, .page-content, .nightdriver-post-full-content) .kg-embed-card > iframe {
+  width: 100% !important;
+  max-width: 100% !important;
+  aspect-ratio: 16 / 9;
+  height: auto !important;
+  border: 0;
+  border-radius: var(--radius-sm);
+  display: block;
+}
+:is(.post-content, .page-content, .nightdriver-post-full-content) > iframe,
+:is(.post-content, .page-content, .nightdriver-post-full-content) p > iframe {
+  width: min(100%, var(--post-image-wide-width)) !important;
+  max-width: 100% !important;
+  aspect-ratio: 16 / 9;
+  height: auto !important;
+  margin: var(--space-xl) auto;
+  border: 0;
+  border-radius: var(--radius-sm);
+  display: block;
+}
+.nightdriver-post-full--single .nightdriver-post-full-content .kg-embed-card > .kg-embed-card-container {
+  min-height: 0;
+}
+.nightdriver-post-full--single .nightdriver-post-full-content .nightdriver-post-video--lead {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  transform: none !important;
+}
+.nightdriver-post-full--single .nightdriver-post-full-content .nightdriver-post-video--inline {
+  max-width: min(100%, calc(var(--post-content-width) * 0.58)) !important;
+}
+.nightdriver-post-full--single .nightdriver-post-full-content .nightdriver-post-video--lead:is(.kg-width-wide, .kg-width-full),
+.nightdriver-post-full--single .nightdriver-post-full-content .nightdriver-post-video--inline:is(.kg-width-wide, .kg-width-full) {
+  position: static !important;
+  left: auto !important;
+  right: auto !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 100% !important;
+}
+.nightdriver-post-full--single .nightdriver-post-full-content p > .nightdriver-post-video--lead {
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-xl);
+}
+html.nightdriver-theme-mode-nightmode :is(.post-content, .page-content, .nightdriver-post-full-content) {
+  line-height: 1.75;
+}
 .gh-comments,
 .gh-comments * {
   text-align: left;
 }
-
 .gh-comments {
   margin: 0;
   max-width: 100%;
 }
-
 .gh-comments,
 .gh-comments * {
   font-family: var(--font-body) !important;
   color: var(--color-text) !important;
 }
-
 .gh-comments a {
   color: inherit !important;
 }
-
 .gh-comments h1,
 .gh-comments h2,
 .gh-comments h3,
@@ -2254,14 +2354,12 @@ ins {
   font-family: var(--font-heading) !important;
   letter-spacing: var(--tracking-heading) !important;
 }
-
 .gh-comments .gh-comments-title {
   font-family: var(--font-heading) !important;
   font-size: 1.25rem;
   font-weight: 600;
   letter-spacing: -0.01em;
 }
-
 .gh-comments .gh-comments-count {
   font-family: var(--font-ui) !important;
   font-size: 0.75rem;
@@ -2269,11 +2367,9 @@ ins {
   text-transform: uppercase;
   color: var(--color-text-tertiary) !important;
 }
-
 .gh-comments .gh-comments-cta {
   color: var(--color-text-secondary) !important;
 }
-
 .gh-comments .gh-btn,
 .gh-comments .gh-btn-primary,
 .gh-comments .gh-btn-secondary,
@@ -2296,7 +2392,6 @@ ins {
   padding: 0.45rem 0.8rem;
   transition: var(--transition);
 }
-
 .gh-comments .gh-btn:hover,
 .gh-comments .gh-btn-primary:hover,
 .gh-comments .gh-btn-secondary:hover,
@@ -2309,7 +2404,6 @@ ins {
   border-color: var(--color-text-tertiary) !important;
   color: var(--color-text) !important;
 }
-
 .gh-comments input,
 .gh-comments textarea,
 .gh-comments select {
@@ -2318,7 +2412,6 @@ ins {
   background: var(--color-background) !important;
   border-color: var(--color-border) !important;
 }
-
 .gh-comments a[data-portal="signin"],
 .gh-comments a[href*="#/portal/signin"],
 .gh-comments a[href*="portal/signin"] {
@@ -2326,24 +2419,20 @@ ins {
   font-weight: 600;
   opacity: 1 !important;
 }
-
 .gh-comments a[data-portal="signin"]:hover,
 .gh-comments a[href*="#/portal/signin"]:hover,
 .gh-comments a[href*="portal/signin"]:hover {
   color: #16a34a !important;
 }
-
 .nightdriver-post-nav {
   display: flex;
   align-items: stretch;
   justify-content: space-between;
   gap: var(--space-lg);
 }
-
 .nightdriver-post-nav:has(.nightdriver-post-nav-link--next):not(:has(.nightdriver-post-nav-link--prev)) {
   justify-content: flex-end;
 }
-
 .nightdriver-post-nav-link {
   flex: 1 1 0;
   max-width: calc(50% - (var(--space-lg) / 2));
@@ -2351,18 +2440,16 @@ ins {
   flex-direction: column;
   gap: 0.35rem;
   padding: var(--space-md) var(--space-lg);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-card);
   border: 1px solid var(--color-border);
   background: var(--color-surface);
   color: inherit;
   text-decoration: none;
 }
-
 .nightdriver-post-nav-link--next {
   text-align: right;
   margin-left: auto;
 }
-
 .nightdriver-post-nav-label {
   font-family: var(--font-ui);
   font-size: 0.7rem;
@@ -2370,18 +2457,12 @@ ins {
   letter-spacing: var(--tracking-ui);
   color: var(--color-text-tertiary);
 }
-
 .nightdriver-post-nav-title {
   font-family: var(--font-heading);
   font-size: 1rem;
   line-height: 1.35;
   color: var(--color-text);
 }
-
-/* ========================================
-   KOENIG EDITOR - REQUIRED CLASSES
-   ======================================== */
-
 .kg-width-wide {
   position: relative;
   width: 100vw;
@@ -2393,7 +2474,6 @@ ins {
   margin-left: calc((var(--post-content-width) - var(--post-image-wide-width)) / 2);
   margin-right: calc((var(--post-content-width) - var(--post-image-wide-width)) / 2);
 }
-
 .kg-width-full {
   position: relative;
   width: 100vw;
@@ -2402,9 +2482,6 @@ ins {
   margin-left: -50vw;
   margin-right: -50vw;
 }
-
-/* Reading Progress Bar Track */
-
 .nightdriver-progress {
   position: absolute;
   left: 0;
@@ -2415,7 +2492,6 @@ ins {
   background: var(--nightdriver-progress-track-color, #1a1a1a);
   pointer-events: none;
 }
-
 .nightdriver-progress-bar {
   height: 100%;
   width: 100%;
@@ -2425,15 +2501,6 @@ ins {
   position: relative;
   overflow: hidden;
 }
-
-/* ========================================
-   PROGRESS BAR ANIMATION OPTIONS
-   Comment/uncomment the option you want to use
-   Only ONE option should be active at a time
-   ======================================== */
-
-/* Option 1: Flowing Shine (Default, Active) */
-
 .nightdriver-progress-bar::before {
   content: '';
   position: absolute;
@@ -2451,7 +2518,6 @@ ins {
   );
   animation: progress-flow 2s linear infinite;
 }
-
 @keyframes progress-flow {
   0% {
     left: -100%;
@@ -2460,18 +2526,6 @@ ins {
     left: 100%;
   }
 }
-
-/* Option 2: No Animation (Uncomment for Solid Color Only) */
-/*
-.nightdriver-progress-bar::before {
-  display: none;
-}
-*/
-
-.nightdriver-post-full-header {
-  text-align: left;
-}
-
 .nightdriver-panel {
   display: flex;
   align-items: center;
@@ -2481,7 +2535,6 @@ ins {
   margin: 0 0 var(--space-xl);
   border-bottom: 1px solid var(--color-border);
 }
-
 .nightdriver-tag a {
   display: inline-flex;
   align-items: center;
@@ -2498,216 +2551,63 @@ ins {
   background: var(--color-surface);
   transition: var(--transition);
 }
-
 .nightdriver-tag a:hover {
   color: var(--color-text);
   border-color: var(--color-text-tertiary);
 }
-
 .nightdriver-meta {
   margin: 0;
   white-space: nowrap;
 }
-
-.nightdriver-post-full-title {
-  font-size: 3.25rem;
-}
-
-@media (max-width: 768px) {
-  .nightdriver-panel {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-sm);
-  }
-
-  .nightdriver-meta {
-    justify-content: flex-start;
-    white-space: normal;
-  }
-
-  .nightdriver-post-full-title {
-    font-size: 2.25rem;
-  }
-}
-
-/* ========================================
-   THEME MODES
-   Full site switch by overriding existing base variables
-   ======================================== */
-
 html.nightdriver-theme-mode-daymode{
   --color-background: #f7f7f5;
   --color-surface: #ffffff;
   --color-border: #e6e6e1;
-
   --color-text: #151515;
   --color-text-secondary: #5a5a5a;
   --color-text-tertiary: #8a8a8a;
-
   --card-bg: var(--color-surface);
   --card-border: rgba(0, 0, 0, 0.08);
-  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.06), 0 10px 24px rgba(0, 0, 0, 0.08);
-  --shadow-2: 0 3px 10px rgba(0, 0, 0, 0.10), 0 18px 36px rgba(0, 0, 0, 0.14);
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 14px rgba(0, 0, 0, 0.06);
+  --shadow-2: 0 2px 8px rgba(0, 0, 0, 0.08), 0 12px 24px rgba(0, 0, 0, 0.10);
 }
-
 html.nightdriver-theme-mode-nightmode{
   --color-background: #0b0c0e;
   --color-surface: #101218;
   --color-border: rgba(255,255,255,0.08);
-
   --color-text: #e6e6e6;
   --color-text-secondary: rgba(230,230,230,0.78);
   --color-text-tertiary: rgba(230,230,230,0.58);
-
   --color-accent: #0ea5e9;
   --color-accent-hover: #38bdf8;
-
   --card-bg: #12151c;
   --card-border: rgba(255, 255, 255, 0.10);
-  --shadow-1: 0 2px 8px rgba(0, 0, 0, 0.45), 0 18px 36px rgba(0, 0, 0, 0.45);
-  --shadow-2: 0 6px 16px rgba(0, 0, 0, 0.5), 0 26px 52px rgba(0, 0, 0, 0.55);
-
+  --shadow-1: 0 1px 4px rgba(0, 0, 0, 0.30), 0 12px 24px rgba(0, 0, 0, 0.34);
+  --shadow-2: 0 3px 10px rgba(0, 0, 0, 0.36), 0 16px 32px rgba(0, 0, 0, 0.40);
   --body-tracking: -0.008em;
   --heading-tracking: -0.015em;
 }
-
 html.nightdriver-theme-mode-custommode{
-  /* Custom Mode Colors Are Fully Configurable via Ghost Admin Settings. */
-  /* See the "Custom Mode" Settings Group in Design Settings. */
-  /* Color Values Are Injected Dynamically in default.hbs. */
   --body-tracking: -0.008em;
   --heading-tracking: -0.015em;
 }
-
-/* Custom Mode Header and Nav Hooks (Colors Injected via default.hbs) */
-html.nightdriver-theme-mode-custommode .nightdriver-site-header{
-  /* Header styling is handled in default.hbs. */
-}
-
-html.nightdriver-theme-mode-custommode .nightdriver-site-logo{
-  /* Logo color is handled in default.hbs. */
-}
-
-html.nightdriver-theme-mode-custommode .nightdriver-site-logo:hover{
-  /* Logo hover color is handled in default.hbs. */
-}
-
-html.nightdriver-theme-mode-custommode .nightdriver-nav-item a{
-  /* Nav colors are handled in default.hbs. */
-}
-
-html.nightdriver-theme-mode-custommode .nightdriver-nav-item a:hover{
-  /* Nav hover colors are handled in default.hbs. */
-}
-
-html.nightdriver-theme-mode-custommode .nightdriver-nav-item.nightdriver-nav-item--active a{
-  /* Active nav color is handled in default.hbs. */
-}
-
-
-/* ========================================
-   FOOTER - PREMIUM FOOTER (CLEAN VERSION)
-   ======================================== */
-
 .nightdriver-site-footer {
   background: var(--color-background);
   border-top: 1px solid var(--color-border);
   margin-top: auto;
   flex-shrink: 0;
 }
-
 .nightdriver-footer-wrapper {
   max-width: var(--container-width);
   margin: 0 auto;
   padding: 12px var(--container-padding) 8px;
 }
-
-/* CTA Card (Featured Card Structure) */
-.nightdriver-grid-card--cta .nightdriver-card-media {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.nightdriver-card-image--contain {
-  object-fit: contain;
-  padding: 24px;
-}
-
-.nightdriver-grid-card--cta .nightdriver-card-tag {
-  padding: 0;
-  border: 0;
-  background: transparent;
-  opacity: 0.8;
-}
-
-.nightdriver-card-excerpt {
-  margin: 0;
-  font-family: var(--font-body);
-  font-size: 0.9375rem;
-  line-height: 1.45;
-  color: var(--color-text-secondary);
-}
-
 .nightdriver-cta-actions {
   display: inline-flex;
   align-items: center;
   margin-top: 0.65rem;
   gap: 0.5rem;
 }
-
-/* Unified Action Button Style Across Cards and Sections */
-.nightdriver-cta-btn,
-.nightdriver-bento-btn,
-.nightdriver-bento-chip--link,
-.nightdriver-bento-links a {
-  min-height: 2.15rem;
-  padding: 0 0.75rem;
-  border-radius: 0;
-  border: 1px solid color-mix(in srgb, var(--color-text) 22%, var(--color-border));
-  background: color-mix(in srgb, var(--color-surface) 82%, transparent);
-  color: var(--color-text);
-  font-family: var(--font-ui);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: var(--tracking-ui);
-  text-transform: uppercase;
-  text-decoration: none;
-  line-height: 1;
-  transition: var(--transition);
-}
-
-.nightdriver-cta-btn--secondary {
-  background: transparent;
-}
-
-.nightdriver-cta-btn:hover,
-.nightdriver-bento-btn:hover,
-.nightdriver-bento-chip--link:hover,
-.nightdriver-bento-links a:hover {
-  border-color: var(--color-text);
-  color: var(--color-text);
-  background: color-mix(in srgb, var(--color-surface) 68%, var(--color-background));
-}
-
-.nightdriver-flexible-grid--single {
-  grid-template-columns: minmax(0, 1fr);
-  justify-items: center;
-}
-
-.nightdriver-flexible-grid--single .nightdriver-grid-card {
-  width: 100%;
-  max-width: 450px;
-}
-
-.nightdriver-grid-card--cta .nightdriver-card-media {
-  position: relative;
-}
-
-/* ========================================
-   BOTTOM BAR
-   ======================================== */
-
 .nightdriver-footer-bottom {
   display: flex;
   align-items: center;
@@ -2715,16 +2615,10 @@ html.nightdriver-theme-mode-custommode .nightdriver-nav-item.nightdriver-nav-ite
   gap: 0;
   padding-top: 0;
 }
-
-/* ========================================
-   COPYRIGHT
-   ======================================== */
-
 .nightdriver-footer-bottom-left {
   display: flex;
   align-items: center;
 }
-
 .nightdriver-footer-copyright {
   margin: 0;
   font-family: var(--font-ui);
@@ -2736,8 +2630,6 @@ html.nightdriver-theme-mode-custommode .nightdriver-nav-item.nightdriver-nav-ite
   line-height: 1.4;
   padding: 10px 0;
 }
-
-/* Published with Ghost */
 .nightdriver-footer-ghost-link {
   margin-top: 0;
   font: inherit;
@@ -2747,138 +2639,121 @@ html.nightdriver-theme-mode-custommode .nightdriver-nav-item.nightdriver-nav-ite
   text-decoration: none;
   transition: var(--transition);
 }
-
 .nightdriver-footer-ghost-link:hover {
   color: inherit;
 }
-
 .nightdriver-footer-ghost-sep {
   color: inherit;
 }
-
-/* ========================================
-   THEME-SPECIFIC STYLES
-   ======================================== */
-
-/* Night Mode Theme */
-html.nightdriver-theme-mode-nightmode .nightdriver-site-footer {
-  background: var(--color-background);
-  border-top-color: var(--color-border);
-}
-
-/* Custom Mode Theme */
-html.nightdriver-theme-mode-custommode .nightdriver-site-footer {
-  background: var(--color-background);
-  border-top-color: var(--color-border);
-}
-
-/* ========================================
-   RESPONSIVE DESIGN
-   ======================================== */
-
 @media (max-width: 768px) {
+  .nightdriver-posts-list--double {
+    grid-template-columns: 1fr;
+  }
+  .nightdriver-post-readtime {
+    margin-left: 0;
+  }
+  .nightdriver-panel {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+  .nightdriver-meta {
+    justify-content: flex-start;
+    white-space: normal;
+  }
+  .nightdriver-post-full-title {
+    font-size: 2.25rem;
+  }
+  :is(.post-content, .page-content, .nightdriver-post-full-content) {
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+  .nightdriver-post-full--single .nightdriver-post-full-content .kg-embed-card,
+  .nightdriver-post-full--single .nightdriver-post-full-content > iframe,
+  .nightdriver-post-full--single .nightdriver-post-full-content p > iframe {
+    max-width: 100% !important;
+  }
+  .nightdriver-post-full--single .nightdriver-post-full-content .nightdriver-post-video--inline {
+    max-width: 100% !important;
+  }
+  .nightdriver-post-full--single .nightdriver-post-full-content .nightdriver-post-video--lead {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    transform: none;
+  }
   :root {
     --section-pad-y: var(--space-3xl);
     --section-pad-y-compact: var(--space-2xl);
     --ui-spacer-height: var(--space-2xl);
   }
-
   .nightdriver-site-footer {
     margin-top: 0;
   }
-
   .nightdriver-footer-wrapper {
     padding: 8px var(--container-padding) 6px;
   }
-
   .nightdriver-footer-bottom {
     flex-direction: column-reverse;
     align-items: stretch;
     gap: 0;
   }
-  
   .nightdriver-footer-bottom-left {
     justify-content: center;
   }
-  
   .nightdriver-footer-copyright {
     text-align: center;
     padding: 4px 0;
   }
-}
-
-@media (max-width: 768px) {
   .nightdriver-cart-summary--top {
     display: none;
   }
-
   .nightdriver-header-utility .nightdriver-control--brackets::before,
   .nightdriver-header-utility .nightdriver-control--brackets::after {
     display: none;
   }
-
   .nightdriver-header-utility .nightdriver-search-btn span,
   .nightdriver-header-utility .nightdriver-header-cta span {
     display: none;
   }
-
   .nightdriver-mode-rail__end,
   .nightdriver-mode-rail__midlabel {
     display: none;
   }
-
   .nightdriver-mode-rail {
     min-width: 160px;
   }
-
   .nightdriver-header-utility-right {
     display: none;
   }
-
   .nightdriver-header-utility-right--has-cart {
     display: inline-flex;
   }
-
   .nightdriver-header-utility-right .nightdriver-header-cta {
     display: none;
   }
-
   .nightdriver-cart-summary--utility {
     display: inline-flex;
   }
-
   .nightdriver-cart-summary--utility .nightdriver-cart-summary-divider,
   .nightdriver-cart-summary--utility .nightdriver-cart-summary-total {
     display: none;
   }
-}
-
-@media (max-width: 480px) {
-  .nightdriver-site-footer {
-    margin-top: 0;
+  .nightdriver-header-utility .nightdriver-search-btn .nightdriver-icon {
+    width: 1.2rem;
+    height: 1.2rem;
   }
-
+  .nightdriver-header-utility .nightdriver-cart-summary-button {
+    font-size: 0.82rem !important;
+  }
+}
+@media (max-width: 480px) {
   .nightdriver-footer-wrapper {
     padding: var(--space-2xl) var(--space-lg);
   }
 }
-
-
- 
-
-/* ========================================
-   TOP NAV
-   ======================================== */
-
-/* Desktop vs. Mobile */
 .nightdriver-nav-toggle { display: none; }
-
-@media (max-width: 900px) {
-  .nightdriver-site-nav { display: none; }
-  .nightdriver-nav-toggle { display: inline-flex; }
-}
-
-/* Toggle Button */
 .nightdriver-nav-toggle {
   align-items: center;
   justify-content: center;
@@ -2886,7 +2761,7 @@ html.nightdriver-theme-mode-custommode .nightdriver-site-footer {
   height: 44px;
   border: 0;
   background: transparent;
-  border-radius: 10px;
+  border-radius: var(--radius-control-touch);
   color: var(--color-text-secondary);
   cursor: pointer;
   transition: var(--transition);
@@ -2895,8 +2770,6 @@ html.nightdriver-theme-mode-custommode .nightdriver-site-footer {
 .nightdriver-nav-toggle:focus-visible {
   color: var(--color-text);
 }
-
-/* SVG-Based Hamburger and Close Icons */
 .nightdriver-nav-toggle-icon {
   position: relative;
   width: 24px;
@@ -2905,14 +2778,11 @@ html.nightdriver-theme-mode-custommode .nightdriver-site-footer {
   place-items: center;
   background: transparent;
 }
-
 .nightdriver-nav-toggle-icon::before,
 .nightdriver-nav-toggle-icon::after {
   content: none;
   display: none;
 }
-
-/* Drawer Base */
 .nightdriver-nav-drawer {
   position: fixed;
   top: var(--header-height);
@@ -2921,13 +2791,11 @@ html.nightdriver-theme-mode-custommode .nightdriver-site-footer {
   left: 0;
   z-index: 90;
 }
-
 .nightdriver-nav-drawer-backdrop {
   position: absolute;
   inset: 0;
   background: rgba(0,0,0,0.45);
 }
-
 .nightdriver-nav-drawer-panel {
   position: absolute;
   top: 0;
@@ -2936,23 +2804,17 @@ html.nightdriver-theme-mode-custommode .nightdriver-site-footer {
   width: min(380px, 92vw);
   background: var(--color-background);
   color: var(--color-text);
-  box-shadow: -24px 0 80px rgba(0,0,0,0.35);
+  box-shadow: var(--shadow-drawer);
   padding: 18px;
   transform: translateX(100%);
   transition: transform 180ms ease;
   border-left: 1px solid var(--color-border);
-  border-top-left-radius: 16px;
-  border-bottom-left-radius: 16px;
+  border-top-left-radius: var(--radius-drawer);
+  border-bottom-left-radius: var(--radius-drawer);
 }
-
-/* Open State */
 .nightdriver-nav-open .nightdriver-nav-drawer-panel {
   transform: translateX(0);
 }
-
-/* Open-State Icon Swap (Hamburger to Close) */
-
-/* Drawer Header */
 .nightdriver-nav-drawer-header {
   display: flex;
   align-items: center;
@@ -2961,7 +2823,6 @@ html.nightdriver-theme-mode-custommode .nightdriver-site-footer {
   border-bottom: 1px solid var(--color-border);
   padding-bottom: 12px;
 }
-
 .nightdriver-nav-drawer-title {
   font-family: var(--font-ui);
   font-size: 0.75rem;
@@ -2970,9 +2831,6 @@ html.nightdriver-theme-mode-custommode .nightdriver-site-footer {
   letter-spacing: var(--tracking-ui);
   color: var(--color-text-secondary);
 }
-
-
-/* Mobile Nav List Styling (Reuses Existing .nightdriver-nav-list) */
 .nightdriver-nav-drawer-nav .nightdriver-nav-list {
   display: grid;
   gap: 0px;
@@ -2983,10 +2841,9 @@ html.nightdriver-theme-mode-custommode .nightdriver-site-footer {
 .nightdriver-nav-drawer-nav .nightdriver-nav-item a {
   display: block;
   padding: 2px 0px;
-  border-radius: 12px;
+  border-radius: var(--radius-nav-drawer-link);
   text-decoration: none;
 }
-
 .nightdriver-nav-toggle-icon .nightdriver-icon{
   grid-area: 1 / 1;
   width: 24px;
@@ -2994,15 +2851,11 @@ html.nightdriver-theme-mode-custommode .nightdriver-site-footer {
   display: block;
   color: currentColor;
 }
-
-/* Keep Both Icons at Identical Size */
 .nightdriver-nav-toggle-icon .nightdriver-icon-menu,
 .nightdriver-nav-toggle-icon .nightdriver-icon-menu-close {
   width: 24px;
   height: 24px;
 }
-
-/* Show Only One Icon per State */
 .nightdriver-nav-toggle .nightdriver-icon-menu,
 .nightdriver-nav-toggle .nightdriver-icon-menu-close {
   display: none;
@@ -3018,70 +2871,45 @@ html.nightdriver-theme-mode-custommode .nightdriver-site-footer {
   opacity: 1;
   color: var(--color-text);
 }
-
 .nightdriver-mode-rail__midlabel:hover,
 .nightdriver-mode-rail__midlabel:focus-visible {
   opacity: 1;
   color: var(--color-text);
 }
-
 .nightdriver-mode-rail[data-active="day"] .nightdriver-mode-rail__end[data-mode="day"],
 .nightdriver-mode-rail[data-active="night"] .nightdriver-mode-rail__end[data-mode="night"],
 .nightdriver-mode-rail[data-active="custom"] .nightdriver-mode-rail__midlabel {
   opacity: 1;
   color: var(--color-text);
 }
-
-/* ========================================
-   UNIVERSAL TEXT ALIGNMENT FIX
-   Forces ALL text content to left-align
-   Overrides Ghost editor inline styles
-   ======================================== */
-
-/* Master Rule: Left-Align All Text Elements */
-h1, h2, h3, h4, h5, h6,
-p, li, td, th, dt, dd,
-blockquote, figcaption, caption,
-.nightdriver-post-full-title,
-.nightdriver-post-full-excerpt,
-.nightdriver-post-full-content,
-.nightdriver-post-full-content *,
-.nightdriver-post-full-header,
-.nightdriver-post-full-header *,
-.nightdriver-hero-title,
-.nightdriver-hero-description,
-.nightdriver-section-title,
-.nightdriver-post-item-title,
-.nightdriver-post-item-excerpt,
-.nightdriver-card-title,
-.nightdriver-card-excerpt,
-.gh-content,
-.gh-content *,
-.kg-card,
-.kg-card *,
-[class*="kg-"] p,
-[class*="kg-"] h1,
-[class*="kg-"] h2,
-[class*="kg-"] h3,
-[class*="kg-"] h4,
-[class*="kg-"] h5,
-[class*="kg-"] h6 {
+:is(
+  h1, h2, h3, h4, h5, h6,
+  p, li, td, th, dt, dd,
+  blockquote, figcaption, caption,
+  .nightdriver-post-full-title,
+  .nightdriver-post-full-excerpt,
+  .nightdriver-hero-title,
+  .nightdriver-hero-description,
+  .nightdriver-section-title,
+  .nightdriver-post-item-title,
+  .nightdriver-post-item-excerpt,
+  .nightdriver-card-title,
+  .gh-content,
+  .kg-card,
+  [class*="kg-"] :is(p, h1, h2, h3, h4, h5, h6)
+),
+:is(.nightdriver-post-full-content, .nightdriver-post-full-header, .gh-content, .kg-card) * {
   text-align: left !important;
 }
-
-/* Override Ghost Editor Inline Styles */
 [style*="text-align: center"],
 [style*="text-align:center"],
 [style*="text-align: justify"],
 [style*="text-align:justify"] {
   text-align: left !important;
 }
-
-/* Ghost Editor Button Card Styling */
 .kg-button-card {
   margin: var(--space-xl) 0;
 }
-
 .kg-button-card .kg-btn {
   display: inline-flex;
   align-items: center;
@@ -3102,28 +2930,11 @@ blockquote, figcaption, caption,
   transition: var(--transition);
   box-shadow: none !important;
 }
-
 .kg-button-card .kg-btn:hover {
   border-color: var(--color-text) !important;
   background: color-mix(in srgb, var(--color-surface) 68%, var(--color-background)) !important;
   color: var(--color-text) !important;
 }
-
-/* ========================================
-   UNIFIED BUTTON/TAG STYLE (KG-BTN-ACCENT)
-   ======================================== */
-
-:root {
-  --nightdriver-btn-height: 2.15rem;
-  --nightdriver-btn-pad-x: 0.75rem;
-  --nightdriver-btn-font-size: 0.75rem;
-  --nightdriver-btn-weight: 600;
-  --nightdriver-btn-letter: var(--tracking-ui);
-  --nightdriver-btn-border: color-mix(in srgb, var(--color-text) 22%, var(--color-border));
-  --nightdriver-btn-bg: color-mix(in srgb, var(--color-surface) 82%, transparent);
-  --nightdriver-btn-bg-hover: color-mix(in srgb, var(--color-surface) 68%, var(--color-background));
-}
-
 :where(
   .kg-btn,
   .kg-btn-accent,
@@ -3142,6 +2953,8 @@ blockquote, figcaption, caption,
   .nightdriver-bento-tag,
   .nightdriver-post-tags-list a,
   .nightdriver-pagination a,
+  .nightdriver-note-source a,
+  .nightdriver-layby-action,
   .nightdriver-copy-code-button
 ) {
   display: inline-flex !important;
@@ -3163,7 +2976,6 @@ blockquote, figcaption, caption,
   box-shadow: none !important;
   transition: var(--transition) !important;
 }
-
 :where(
   .kg-btn,
   .kg-btn-accent,
@@ -3182,13 +2994,14 @@ blockquote, figcaption, caption,
   .nightdriver-bento-tag,
   .nightdriver-post-tags-list a,
   .nightdriver-pagination a,
+  .nightdriver-note-source a,
+  .nightdriver-layby-action,
   .nightdriver-copy-code-button
 ):hover {
   border-color: var(--color-text) !important;
   background-color: var(--nightdriver-btn-bg-hover) !important;
   color: var(--color-text) !important;
 }
-
 .snipcart-add-item {
   display: inline-flex !important;
   align-items: center !important;
@@ -3209,38 +3022,30 @@ blockquote, figcaption, caption,
   box-shadow: none !important;
   transition: var(--transition) !important;
 }
-
 .snipcart-add-item:hover {
   border-color: var(--color-text) !important;
   background-color: var(--nightdriver-btn-bg-hover) !important;
   color: var(--color-text) !important;
 }
-
-/* Match Page and Post Snipcart Buttons to Homepage Advert Primary CTA */
 .nightdriver-post-full-content .snipcart-add-item {
   --nightdriver-btn-border: color-mix(in srgb, var(--color-accent) 65%, var(--color-border));
   --nightdriver-btn-bg: color-mix(in srgb, var(--color-accent) 18%, var(--color-surface));
   --nightdriver-btn-bg-hover: color-mix(in srgb, var(--color-accent) 30%, var(--color-surface));
 }
-
 .nightdriver-post-full-content .snipcart-add-item:hover {
   border-color: color-mix(in srgb, var(--color-accent) 82%, var(--color-border)) !important;
 }
-
 .nightdriver-copy-code-button {
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
   z-index: 2;
 }
-
-/* Ghost Bookmark Card Spacing */
 .kg-bookmark-metadata {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
 }
-
 .kg-bookmark-icon {
   width: 1.05rem;
   height: 1.05rem;

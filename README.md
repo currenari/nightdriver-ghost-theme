@@ -10,7 +10,7 @@ Nightdriver is a high-control, performance-focused Ghost theme for creators who 
 
 **Demo:** <https://currenari.com>
 
-**Version:** 1.1.0  
+**Version:** 1.2.0  
 **Changelog:** See `CHANGELOG.md`
 
 ---
@@ -20,7 +20,10 @@ Nightdriver is a high-control, performance-focused Ghost theme for creators who 
 - Three display modes: Day, Nightdriver (Custom), Night
 - Collapsible utility bar (scroll-aware) with pin/unpin on long-press
 - Bento-style Drift Zone section on the homepage
-- Featured posts grid and latest posts list
+- Signal Notes strip powered by posts tagged `note`
+- Layby mixed-media section powered by posts tagged `layby`, including YouTube poster cards
+- Featured posts grid and latest posts list with `Single` / `Double` layout option
+- Post video embeds: lead presentation for first video, compact inline for additional videos (desktop)
 - Optional reading progress bar on posts
 - Local fonts bundled (Inter, JetBrains Mono)
 - Custom SVG icon sprite, no third-party dependencies
@@ -61,6 +64,13 @@ Set this in Ghost Admin: `Settings → Design → Customize`.
 | `progress_bar_color` | `#0ea5e9` |
 | `progress_track_color` | `#1a1a1a` |
 | `progress_bar_height` | `2px` (can be turned off) |
+| `latest_posts_layout` | `Single` (`Single` / `Double`) |
+
+### Signal Notes Style
+
+| Setting | Default |
+|---------|---------|
+| `signal_notes_gradient_tint` | `#6b7280` |
 
 ### Custom Mode Colours
 
@@ -72,7 +82,6 @@ These control the appearance of the middle "Nightdriver" mode.
 |---------|---------|
 | `nightdriver_custom_mode_background` | `#1e293b` |
 | `nightdriver_custom_mode_surface` | `#334155` |
-| `nightdriver_custom_mode_header_bg` | `#0f172a` |
 | `nightdriver_custom_mode_header_utility_bg` | `#1d3348` |
 | `nightdriver_custom_mode_footer_bg` | `#0f172a` |
 | `nightdriver_custom_mode_ui_spacer_bg` | `#1e293b` |
@@ -108,9 +117,8 @@ Incorrect formatting will break the theme.
 | Setting | Default |
 |---------|---------|
 | `portal_cta_heading` | `Stay Updated` |
-| `portal_cta_brand_text` | `Thoughts, stories and ideas.` |
 | `portal_cta_subtext_line1` | `Get new posts by email.` |
-| `portal_cta_button_label` | `Sign up` |
+| `portal_cta_brand_text` | `Thoughts, stories and ideas.` |
 
 ### Footer
 
@@ -136,13 +144,40 @@ The utility bar auto-hides on scroll down and reappears on scroll up. Tap the ha
 
 The bento-style homepage section. Located in `partials/content/drift-zone.hbs`. Contains dynamic tiles (authors, tags, secondary nav, Portal CTA) and static tiles (support, repository). Edit the partial to customise static content.
 
-### Products Page
+### Signal Notes
 
-*Planned for next update. Not available in current release.*
+Use normal Ghost posts for notes:
+
+1. Create a post in Ghost Admin
+2. Add the tag `note`
+3. Publish
+
+The homepage auto-displays the latest 3 published posts with tag `note` in the Signal Notes strip.
+Posts tagged `note` are excluded from the homepage Latest Posts list.
+
+### Layby
+
+Use normal Ghost posts for mixed media entries:
+
+1. Create a post in Ghost Admin
+2. Add the tag `layby`
+3. Publish
+
+The homepage auto-displays the latest 6 published posts tagged `layby` in an adaptive grid:
+`1` centered, `2` columns for `2` posts, `3` columns for `3`, `2x2` for `4`, `3+2` for `5`, and `3x2` for `6`.
+Posts tagged `layby` are excluded from the homepage Latest Posts list.
+YouTube embeds in Layby are rendered as poster cards (thumbnail, title label, play badge) and open on YouTube when clicked.
+
+### Post Video Embeds
+
+On single post pages, the first video embed is rendered as lead media, and any additional video embeds are rendered in a compact inline width on desktop. On mobile, embeds render full width.
+
+### Products Page
 
 1. Create a page with slug `products`
 2. Tag product pages with `product`
-3. The products page will list all pages with that tag
+3. Use the `page-products.hbs` template for a product index page
+4. The products page will list all pages with that tag
 
 ### Author Pages
 
@@ -153,6 +188,20 @@ Minimal by design. Pulls name, bio, location, website, and social links from Gho
 ## Browser Support
 
 Modern evergreen browsers: Chrome, Firefox, Safari, Edge.
+
+---
+
+## Maintenance QA
+
+Before packaging the theme:
+
+1. Run `npm run validate:custom` to verify every referenced `@custom.*` usage is declared in `package.json` (unused declared settings are reported but allowed).
+2. Verify homepage sections in both `Latest posts layout` modes (`Single` and `Double`).
+3. Verify feed isolation rules: `note` and `layby` posts stay out of homepage Latest Posts, and `note` posts stay out of post Previous/Next and Related Posts.
+4. Verify single-post video behavior (lead first embed + compact additional embeds on desktop).
+5. Run through `RELEASE_CHECKLIST.md` for full preflight QA and release logging.
+
+`screen.css` includes a section map comment at the top for faster maintenance.
 
 ---
 

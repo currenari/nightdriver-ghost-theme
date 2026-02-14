@@ -2,7 +2,7 @@
 
 <section class="nightdriver-section nightdriver-section--surface">
     <div class="nightdriver-container">
-        <div class="nightdriver-section-header nightdriver-section-text">
+        <div class="nightdriver-section-header nightdriver-section-text{{#match layout "Double"}} nightdriver-section-text--full{{else}} nightdriver-section-header--narrow{{/match}}">
             <h2 class="nightdriver-section-title">
                 {{#if title}}
                     {{title}}
@@ -12,8 +12,8 @@
             </h2>
         </div>
 
-        <div class="nightdriver-section-content nightdriver-section-text">
-            {{> "content/post-list-items" posts=posts heading=heading show_tags=show_tags}}
+        <div class="nightdriver-section-content nightdriver-section-text{{#match layout "Double"}} nightdriver-section-text--full{{/match}}">
+            {{> "content/post-list-items" posts=posts heading=heading show_tags=show_tags layout=layout exclude_note=exclude_note exclude_special=exclude_special}}
 
             {{#if show_pagination}}
                 {{pagination}}

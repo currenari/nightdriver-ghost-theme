@@ -1,7 +1,29 @@
 {{!-- Post List Items --}}
+{{!--
+  Special feed filter behavior:
+  - `exclude_special=true` is used on homepage Latest Posts to keep Signal Notes and Layby isolated.
+  - We keep this in the renderer layer so the same partial can be reused across contexts.
+--}}
 
-<div class="nightdriver-posts-list">
+<div class="nightdriver-posts-list{{#match layout "Double"}} nightdriver-posts-list--double{{/match}}">
     {{#foreach posts}}
-        {{> "content/post-list-item" heading=../heading show_tags=../show_tags}}
+        {{#if ../exclude_special}}
+            {{#has tag="note"}}
+            {{else}}
+                {{#has tag="layby"}}
+                {{else}}
+                    {{> "content/post-list-item" heading=../heading show_tags=../show_tags}}
+                {{/has}}
+            {{/has}}
+        {{else}}
+            {{#if ../exclude_note}}
+                {{#has tag="note"}}
+                {{else}}
+                    {{> "content/post-list-item" heading=../heading show_tags=../show_tags}}
+                {{/has}}
+            {{else}}
+                {{> "content/post-list-item" heading=../heading show_tags=../show_tags}}
+            {{/if}}
+        {{/if}}
     {{/foreach}}
 </div>
