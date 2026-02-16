@@ -1,7 +1,7 @@
 # Nightdriver
 
 <p align="center">
-  <img src="assets/images/nightdriver_theme_ad_new_01_1600.png" alt="Nightdriver Ghost Theme Preview" width="100%">
+  <img src="https://github.com/currenari/nightdriver-ghost-theme/blob/main/assets/img/nightdriver_theme_ad_new_01_2000.png" alt="Nightdriver Ghost Theme Preview" width="100%">
 </p>
 
 Nightdriver is a high-control, performance-focused Ghost theme for creators who value precision and clarity—built for focused reading and long-form publishing, with three display modes and 20 configurable settings managed directly in Ghost Admin.
