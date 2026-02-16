@@ -6,6 +6,10 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 ## [Unreleased]
 - No entries yet.
 
+## [1.2.1] - 2026-02-16
+### Fixed
+- Restored mobile header menu visibility by scoping `.nightdriver-nav-toggle` hide behavior to desktop-only breakpoints.
+
 ## [1.2.0] - 2026-02-14
 ### Added
 - Added a homepage `Signal Notes` section powered by posts tagged `note` (latest 3).

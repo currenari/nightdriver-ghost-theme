@@ -10,7 +10,7 @@ Nightdriver is a high-control, performance-focused Ghost theme for creators who 
 
 **Demo:** <https://currenari.com>
 
-**Version:** 1.2.0  
+**Version:** 1.2.1  
 **Changelog:** See `CHANGELOG.md`
 
 ---

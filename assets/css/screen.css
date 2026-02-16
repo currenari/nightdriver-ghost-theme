@@ -2753,7 +2753,11 @@ html.nightdriver-theme-mode-custommode{
     padding: var(--space-2xl) var(--space-lg);
   }
 }
-.nightdriver-nav-toggle { display: none; }
+@media (min-width: 901px) {
+  .nightdriver-nav-toggle {
+    display: none;
+  }
+}
 .nightdriver-nav-toggle {
   align-items: center;
   justify-content: center;
