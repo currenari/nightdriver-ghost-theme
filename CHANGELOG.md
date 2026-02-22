@@ -4,7 +4,30 @@ All notable changes to this project will be documented in this file.
 The format is based on Keep a Changelog, and this project adheres to Semantic Versioning.
 
 ## [Unreleased]
-- No entries yet.
+
+## [1.3.0] - 2026-02-22
+### Added
+- Added a built-in Koenig image/gallery lightbox for post/page content with fullscreen viewing, backdrop close, `Esc` close, caption support, and keyboard/click navigation (`prev`/`next`).
+- Enabled HTML rendering in `Signal Notes` cards (with fallback to custom excerpt/excerpt/title when HTML is unavailable).
+
+### Changed
+- Refined frontend typography system toward a cleaner editorial style: unified content sizing/leading/tracking tokens, normalized heading hierarchy spacing, tightened paragraph/list rhythm, and aligned content measure behavior across post/page/content selectors.
+- Unified H1 display treatment across hero/post/content contexts using shared H1 tokens for size, line-height, transform, and letter spacing.
+- Updated card typography hierarchy: featured post titles, latest post titles/excerpts/meta, and Drift Zone card title lines now use cleaner, more consistent headline/body pairings.
+- Tightened Koenig gallery density by reducing image row/column gaps and removing extra row/image margins.
+- Inverted featured and Layby media hover mood behavior so thumbnails are crisp at rest and apply the visual mood effect on hover.
+- Refined lightbox arrow control visuals for clearer, premium navigation affordance.
+
+### Fixed
+- Standardized Drift Zone `Pinout` and `Zones` chip spacing so labels/tags/buttons use the same visual distance as other theme controls, including rotating tag row spacing.
+- Unified post/page image presentation so feature images and Koenig image cards align exactly to the text container (no full-bleed), with improved figure spacing and subtler left-aligned captions.
+- Removed conflicting content tracking/line-height behavior (including night-mode inflation) so body copy spacing remains consistent across modes.
+- Fixed Koenig gallery/layout breakage by neutralizing unsafe `kg-width-wide`/`kg-width-full` breakout behavior in content flow and preventing horizontal overflow.
+- Fixed latest-post card edge spacing in single-column homepage layout by restoring intentional top inset on the first card and bottom inset on the last card.
+- Fixed media “milky” look caused by global link opacity by forcing media-link wrappers to full opacity.
+- Fixed lightbox initial-open regression by enforcing hidden state display handling.
+- Removed duplicate Layby thumbnail title overlay text (top-left) when the title already appears in the card header.
+- Removed forced border/radius styling on rich-note badge images so linked badge graphics render cleanly.
 
 ## [1.2.1] - 2026-02-16
 ### Fixed

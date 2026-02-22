@@ -1,5 +1,5 @@
 {{!-- Signal Notes (latest posts tagged "note") --}}
-{{#get "posts" filter="tag:note+status:published" limit="3" order="published_at desc"}}
+{{#get "posts" filter="tag:note+status:published" limit="3" order="published_at desc" formats="html,plaintext"}}
   {{#if posts}}
     <section class="nightdriver-section nightdriver-section--notes nightdriver-section--surface">
       <div class="nightdriver-container">
@@ -15,13 +15,19 @@
                   <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="MMM DD, YYYY"}}</time>
                 </p>
                 <blockquote class="nightdriver-note-quote">
-                  {{#if custom_excerpt}}
-                    <p>{{custom_excerpt}}</p>
+                  {{#if html}}
+                    <div class="nightdriver-note-rich">
+                      {{{html}}}
+                    </div>
                   {{else}}
-                    {{#if excerpt}}
-                      <p>{{excerpt words="26"}}</p>
+                    {{#if custom_excerpt}}
+                      <p>{{custom_excerpt}}</p>
                     {{else}}
-                      <p>{{title}}</p>
+                      {{#if excerpt}}
+                        <p>{{excerpt words="26"}}</p>
+                      {{else}}
+                        <p>{{title}}</p>
+                      {{/if}}
                     {{/if}}
                   {{/if}}
                 </blockquote>

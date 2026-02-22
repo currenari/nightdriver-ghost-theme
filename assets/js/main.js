@@ -108,6 +108,231 @@
 
   });
 
+  // Lightbox for Koenig gallery/image cards in post/page content
+  (function () {
+    var contentBlocks = document.querySelectorAll('.nightdriver-post-full-content');
+    if (!contentBlocks.length) return;
+
+    var images = [];
+    contentBlocks.forEach(function (block) {
+      block.querySelectorAll('.kg-gallery-image img, .kg-image-card img').forEach(function (img) {
+        images.push(img);
+      });
+    });
+    if (!images.length) return;
+
+    function pickLargestSrc(imageEl) {
+      var srcset = imageEl.getAttribute('srcset') || '';
+      var bestUrl = '';
+      var bestWidth = -1;
+
+      srcset.split(',').forEach(function (candidate) {
+        var trimmed = candidate.trim();
+        if (!trimmed) return;
+
+        var parts = trimmed.split(/\s+/);
+        var url = parts[0];
+        var width = 0;
+        if (parts[1] && /w$/.test(parts[1])) {
+          width = parseInt(parts[1], 10) || 0;
+        }
+
+        if (width > bestWidth) {
+          bestWidth = width;
+          bestUrl = url;
+        }
+      });
+
+      return bestUrl || imageEl.currentSrc || imageEl.getAttribute('src') || '';
+    }
+
+    function getCaption(imageEl) {
+      var figcaption = imageEl.closest('figure') ? imageEl.closest('figure').querySelector('figcaption') : null;
+      if (figcaption && figcaption.textContent) {
+        return figcaption.textContent.trim();
+      }
+      return '';
+    }
+
+    var lightbox = document.createElement('div');
+    lightbox.className = 'nightdriver-lightbox';
+    lightbox.setAttribute('hidden', '');
+    lightbox.setAttribute('aria-hidden', 'true');
+
+    var prevButton = document.createElement('button');
+    prevButton.className = 'nightdriver-lightbox-nav nightdriver-lightbox-nav--prev';
+    prevButton.type = 'button';
+    prevButton.setAttribute('aria-label', 'Previous image');
+    prevButton.textContent = '‹';
+
+    var nextButton = document.createElement('button');
+    nextButton.className = 'nightdriver-lightbox-nav nightdriver-lightbox-nav--next';
+    nextButton.type = 'button';
+    nextButton.setAttribute('aria-label', 'Next image');
+    nextButton.textContent = '›';
+
+    var closeButton = document.createElement('button');
+    closeButton.className = 'nightdriver-lightbox-close';
+    closeButton.type = 'button';
+    closeButton.setAttribute('aria-label', 'Close image viewer');
+    closeButton.textContent = 'Close';
+
+    var frame = document.createElement('figure');
+    frame.className = 'nightdriver-lightbox-frame';
+
+    var lightboxImage = document.createElement('img');
+    lightboxImage.className = 'nightdriver-lightbox-image';
+    lightboxImage.alt = '';
+    lightboxImage.decoding = 'async';
+    lightboxImage.loading = 'eager';
+
+    var lightboxCaption = document.createElement('figcaption');
+    lightboxCaption.className = 'nightdriver-lightbox-caption';
+    lightboxCaption.hidden = true;
+
+    frame.appendChild(lightboxImage);
+    frame.appendChild(lightboxCaption);
+    lightbox.appendChild(prevButton);
+    lightbox.appendChild(nextButton);
+    lightbox.appendChild(closeButton);
+    lightbox.appendChild(frame);
+    document.body.appendChild(lightbox);
+
+    var currentIndex = -1;
+    var lastFocused = null;
+
+    function normalizeIndex(index) {
+      if (!images.length) return -1;
+      if (index < 0) return images.length - 1;
+      if (index >= images.length) return 0;
+      return index;
+    }
+
+    function updateNavButtons() {
+      var hasMultiple = images.length > 1;
+      prevButton.hidden = !hasMultiple;
+      nextButton.hidden = !hasMultiple;
+    }
+
+    function showImageAt(index) {
+      currentIndex = normalizeIndex(index);
+      if (currentIndex < 0) return;
+
+      var imageEl = images[currentIndex];
+      var source = pickLargestSrc(imageEl);
+      if (!source) return;
+
+      lightboxImage.src = source;
+      lightboxImage.alt = imageEl.getAttribute('alt') || '';
+
+      var caption = getCaption(imageEl);
+      if (caption) {
+        lightboxCaption.hidden = false;
+        lightboxCaption.textContent = caption;
+      } else {
+        lightboxCaption.hidden = true;
+        lightboxCaption.textContent = '';
+      }
+    }
+
+    function openLightbox(imageEl) {
+      var imageIndex = images.indexOf(imageEl);
+      if (imageIndex < 0) return;
+
+      lastFocused = document.activeElement;
+
+      lightbox.hidden = false;
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.documentElement.classList.add('nightdriver-lightbox-open');
+      updateNavButtons();
+      showImageAt(imageIndex);
+      closeButton.focus({ preventScroll: true });
+    }
+
+    function closeLightbox() {
+      if (lightbox.hidden) return;
+      lightbox.hidden = true;
+      lightbox.setAttribute('aria-hidden', 'true');
+      lightboxImage.removeAttribute('src');
+      lightboxCaption.hidden = true;
+      lightboxCaption.textContent = '';
+      currentIndex = -1;
+      document.documentElement.classList.remove('nightdriver-lightbox-open');
+      if (lastFocused && typeof lastFocused.focus === 'function') {
+        lastFocused.focus({ preventScroll: true });
+      }
+      lastFocused = null;
+    }
+
+    closeButton.addEventListener('click', closeLightbox);
+    prevButton.addEventListener('click', function () {
+      showImageAt(currentIndex - 1);
+    });
+    nextButton.addEventListener('click', function () {
+      showImageAt(currentIndex + 1);
+    });
+    lightbox.addEventListener('click', function (event) {
+      if (event.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (lightbox.hidden) return;
+
+      if (event.key === 'Escape') {
+        closeLightbox();
+        return;
+      }
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        showImageAt(currentIndex - 1);
+        return;
+      }
+      if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        showImageAt(currentIndex + 1);
+      }
+    });
+
+    images.forEach(function (imageEl) {
+      imageEl.setAttribute('data-nightdriver-lightbox', 'true');
+
+      if (!imageEl.hasAttribute('tabindex')) {
+        imageEl.setAttribute('tabindex', '0');
+      }
+      if (!imageEl.hasAttribute('role')) {
+        imageEl.setAttribute('role', 'button');
+      }
+      if (!imageEl.getAttribute('aria-label')) {
+        imageEl.setAttribute('aria-label', 'Open image in fullscreen');
+      }
+
+      imageEl.addEventListener('click', function (event) {
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+        var parentLink = imageEl.closest('a[href]');
+        if (parentLink) {
+          var href = parentLink.getAttribute('href') || '';
+          var isDirectImage = /\.(avif|webp|png|jpe?g|gif|svg)(\?.*)?$/i.test(href);
+          if (!isDirectImage) return;
+          event.preventDefault();
+        } else {
+          event.preventDefault();
+        }
+
+        openLightbox(imageEl);
+      });
+
+      imageEl.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openLightbox(imageEl);
+        }
+      });
+    });
+  })();
+
   // Drift Zone author rotator
   (function () {
     var rotators = document.querySelectorAll('.nightdriver-bento-author-rotator[data-rotate="true"]');
@@ -320,11 +545,6 @@
         }
       });
       posterLink.appendChild(thumb);
-
-      var titleBadge = document.createElement('span');
-      titleBadge.className = 'nightdriver-layby-video-poster-title';
-      titleBadge.textContent = cardTitle;
-      posterLink.appendChild(titleBadge);
 
       var playBadge = document.createElement('span');
       playBadge.className = 'nightdriver-layby-video-poster-play';
